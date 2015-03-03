@@ -1,0 +1,278 @@
+diff --git a/UltiSnips/c.snippets b/UltiSnips/c.snippets
+index 618bfe3..03eadb4 100644
+--- a/UltiSnips/c.snippets
++++ b/UltiSnips/c.snippets
+@@ -4,6 +4,22 @@
+ 
+ priority -50
+ 
++snippet /*
++/* ${1: multiple line comment */} */
++endsnippet
++
++snippet docs
++/* 
++Filename: `!p snip.rv = snip.basename + '.c'`
++Author: Antonio Gutierrez
++Email: chibby0ne@gmail.com
++Github: https://github.com/chibby0ne
++Description: ${1}
++*/
++${2}
++endsnippet
++
++
+ snippet def "#define ..."
+ #define ${1}
+ endsnippet
+@@ -20,12 +36,12 @@ ${VISUAL}${0}
+ #endif
+ endsnippet
+ 
+-snippet inc "#include local header (inc)"
+-#include "${1:`!p snip.rv = snip.basename + '.h'`}"
++snippet Inc "#include local header (inc)"
++#include "${1:`!p snip.rv = snip.basename`}.h"
+ endsnippet
+ 
+-snippet Inc "#include <> (Inc)"
+-#include <${1:.h}>
++snippet inc "#include <> (Inc)"
++#include <${1:stdio}.h>${2}
+ endsnippet
+ 
+ snippet mark "#pragma mark (mark)"
+@@ -46,16 +62,14 @@ int main(int argc, char *argv[])
+ endsnippet
+ 
+ snippet for "for loop (for)"
+-for (${2:i} = 0; $2 < ${1:count}; ${3:++$2})
+-{
+-	${VISUAL}${0}
++for (${1:i} = ${2:0}; $1 != ${3:count}; ${4:++$1}) {
++	${VISUAL}${5}
+ }
+ endsnippet
+ 
+ snippet fori "for int loop (fori)"
+-for (${4:int} ${2:i} = 0; $2 < ${1:count}; ${3:++$2})
+-{
+-	${VISUAL}${0}
++for (${1:int} ${2:i} = ${3:0}; $2 != ${4:count}; ${5:++$2}) {
++	${VISUAL}${6}
+ }
+ endsnippet
+ 
+@@ -84,14 +98,14 @@ typedef ${1:int} ${2:MyCustomType};
+ endsnippet
+ 
+ snippet wh "while loop"
+-while(${1:/* condition */}) {
++while (${1:/* condition */}) {
+ 	${VISUAL}${0}
+ }
+ endsnippet
+ 
+ snippet do "do...while loop (do)"
+ do {
+-	${VISUAL}${0}
++	${VISUAL}${2}
+ } while(${1:/* condition */});
+ endsnippet
+ 
+@@ -100,8 +114,7 @@ fprintf(${1:stderr}, "${2:%s}\n"${2/([^%]|%%)*(%.)?.*/(?2:, :\);)/}$3${2/([^%]|%
+ endsnippet
+ 
+ snippet if "if .. (if)"
+-if (${1:/* condition */})
+-{
++if (${1:/* condition */}) {
+ 	${VISUAL}${0}
+ }
+ endsnippet
+@@ -119,12 +132,9 @@ else if (${1:/* condition */}) {
+ endsnippet
+ 
+ snippet ife "if .. else (ife)"
+-if (${1:/* condition */})
+-{
++if (${1:/* condition */}) {
+ 	${2}
+-}
+-else
+-{
++} else {
+ 	${3:/* else */}
+ }
+ endsnippet
+@@ -133,9 +143,15 @@ snippet printf "printf .. (printf)"
+ printf("${1:%s}\n"${1/([^%]|%%)*(%.)?.*/(?2:, :\);)/}$2${1/([^%]|%%)*(%.)?.*/(?2:\);)/}
+ endsnippet
+ 
++snippet typest
++typedef struct {
++	${1:/* data */}
++} ${2: name};
++
++endsnippet
++
+ snippet st "struct"
+-struct ${1:`!p snip.rv = (snip.basename or "name") + "_t"`}
+-{
++struct ${1:`!p snip.rv = (snip.basename or "name") + "_t"`} {
+ 	${0:/* data */}
+ };
+ endsnippet
+@@ -151,4 +167,8 @@ snippet fund "function declaration" b
+ ${1:void} ${2:function_name}(${3});
+ endsnippet
+ 
++snippet assert "assert(int expression)" 
++assert(${1:expression});$2
++endsnippet
++
+ # vim:ft=snippets:
+diff --git a/UltiSnips/cpp.snippets b/UltiSnips/cpp.snippets
+index c2cb3d0..bfd6882 100644
+--- a/UltiSnips/cpp.snippets
++++ b/UltiSnips/cpp.snippets
+@@ -8,6 +8,51 @@ priority -49
+ ###########################################################################
+ #                            TextMate Snippets                            #
+ ###########################################################################
++snippet docs
++/* 
++Filename: `!p snip.rv = snip.basename + '.cpp'`
++Author: Antonio Gutierrez
++Email: chibby0ne@gmail.com
++Github: https://github.com/chibby0ne
++Created: `!v strftime("%d/%m/%Y")`
++Description: ${1}
++*/
++${2}
++endsnippet
++
++snippet includes "includes for google code jam"
++#include <vector>
++#include <list>
++#include <map>
++#include <set>
++#include <deque>
++#include <stack>
++#include <bitset>
++#include <algorithm>
++#include <functional>
++#include <numeric>
++#include <utility>
++#include <sstream>
++#include <iostream>
++#include <iomanip>
++#include <cstdio>
++#include <cmath>
++#include <cstdlib>
++#include <ctime>
++
++using namespace std;
++endsnippet
++
++snippet maine "main() for google code jam)"
++int main(int argc, char *argv[])
++{
++	freopen("in", "r", stdin);
++	freopen("out", "w", stdout);
++	${VISUAL}${0}
++	return 0;
++}
++endsnippet
++
+ snippet beginend "$1.begin(), $1.end() (beginend)"
+ ${1:v}${1/^.*?(-)?(>)?$/(?2::(?1:>:.))/}begin(), $1${1/^.*?(-)?(>)?$/(?2::(?1:>:.))/}end()
+ endsnippet
+@@ -33,8 +78,7 @@ endsnippet
+ 
+ snippet readfile "read file (readF)"
+ std::vector<char> v;
+-if (FILE *fp = fopen(${1:"filename"}, "r"))
+-{
++if (FILE *fp = fopen(${1:"filename"}, "r")) {
+ 	char buf[1024];
+ 	while(size_t len = fread(buf, 1, sizeof(buf), fp))
+ 		v.insert(v.end(), buf, buf + len);
+@@ -54,4 +98,16 @@ snippet tp "template <typename ..> (template)"
+ template <typename ${1:_InputIter}>
+ endsnippet
+ 
++snippet incl "include <iostream> "
++#include <${1:iostream}>${2}
++endsnippet
++
++snippet try "try... catch (exception e)..."
++try {
++	${1:/* code under exception inspection (has throw statement) */}
++} catch (${2:int e}) {
++	${3:/* exception handler */}
++}
++endsnippet
++
+ # vim:ft=snippets:
+diff --git a/UltiSnips/java.snippets b/UltiSnips/java.snippets
+index e8eb77c..e0a4ad9 100644
+--- a/UltiSnips/java.snippets
++++ b/UltiSnips/java.snippets
+@@ -7,6 +7,19 @@ priority -50
+ # looks, it is defaulted to junit4, setting this option to 3 will remove the
+ # @Test annotation from the method
+ 
++snippet docs
++/* 
++Filename: `!p snip.rv = snip.basename + '.java'`
++Author: Antonio Gutierrez
++Email: chibby0ne@gmail.com
++Github: https://github.com/chibby0ne
++Created: `!v strftime("%d/%m/%Y")`
++Description: ${1}
++*/
++${2}
++endsnippet
++
++
+ global !p
+ def junit(snip):
+ 	if snip.opt("g:ultisnips_java_junit", "") == "3":
+diff --git a/UltiSnips/python.snippets b/UltiSnips/python.snippets
+index 41a3645..25146fc 100644
+--- a/UltiSnips/python.snippets
++++ b/UltiSnips/python.snippets
+@@ -16,6 +16,19 @@ if __name__ == '__main__':
+ 	${1:main()}$0
+ endsnippet
+ 
++snippet docs "Header with Author, Email, Description of file"
++"""
++Filename: `!p snip.rv = snip.basename + '.py'`
++Author: Antonio Gutierrez
++Email: chibby0ne@gmail.com
++Github: https://github.com/chibby0ne
++Created: `!v strftime("%d/%m/%Y")`
++Description: ${1}
++"""
++${2}
++endsnippet
++
++
+ snippet for "for loop" b
+ for ${1:item} in ${2:iterable}:
+ 	${3:pass}
+diff --git a/snippets/c.snippets b/snippets/c.snippets
+index 96e19a0..fea30cc 100644
+--- a/snippets/c.snippets
++++ b/snippets/c.snippets
+@@ -72,7 +72,7 @@ snippet ifi
+ snippet t
+ 	${1:/* condition */} ? ${2:a} : ${3:b}
+ # switch
+-snippet switch
++snippet sw
+ 	switch (${1:/* variable */}) {
+ 		case ${2:/* variable case */}:
+ 			${3}

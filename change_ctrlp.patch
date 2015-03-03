@@ -1,0 +1,26 @@
+diff --git a/autoload/ctrlp.vim b/autoload/ctrlp.vim
+index 19ac146..f90109f 100644
+--- a/autoload/ctrlp.vim
++++ b/autoload/ctrlp.vim
+@@ -112,8 +112,8 @@ let [s:lcmap, s:prtmaps] = ['nn <buffer> <silent>', {
+ 	\ 'PrtDelete()':          ['<del>'],
+ 	\ 'PrtDeleteWord()':      ['<c-w>'],
+ 	\ 'PrtClear()':           ['<c-u>'],
+-	\ 'PrtSelectMove("j")':   ['<c-j>', '<down>'],
+-	\ 'PrtSelectMove("k")':   ['<c-k>', '<up>'],
++	\ 'PrtSelectMove("j")':   ['<c-k>', '<down>'],
++	\ 'PrtSelectMove("k")':   ['<c-l>', '<up>'],
+ 	\ 'PrtSelectMove("t")':   ['<Home>', '<kHome>'],
+ 	\ 'PrtSelectMove("b")':   ['<End>', '<kEnd>'],
+ 	\ 'PrtSelectMove("u")':   ['<PageUp>', '<kPageUp>'],
+@@ -134,8 +134,8 @@ let [s:lcmap, s:prtmaps] = ['nn <buffer> <silent>', {
+ 	\ 'PrtInsert()':          ['<c-\>'],
+ 	\ 'PrtCurStart()':        ['<c-a>'],
+ 	\ 'PrtCurEnd()':          ['<c-e>'],
+-	\ 'PrtCurLeft()':         ['<c-h>', '<left>', '<c-^>'],
+-	\ 'PrtCurRight()':        ['<c-l>', '<right>'],
++	\ 'PrtCurLeft()':         ['<c-j>', '<left>', '<c-^>'],
++	\ 'PrtCurRight()':        ['<c-;>', '<right>'],
+ 	\ 'PrtClearCache()':      ['<F5>'],
+ 	\ 'PrtDeleteEnt()':       ['<F7>'],
+ 	\ 'CreateNewFile()':      ['<c-y>'],
