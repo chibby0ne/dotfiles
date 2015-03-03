@@ -5,5 +5,6 @@ Includes:
 - vimrc
 - bashrc
 - tmux.conf
+- gitconfig
 - patches for changes made to vim plugins
-- install script for everything (including vim)
+- install script for everything (including installing vim)

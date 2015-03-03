@@ -1,0 +1,28 @@
+[user]
+	name = Antonio Gutierrez
+	email = chibby0ne@gmail.com
+    username = chibby0ne
+[core]
+	editor = vim
+[merge]
+	tool = vimdiff
+[credential]
+	helper = cache --timeout=3600
+[diff]
+	tool = vimdiff
+[difftool]
+	prompt = false
+[alias]
+	d = difftool
+[color]
+	ui = auto
+[alias]
+    a = add
+    st = status
+    cm = commit -a
+    df = diff
+    ps = push -u 
+    pl = pull
+    br = branch
+    co = checkout
+    logcolor = log --decorate

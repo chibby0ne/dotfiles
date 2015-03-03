@@ -6,7 +6,6 @@ echo "Installing vim and tmux"
 echo "================="
 sudo apt-get update && sudo apt-get install vim tmux
 echo -e "Vim and tmux installed!\n"
-echo
 
 echo "================="
 echo "Setting symlinks"
@@ -15,9 +14,10 @@ echo "Setting bashrc"
 ln -s bashrc ~/.bashrc
 echo "Setting vimrc"
 ln -s vimrc ~/.vimrc
-echo -e "Setting tmux.conf\n"
+echo -e "Setting tmux.conf"
 ln -s tmux.conf ~/.tmux.conf
-echo
+echo -e "Setting gitconfig\n"
+ln -s gitconfig ~/.gitconfig
 
 echo "================="
 echo "Setting up .tmux.conf.dev" 
