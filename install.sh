@@ -36,8 +36,6 @@ echo "Cloning Vundle"
 git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 echo -e "Vundle installed!\n"
 
-echo "NOTE: Remember to open vim and run :PluginInstall. in order to \ 
-install the rest of the plugins"
-
-
-
+echo "NOTE: Remember to open vim and run :PluginInstall in order to \
+install the rest of the plugins. Also don't forget to use the patches once \
+the plugins are installed"
