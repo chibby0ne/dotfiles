@@ -204,10 +204,9 @@ export PATH=$PATH:/home/tesla/algs4/bin
 
 # getting time and setting dark or light theme
 solarized_files_dir=/home/tesla/Projects/Solarized_Gnome_Terminal
-sunrise=10#07
-sunset=10#18
-time=$(date +%k)
-
+sunrise=10#0656
+sunset=10#1824
+time=$(date +%k%M)
 
 if [[ sunrise -le time && time -lt sunset ]]; then
     $solarized_files_dir/gnome-terminal-colors-solarized/set_light.sh

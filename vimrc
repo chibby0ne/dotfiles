@@ -138,11 +138,14 @@ se t_Co=16
 colorscheme solarized
 "colorscheme gotham256
 
-" automatic switching of solarized color 
-let sunrise=07
-let sunset=18
+"" THIS CODE WAS ADDED BY SOLARIZED_GNOME_TERMINAL script ""
+"" FOR CORRECT BEHAVIOUR DO NOT MODIFY ""
 
-let hour=strftime("%H")
+" getting time and setting dark or light theme
+let sunrise="06:56"
+let sunset="18:24"
+
+let hour=strftime("%H:%M")
 if sunrise <= hour && hour < sunset
     set background=light
 else
@@ -340,7 +343,7 @@ if has("autocmd")
         autocmd BufRead,BufNewFile *.xtx set filetype=tex
 
         "java
-        autocmd bufnewfile *.java so /home/tesla/Templates/java_template.txt
+        autocmd bufnewfile *.java so ~/Templates/java_template.txt
         autocmd bufnewfile *.java exe "1," . 7 . "g/file:.*/s//file: " .expand("%")
         autocmd bufnewfile *.java exe "1," . 9 . "g/public class .*/s//public class " .expand("%:t:r") "{"
         autocmd bufnewfile *.java exe "1," . 7 . "g/date:.*/s//date: " .strftime("%Y-%m-%d")
@@ -348,17 +351,17 @@ if has("autocmd")
         autocmd bufwritepost,filewritepost *.java execute "normal `a"
 
         " for vhdl
-        autocmd bufnewfile *.vhd so /home/tesla/Templates/VHDL_template.txt
+        autocmd bufnewfile *.vhd so ~/Templates/VHDL_template.txt
         autocmd bufnewfile *.vhd exe "1," . 7 . "g/file:.*/s//file: " .expand("%")
         autocmd bufnewfile *.vhd exe "1," . 7 . "g/date:.*/s//date: " .strftime("%Y-%m-%d")
         autocmd Bufwritepre,filewritepre *.vhd execute "normal ma"
         autocmd bufwritepost,filewritepost *.vhd execute "normal `a"
         
         " for makefile
-        autocmd bufnewfile Makefile so /home/tesla/Templates/Makefile_template.txt
+        autocmd bufnewfile Makefile so ~/Templates/Makefile_template.txt
 
         " for CMakeList
-        autocmd bufnewfile CMakeLists.txt so /home/tesla/Templates/CMakeLists_template.txt
+        autocmd bufnewfile CMakeLists.txt so ~/Templates/CMakeLists_template.txt
          
 
         " When editing a file, always jump to the last known cursor position.
