@@ -141,7 +141,7 @@ export PATH=$PATH:/opt/Xilinx/14.7/ISE_DS/ISE/bin/lin64
 # export LIBRARY_PATH=$LIBRARY_PATH:/usr/lib/nvidia-current
 
 #guitarpro reader path
-export PATH=$PATH:/home/tesla/Downloads/tuxguitar-1.2-jet
+export PATH=$PATH:~/Downloads/tuxguitar-1.2-jet
 
 #android-studio
 export PATH=$PATH:/opt/android-studio/bin
@@ -177,10 +177,10 @@ export MANPATH=$MANPATH:/usr/local/texlive/2014/texmf-dist/doc/man
 export INFOPATH=$MANPATH:/usr/local/texlive/2014/texmf-dist/doc/info
 
 #Teensy
-# export PATH=$PATH:/home/tesla/Teensy/arduino-1.0.4
+# export PATH=$PATH:~/Teensy/arduino-1.0.4
 
 # scala
-export SCALA_HOME=/home/tesla/Downloads/scala-2.11.2
+export SCALA_HOME=~/Downloads/scala-2.11.2
 export PATH=$PATH:$SCALA_HOME/bin
 
 #modelsim
@@ -196,14 +196,14 @@ export CCACHE_COMPRESS=1
 export PATH=$PATH:/opt/Qt/5.3/gcc_64/bin
 
 #Algorithms coursera 
-export PATH=$PATH:/home/tesla/algs4/bin
+export PATH=$PATH:~/algs4/bin
 
 
-## THIS CODE WAS ADDED BY SOLARIZED_GNONE script ##
+## THIS CODE WAS ADDED BY SOLARIZED_GNOME_TERMINAL script ##
 ## FOR CORRECT BEHAVIOUR DO NOT MODIFY ##
 
 # getting time and setting dark or light theme
-solarized_files_dir=/home/tesla/Projects/Solarized_Gnome_Terminal
+solarized_files_dir=~/Projects/Solarized_Gnome_Terminal
 sunrise=10#0656
 sunset=10#1824
 time=$(date +%k%M)
@@ -217,7 +217,7 @@ else
 fi
 
 # added by Anaconda 2.1.0 installer
-export PATH="/home/tesla/anaconda/bin:$PATH"
+export PATH="~/anaconda/bin:$PATH"
 
 # added for use of correct colorscheme solarized in vim inside a session tmux
 export TERM=screen-256color-bce
