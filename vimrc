@@ -46,7 +46,6 @@ set incsearch
 "call pathogen#infect()
 "call pathogen#helptags()
 
-
 """"""""""""
 " vundle
 filetype off
