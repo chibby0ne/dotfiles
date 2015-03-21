@@ -142,8 +142,8 @@ colorscheme solarized
 "" FOR CORRECT BEHAVIOUR DO NOT MODIFY ""
 
 " getting time and setting dark or light theme
-let sunrise="06:56"
-let sunset="18:24"
+let sunrise="06:31"
+let sunset="18:43"
 
 let hour=strftime("%H:%M")
 if sunrise <= hour && hour < sunset
@@ -324,8 +324,9 @@ if has("autocmd")
         au!
 
         " For all text files set 'textwidth' to 78 characters.
-        autocmd FileType text setlocal textwidth=78
+        autocmd FileType text setlocal spell textwidth=78
 
+        " For all text files set 'textwidth' to 78 characters.
 
         " source .vimrc any time a file is saved so the background color changes if
         " it becomes day/night
@@ -338,6 +339,8 @@ if has("autocmd")
 
         " for Markdown
         au BufRead,BufNewFile *.md set filetype=markdown
+        au BufRead,BufNewFile *.md set spell textwidth=78
+        au BufRead,BufNewFile *.md set commentstring=\<!--%s--\>
         
         "Xetex
         autocmd BufRead,BufNewFile *.xtx set filetype=tex

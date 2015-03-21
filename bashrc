@@ -180,8 +180,8 @@ export INFOPATH=$MANPATH:/usr/local/texlive/2014/texmf-dist/doc/info
 # export PATH=$PATH:~/Teensy/arduino-1.0.4
 
 # scala
-export SCALA_HOME=~/Downloads/scala-2.11.2
-export PATH=$PATH:$SCALA_HOME/bin
+# export SCALA_HOME=~/Downloads/scala-2.11.2
+# export PATH=$PATH:$SCALA_HOME/bin
 
 #modelsim
 export PATH=$PATH:~/.wine/drive_c/modeltech_6.5/win32
@@ -204,8 +204,8 @@ export PATH=$PATH:~/algs4/bin
 
 # getting time and setting dark or light theme
 solarized_files_dir=~/Projects/Solarized_Gnome_Terminal
-sunrise=10#0656
-sunset=10#1824
+sunrise=10#0631
+sunset=10#1843
 time=$(date +%k%M)
 
 if [[ sunrise -le time && time -lt sunset ]]; then
@@ -215,9 +215,6 @@ else
     $solarized_files_dir/gnome-terminal-colors-solarized/set_dark.sh
     eval $(dircolors $solarized_files_dir/dircolors-solarized/dircolors.ansi-dark)
 fi
-
-# added by Anaconda 2.1.0 installer
-export PATH="~/anaconda/bin:$PATH"
 
 # added for use of correct colorscheme solarized in vim inside a session tmux
 export TERM=screen-256color-bce
