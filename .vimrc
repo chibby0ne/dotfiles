@@ -68,9 +68,10 @@ let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"
 
+"Solarized
+Plugin 'altercation/vim-colors-solarized'
 "Ctrl-p
 Plugin 'kien/ctrlp.vim'
-
 "Syntastic
 Plugin 'scrooloose/syntastic'
 "Tagbar
