@@ -124,6 +124,8 @@ let g:ycm_confirm_extra_conf = 0
 " the GCC Syntastic checkers, unset this option.
 let g:ycm_show_diagnostics_ui = 0
 
+" settings for java autocompletion using eclim
+let g:EclimCompletionMethod = 'omnifunc'
 
 " for opening ctrlp in MRU file mode
 let g:ctrlp_cmd = 'CtrlPMRU'
@@ -142,8 +144,8 @@ colorscheme solarized
 "" FOR CORRECT BEHAVIOUR DO NOT MODIFY ""
 
 " getting time and setting dark or light theme
-let sunrise="06:31"
-let sunset="18:43"
+let sunrise="07:17"
+let sunset="17:08"
 
 let hour=strftime("%H:%M")
 if sunrise <= hour && hour < sunset
@@ -151,6 +153,9 @@ if sunrise <= hour && hour < sunset
 else
     set background=dark
 endif
+
+"set paste key
+set pastetoggle=<F2>
 
 """""""""""""""""""""""""""""""""""
 " mapping h, j, k, l to j, k, l. ;
@@ -221,6 +226,10 @@ nmap <Leader>c :bd<CR>
 
 " latex syntastic
 let g:syntastic_tex_checkers=['lacheck']
+" add qt includes to cpp compiler checks
+let g:syntastic_cpp_include_dirs = ['/opt/Qt/5.4/gcc_64/include']
+
+
 
 """""""""""""""""""""""""""""""""""""""""""""""
 " Spell checker
@@ -269,7 +278,7 @@ augroup CLNRSet
 augroup END
 
 set cursorline
-set relativenumber
+" " set relativenumber
 
 "set tab space = 4
 set tabstop=4
@@ -324,7 +333,7 @@ if has("autocmd")
         au!
 
         " For all text files set 'textwidth' to 78 characters.
-        autocmd FileType text setlocal spell textwidth=78
+        autocmd FileType text setlocal spell textwidth=78 fo+=t
 
         " For all text files set 'textwidth' to 78 characters.
 
@@ -339,7 +348,7 @@ if has("autocmd")
 
         " for Markdown
         au BufRead,BufNewFile *.md set filetype=markdown
-        au BufRead,BufNewFile *.md set spell textwidth=78
+        au BufRead,BufNewFile *.md set spell textwidth=78 fo+=t
         au BufRead,BufNewFile *.md set commentstring=\<!--%s--\>
         
         "Xetex
@@ -366,6 +375,7 @@ if has("autocmd")
         " for CMakeList
         autocmd bufnewfile CMakeLists.txt so ~/Templates/CMakeLists_template.txt
          
+        autocmd BufRead,BufNewFile *.cpp,*.c,*.h, set textwidth=80 fo+=t
 
         " When editing a file, always jump to the last known cursor position.
         " Don't do it when the position is invalid or when inside an event handler

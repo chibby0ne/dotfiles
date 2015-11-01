@@ -10,7 +10,7 @@
 #     command vim "$@"
 #     stty "$STTYOPTS"
 # }
-stty -ixon
+# stty -ixon
 
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
@@ -126,39 +126,6 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
 fi
 
-#xilinx ise tools
-#source /opt/Xilinx/Vivado/2013.3/settings64.sh
-#source /opt/Xilinx/14.7/ISE_DS/settings64.sh
-# it says to use ./ instead of source
-#clear sourced by Xilinx
-#clear
-export PATH=$PATH:/opt/Xilinx/14.7/ISE_DS/ISE/bin/lin64
-#export PATH=$PATH:/opt/Xilinx/Vivado/2013.3/bin
-
-#cuda
-# export PATH=/usr/local/cuda-5.0/bin:$PATH
-# export LD_LIBRARY_PATH=/usr/local/cuda-5.0/lib:/usr/local/cuda-5.0/lib64:$LD_LIBRARY_PATH
-# export LIBRARY_PATH=$LIBRARY_PATH:/usr/lib/nvidia-current
-
-#guitarpro reader path
-export PATH=$PATH:~/Downloads/tuxguitar-1.2-jet
-
-#android-studio
-export PATH=$PATH:/opt/android-studio/bin
-
-#acml
-#export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/acml5.3.1/gfortran64/lib:/opt/acml5.3.1/gfortran64_fma4/lib:opt/acml5.3.1/gfortran64_fma4_mp/lib:opt/acml5.3.1/gfortran64_mp/lib
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/acml4.4.0/gfortran64/lib
-# export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/acml4.4.0/gfortran64/include
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/acml4.4.0/gfortran64_mp/lib
-# export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/acml4.4.0/gfortran64_mp/include
-
-# /opt/acml4.4.0/gfortran64/include
-# /opt/acml4.4.0/gfortran64/lib
-# /opt/acml4.4.0/gfortran64_mp/lib
-# /opt/acml4.4.0/gfortran64_mp/include
-# export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/acml4.4.0/gfortran64/lib:/opt/acml4.4.0/gfortran64_mp/lib:/opt/acml4.4.0/gfortran64/include:/opt/acml4.4.0/gfortran64_mp/include
-
 #go lang
 # export GOROOT=/usr/local/go
 # export PATH=$PATH:/usr/local/go/bin
@@ -179,21 +146,16 @@ export INFOPATH=$MANPATH:/usr/local/texlive/2014/texmf-dist/doc/info
 #Teensy
 # export PATH=$PATH:~/Teensy/arduino-1.0.4
 
-# scala
-# export SCALA_HOME=~/Downloads/scala-2.11.2
-# export PATH=$PATH:$SCALA_HOME/bin
+# scala and sbt (needed for chisel HDL)
+export SCALA_HOME=~/Downloads/scala-2.*
+export PATH=$PATH:$SCALA_HOME/bin
+export SBT_HOME=~/Downloads/sbt
+export PATH=$PATH:$SBT_HOME/bin
+
+# sbt
 
 #modelsim
 export PATH=$PATH:~/.wine/drive_c/modeltech_6.5/win32
-
-#jhbuild
-export PATH=$PATH:~/.local/bin
-
-#ccache
-export CCACHE_COMPRESS=1
-
-#Qt5
-export PATH=$PATH:/opt/Qt/5.3/gcc_64/bin
 
 #Algorithms coursera 
 export PATH=$PATH:~/algs4/bin
@@ -204,17 +166,54 @@ export PATH=$PATH:~/algs4/bin
 
 # getting time and setting dark or light theme
 solarized_files_dir=~/Projects/Solarized_Gnome_Terminal
-sunrise=10#0631
-sunset=10#1843
-time=$(date +%k%M)
+sunrise=10#0717
+sunset=10#1708
+time=10#$(date +%H%M)
 
 if [[ sunrise -le time && time -lt sunset ]]; then
-    $solarized_files_dir/gnome-terminal-colors-solarized/set_light.sh
+    # $solarized_files_dir/gnome-terminal-colors-solarized/set_light.sh
     eval $(dircolors $solarized_files_dir/dircolors-solarized/dircolors.ansi-light)
+    # mate-terminal --profile=solarized-light
 else
-    $solarized_files_dir/gnome-terminal-colors-solarized/set_dark.sh
+    # $solarized_files_dir/gnome-terminal-colors-solarized/set_dark.sh
     eval $(dircolors $solarized_files_dir/dircolors-solarized/dircolors.ansi-dark)
+    # mate-terminal --profile=solarized-dark
 fi
 
 # added for use of correct colorscheme solarized in vim inside a session tmux
-export TERM=screen-256color-bce
+# export TERM=screen-256color-bce
+
+# change manpager from less to vim (http://zameermanji.com/blog/2012/12/30/using-vim-as-manpager/)
+# export MANPAGER="/bin/sh -c \"col -b | vim -c 'set ft=man ts=8 nomod nolist nonu noma' -\""
+
+# download_series
+export PATH=$PATH:~/Projects/download_series
+export PATH=$PATH:~/Downloads/eclipse
+
+# cool quotes
+declare -a quotes
+quotes[0]="Genius is 1% inspiration, 99% perspiration"
+quotes[1]="If you've never failed, you've never tried something new"
+quotes[2]="Wolves don't lose sleep over the opinion of sheep"
+quotes[3]="A goal without a plan is just a wish"
+quotes[4]="Remember that guy that gave up? Neither does anyone else"
+quotes[5]="If you've never failed, you've never tried anything new"
+quotes[6]="Sucking at something is the first step to becoming sorta of good at something"
+quotes[7]="A year from now you'll wish you had started today"
+
+echo ${quotes[$RANDOM % ${#quotes[*]}]}
+export PATH="$HOME/.cabal/bin:/opt/cabal/1.20/bin:/opt/ghc/7.8.4/bin:$PATH"
+export JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64/jre
+
+# necessary to allow vim to use Ctrl-s Ctrl-q mapping
+alias vim="stty -ixon; vim"
+
+# cross compilation
+export PATH=$PATH:/opt/cross/bin
+
+#Telegram
+export PATH=$PATH:/home/tesla/Downloads/Telegram
+
+
+# fixing colors for vim inside tmux session
+alias tmux="TERM=screen-256color-bce tmux"
