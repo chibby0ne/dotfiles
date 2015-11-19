@@ -144,8 +144,8 @@ colorscheme solarized
 "" FOR CORRECT BEHAVIOUR DO NOT MODIFY ""
 
 " getting time and setting dark or light theme
-let sunrise="07:17"
-let sunset="17:08"
+let sunrise="07:45"
+let sunset="16:43"
 
 let hour=strftime("%H:%M")
 if sunrise <= hour && hour < sunset

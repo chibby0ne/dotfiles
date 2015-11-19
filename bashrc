@@ -34,9 +34,6 @@ shopt -s checkwinsize
 # match all files and zero or more directories and subdirectories.
 #shopt -s globstar
 
-# set 256 colors term
-#export TERM="xterm-256color"
-
  #make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
@@ -67,15 +64,11 @@ if [ -n "$force_color_prompt" ]; then
 fi
 
 if [ "$color_prompt" = yes ]; then
-    #PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[1;31m\]\u@\h\[\033[00m\]:\[\033[01;39m\]\w\[\033[00m\]\$ '
+    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;31m\]\u@\h\[\033[00m\]:\[\033[01;39m\]\w\[\033[00m\]\$ '
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi
 unset color_prompt force_color_prompt
-
-# smiley () { echo -e ":\\$(($??50:51))"; }
-# export PS1="\h\$(smiley) \e[30;1m\w\e[0m\n\$ "
 
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
@@ -126,15 +119,6 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
 fi
 
-#go lang
-# export GOROOT=/usr/local/go
-# export PATH=$PATH:/usr/local/go/bin
-#export GOROOT=/usr/bin
-unset GOROOT
-export GOPATH=$HOME/go
-export GOBIN=$GOPATH/bin
-export PATH=$PATH:$GOBIN
-
 #matlab 
 # export PATH=$PATH:/usr/local/MATLAB/R2013b/bin
 
@@ -146,42 +130,26 @@ export INFOPATH=$MANPATH:/usr/local/texlive/2014/texmf-dist/doc/info
 #Teensy
 # export PATH=$PATH:~/Teensy/arduino-1.0.4
 
-# scala and sbt (needed for chisel HDL)
-export SCALA_HOME=~/Downloads/scala-2.*
-export PATH=$PATH:$SCALA_HOME/bin
-export SBT_HOME=~/Downloads/sbt
-export PATH=$PATH:$SBT_HOME/bin
-
-# sbt
-
 #modelsim
 export PATH=$PATH:~/.wine/drive_c/modeltech_6.5/win32
 
 #Algorithms coursera 
 export PATH=$PATH:~/algs4/bin
 
-
 ## THIS CODE WAS ADDED BY SOLARIZED_GNOME_TERMINAL script ##
 ## FOR CORRECT BEHAVIOUR DO NOT MODIFY ##
 
 # getting time and setting dark or light theme
 solarized_files_dir=~/Projects/Solarized_Gnome_Terminal
-sunrise=10#0717
-sunset=10#1708
+sunrise=10#0745
+sunset=10#1643
 time=10#$(date +%H%M)
 
 if [[ sunrise -le time && time -lt sunset ]]; then
-    # $solarized_files_dir/gnome-terminal-colors-solarized/set_light.sh
     eval $(dircolors $solarized_files_dir/dircolors-solarized/dircolors.ansi-light)
-    # mate-terminal --profile=solarized-light
 else
-    # $solarized_files_dir/gnome-terminal-colors-solarized/set_dark.sh
     eval $(dircolors $solarized_files_dir/dircolors-solarized/dircolors.ansi-dark)
-    # mate-terminal --profile=solarized-dark
 fi
-
-# added for use of correct colorscheme solarized in vim inside a session tmux
-# export TERM=screen-256color-bce
 
 # change manpager from less to vim (http://zameermanji.com/blog/2012/12/30/using-vim-as-manpager/)
 # export MANPAGER="/bin/sh -c \"col -b | vim -c 'set ft=man ts=8 nomod nolist nonu noma' -\""
@@ -192,17 +160,21 @@ export PATH=$PATH:~/Downloads/eclipse
 
 # cool quotes
 declare -a quotes
-quotes[0]="Genius is 1% inspiration, 99% perspiration"
-quotes[1]="If you've never failed, you've never tried something new"
-quotes[2]="Wolves don't lose sleep over the opinion of sheep"
-quotes[3]="A goal without a plan is just a wish"
-quotes[4]="Remember that guy that gave up? Neither does anyone else"
-quotes[5]="If you've never failed, you've never tried anything new"
-quotes[6]="Sucking at something is the first step to becoming sorta of good at something"
-quotes[7]="A year from now you'll wish you had started today"
-
+quotes[0]="\"Genius is 1% inspiration, 99% perspiration\" - Thomas Alva Edison"
+quotes[1]="\"Wolves don't lose sleep over the opinion of sheep\""
+quotes[2]="\"A goal without a plan is just a wish\" - Antoine de Saint-Exupéry"
+quotes[3]="\"Remember that guy that gave up? Neither does anyone else\""
+quotes[4]="\"If you've never failed, you've never tried anything new\" - Albert Einstein"
+quotes[5]="\"Sucking at something is the first step to becoming sorta of good at something\""
+quotes[6]="\"A year from now you'll wish you had started today\" - Karen Lamb"
+quotes[7]="\"No man was ever wise by chance\" - Seneca"
+quotes[8]="\"It is not how much we have, but how much we enjoy that makes happiness\" - Charles Spurgeon"
 echo ${quotes[$RANDOM % ${#quotes[*]}]}
+
+# haskell
 export PATH="$HOME/.cabal/bin:/opt/cabal/1.20/bin:/opt/ghc/7.8.4/bin:$PATH"
+
+# jdk
 export JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64/jre
 
 # necessary to allow vim to use Ctrl-s Ctrl-q mapping
@@ -214,6 +186,11 @@ export PATH=$PATH:/opt/cross/bin
 #Telegram
 export PATH=$PATH:/home/tesla/Downloads/Telegram
 
-
 # fixing colors for vim inside tmux session
 alias tmux="TERM=screen-256color-bce tmux"
+
+# eclipse
+export PATH=$PATH:~/Downloads/eclipse
+
+# go
+export GOPATH=$HOME/go
