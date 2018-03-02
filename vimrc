@@ -27,20 +27,20 @@ set encoding=utf8
 " Case sentitivity for search
 set ignorecase
 
-" Turn on incremental search 
+" Turn on incremental search
 set incsearch
 
 " keep 50 lines of command line history
-set history=50		
+set history=50
 "
 " show the cursor position all the time
-set ruler		
+set ruler
 
 " display incomplete commands
-set showcmd		
+set showcmd
 
 " do incremental searching
-set incsearch		
+set incsearch
 
 " pathogen (easier installation of plugins
 "call pathogen#infect()
@@ -70,7 +70,7 @@ let g:UltiSnipsEditSplit="vertical"
 "Solarized
 Plugin 'altercation/vim-colors-solarized'
 "Ctrl-p
-Plugin 'kien/ctrlp.vim'
+" Plugin 'kien/ctrlp.vim'
 "Syntastic
 Plugin 'scrooloose/syntastic'
 "Tagbar
@@ -78,12 +78,17 @@ Plugin 'majutsushi/tagbar'
 "Vim-airline
 Plugin 'bling/vim-airline'
 " Vim-fugitive
-Plugin 'tpope/vim-fugitive'
+" Plugin 'tpope/vim-fugitive'
+" SuperTab
+Plugin 'ervandew/supertab'
 " Vim-commentary
 Plugin 'tpope/vim-commentary'
 " You Complete Me
 Plugin 'Valloric/YouCompleteMe'
-
+" YCM-Generator
+Plugin 'rdnetto/YCM-Generator'
+" vim-go
+Plugin 'fatih/vim-go'
 "All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -91,14 +96,19 @@ filetype plugin indent on    " required
 """""""
 " end Vundle plugin
 
-" Remap keys used for you complete me (ycm) cycling through options 
-let g:ycm_key_list_select_completion = [ '<C-k>', '<Enter>', '<Down>']
-let g:ycm_key_list_previous_completion = ['<C-l>', '<Up>']
+" Remap keys used for you complete me (ycm) cycling through options
+" let g:ycm_key_list_select_completion = [ '<C-k>', '<Enter>', '<Down>']
+" let g:ycm_key_list_previous_completion = ['<C-l>', '<Up>']
+" make YCM compatible with Ultisnips using supertab
+let g:ycm_key_list_select_completion = [ '<C-n>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
+let g:SuperTabDefaultCompletionType = '<C-n>'
 
-"When this option is set to 1, YCM will auto-close the preview window 
-"after the user accepts the offered completion string. If there is no 
-"preview window triggered because there is no preview string in completeopt, 
-"this option is irrelevant. See the g:ycm_add_preview_to_completeopt option 
+
+"When this option is set to 1, YCM will auto-close the preview window
+"after the user accepts the offered completion string. If there is no
+"preview window triggered because there is no preview string in completeopt,
+"this option is irrelevant. See the g:ycm_add_preview_to_completeopt option
 "for more details.
 let g:ycm_autoclose_preview_window_after_completion = 1
 
@@ -106,7 +116,7 @@ let g:ycm_autoclose_preview_window_after_completion = 1
 " (needed to add paths for gcc includes
 " using command: "echo | clang -std=c++11 -stdlib=libc++ -v -E -x c++ -"
 " the headers path found in in the section "#include <...> search starts here"
-" appending them with a "-isystem," before each path, and 
+" appending them with a "-isystem," before each path, and
 " adding them to "flags" variable in  ".ycm_extra_conf.py"
 " seen here: "https://stackoverflow.com/questions/15266194/my-youcompleteme-vim-plugin-doesnt-support-stl"
 let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/third_party/ycmd/examples/.ycm_extra_conf.py'
@@ -128,31 +138,33 @@ let g:ycm_show_diagnostics_ui = 0
 let g:EclimCompletionMethod = 'omnifunc'
 
 " for opening ctrlp in MRU file mode
-let g:ctrlp_cmd = 'CtrlPMRU'
+" let g:ctrlp_cmd = 'CtrlPMRU'
 " for letting ctrlp show hidden files
-let g:ctrlp_show_hidden = 1
+" let g:ctrlp_show_hidden = 1
 
 
 " recommendation for solarized
-se t_Co=16
-"se t_Co=256
+" set t_Co=16
+" set t_Co=16
 
+let g:solarized_termcolors=16
 colorscheme solarized
 "colorscheme gotham256
+"
 
 "" THIS CODE WAS ADDED BY SOLARIZED_GNOME_TERMINAL script ""
 "" FOR CORRECT BEHAVIOUR DO NOT MODIFY ""
 
 " getting time and setting dark or light theme
 let sunrise="07:45"
-let sunset="16:43"
+let sunset="18:43"
 
 let hour=strftime("%H:%M")
 if sunrise <= hour && hour < sunset
-    set background=light
-else
-    set background=dark
-endif
+     set background=dark
+ else
+     set background=dark
+ endif
 
 "set paste key
 set pastetoggle=<F2>
@@ -187,7 +199,7 @@ noremap <c-w>j <c-w>h
 " down
 noremap <c-w>k <c-w>j
 " up
-noremap <c-w>l <c-w>k   
+noremap <c-w>l <c-w>k
 " right
 noremap <c-w>; <c-w>l
 
@@ -267,12 +279,12 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
 " highlight current line number gutter
-" hi clear CursorLine
-" augroup CLClear
-"         autocmd! colorscheme * hi clear CursorLine
-" augroup END
+hi clear CursorLine
+augroup CLClear
+        autocmd! colorscheme * hi clear CursorLine
+augroup END
 
-" hi CursorLineNR cterm=bold
+hi CursorLineNR cterm=bold
 augroup CLNRSet
          autocmd! colorscheme * hi CursorLineNR cterm=bold
 augroup END
@@ -350,7 +362,7 @@ if has("autocmd")
         au BufRead,BufNewFile *.md set filetype=markdown
         au BufRead,BufNewFile *.md set spell textwidth=78 fo+=t
         au BufRead,BufNewFile *.md set commentstring=\<!--%s--\>
-        
+
         "Xetex
         autocmd BufRead,BufNewFile *.xtx set filetype=tex
 
@@ -368,13 +380,13 @@ if has("autocmd")
         autocmd bufnewfile *.vhd exe "1," . 7 . "g/date:.*/s//date: " .strftime("%Y-%m-%d")
         autocmd Bufwritepre,filewritepre *.vhd execute "normal ma"
         autocmd bufwritepost,filewritepost *.vhd execute "normal `a"
-        
+
         " for makefile
         autocmd bufnewfile Makefile so ~/Templates/Makefile_template.txt
 
         " for CMakeList
         autocmd bufnewfile CMakeLists.txt so ~/Templates/CMakeLists_template.txt
-         
+
         autocmd BufRead,BufNewFile *.cpp,*.c,*.h, set textwidth=80 fo+=t
 
         " When editing a file, always jump to the last known cursor position.
@@ -406,3 +418,6 @@ endif
 
 " For coursera algoriths course
 let g:syntastic_java_javac_classpath=".:~/algs4/algs4.jar:~/algs4/stdlib.jar"
+
+" Set syntastic dialect to intel
+let g:syntastic_asm_dialect = "intel"

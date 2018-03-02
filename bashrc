@@ -140,23 +140,22 @@ export PATH=$PATH:~/algs4/bin
 ## FOR CORRECT BEHAVIOUR DO NOT MODIFY ##
 
 # getting time and setting dark or light theme
-solarized_files_dir=~/Projects/Solarized_Gnome_Terminal
-sunrise=10#0745
-sunset=10#1643
-time=10#$(date +%H%M)
+# solarized_files_dir=~/Projects/Solarized_Gnome_Terminal
+# sunrise=10#0745
+# sunset=10#1643
+# time=10#$(date +%H%M)
 
-if [[ sunrise -le time && time -lt sunset ]]; then
-    eval $(dircolors $solarized_files_dir/dircolors-solarized/dircolors.ansi-light)
-else
-    eval $(dircolors $solarized_files_dir/dircolors-solarized/dircolors.ansi-dark)
-fi
+# if [[ sunrise -le time && time -lt sunset ]]; then
+#     eval $(dircolors $solarized_files_dir/dircolors-solarized/dircolors.ansi-light)
+# else
+#     eval $(dircolors $solarized_files_dir/dircolors-solarized/dircolors.ansi-dark)
+# fi
 
 # change manpager from less to vim (http://zameermanji.com/blog/2012/12/30/using-vim-as-manpager/)
 # export MANPAGER="/bin/sh -c \"col -b | vim -c 'set ft=man ts=8 nomod nolist nonu noma' -\""
 
 # download_series
 export PATH=$PATH:~/Projects/download_series
-export PATH=$PATH:~/Downloads/eclipse
 
 # cool quotes
 declare -a quotes
@@ -174,23 +173,17 @@ echo ${quotes[$RANDOM % ${#quotes[*]}]}
 # haskell
 export PATH="$HOME/.cabal/bin:/opt/cabal/1.20/bin:/opt/ghc/7.8.4/bin:$PATH"
 
-# jdk
-export JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64/jre
-
 # necessary to allow vim to use Ctrl-s Ctrl-q mapping
-alias vim="stty -ixon; vim"
+# alias vim="stty -ixon; vim"
 
 # cross compilation
 export PATH=$PATH:/opt/cross/bin
 
-#Telegram
-export PATH=$PATH:/home/tesla/Downloads/Telegram
-
 # fixing colors for vim inside tmux session
 alias tmux="TERM=screen-256color-bce tmux"
 
-# eclipse
-export PATH=$PATH:~/Downloads/eclipse
-
 # go
-export GOPATH=$HOME/go
+export GOPATH=$HOME/Projects/go_workspace
+
+# added by travis gem
+[ -f /home/tesla/.travis/travis.sh ] && source /home/tesla/.travis/travis.sh

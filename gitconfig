@@ -26,3 +26,4 @@
     br = branch
     co = checkout
     logcolor = log --decorate
+    graph = log --graph --oneline --decorate --all
