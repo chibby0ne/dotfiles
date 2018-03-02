@@ -6,9 +6,15 @@ echo "Installing vim and tmux"
 echo "================="
 distro=$(cat /etc/*-release | grep ^NAME= | sed 's/NAME="\(.*\)"/\1/g')
 if [[ "$distro" == "Arch Linux" ]]; then
-    sudo pacman -Syyu --noconfirm && sudo pacman -S --noconfirm vim tmux dmidecode
+    sudo pacman -Syyu --noconfirm && sudo pacman -S vim tmux dmidecode ruby docker curl powerline-fonts ttf-dejavu go noto-fonts --noconfirm
 elif [[ "$distro" == "Ubuntu" ]]; then
-    sudo apt-get update && sudo apt-get install vim tmux dmidecode -y
+    sudo apt-get update && sudo apt-get install vim tmux dmidecode ruby-dev -y
+    # Taken from dockers docs: https://docs.docker.com/install/linux/docker-ce/ubuntu/#set-up-the-repository
+    sudo apt-get install apt-transport-https ca-certificates curl software-properties-common -y
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+    sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu  $(lsb_release -cs) stable"
+    sudo apt-get update
+    sudo apt-get install docker-ce -y
 fi
 echo -e "Vim and tmux installed!\n"
 laptop_model=$(sudo dmidecode | grep 'Version: ' | head -n 1 | sed 's/Version: \(.*\)/\1/g' | sed 's/[[:blank:]]//g')
