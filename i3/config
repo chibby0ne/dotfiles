@@ -165,9 +165,9 @@ bindsym XF86KbdBrightnessUp exec --no-startup-id "kb-light.py +"
 bindsym XF86KbdBrightnessDown exec --no-startup-id "kb-light.py -"
 
 # Volume Control
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5%
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5%
-bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle
+bindsym XF86AudioRaiseVolume exec --no-startup-id amixer set Master 5%+
+bindsym XF86AudioLowerVolume exec --no-startup-id amixer set Master 5%-
+bindsym XF86AudioMute exec --no-startup-id amixer set Master toggle
 
 # Touchpad control
 bindsym XF86TouchpadToggle exec --no-startup-id "~/.config/i3/toggletouchpad.sh"
