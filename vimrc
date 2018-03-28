@@ -42,10 +42,6 @@ set showcmd
 " do incremental searching
 set incsearch
 
-" pathogen (easier installation of plugins
-"call pathogen#infect()
-"call pathogen#helptags()
-
 """"""""""""
 " vundle
 filetype off
@@ -57,38 +53,48 @@ call vundle#begin()
 "required by vundle
 Plugin 'gmarik/Vundle.vim'
 
-" Ultisnip
+" Ultisnip": snippet engine + snippets
 Plugin 'sirver/ultisnips'
 Plugin 'honza/vim-snippets'
-"  Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<tab>"
-let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
-" If you want :UltiSnipsEdit to split your window.
-let g:UltiSnipsEditSplit="vertical"
 
-"Solarized
+"Solarized": adds solarized colors
 Plugin 'altercation/vim-colors-solarized'
+
 "Ctrl-p
 " Plugin 'kien/ctrlp.vim'
-"Syntastic
+"
+"Syntastic": syntax checking for many languages
 Plugin 'scrooloose/syntastic'
-"Tagbar
+
+"Tagbar": Adds a side buffer listing all the tags in the file (constants,
+"macros, functions, classes, methods)
 Plugin 'majutsushi/tagbar'
-"Vim-airline
+
+"Vim-airline: adds a cool status line at the bottom of the buffer
 Plugin 'bling/vim-airline'
+
 " Vim-fugitive
 " Plugin 'tpope/vim-fugitive'
-" SuperTab
+
+" SuperTab": helps ultisnips work with youcompleteme
 Plugin 'ervandew/supertab'
-" Vim-commentary
+
+" Vim-commentary: provides shortcuts and keybindings for commenting
 Plugin 'tpope/vim-commentary'
-" You Complete Me
+
+" YouCompleteMe": code completion engine for several languages
 Plugin 'Valloric/YouCompleteMe'
-" YCM-Generator
+
+" YCM-Generator: generates a .ycm_extra_conf.py file needed for c-family
+" semantic completion for YCM
 Plugin 'rdnetto/YCM-Generator'
-" vim-go
+
+" vim-go: go development plugin
 Plugin 'fatih/vim-go'
+
+" vim-javascript: javascript development plugin
+Plugin 'pangloss/vim-javascript'
+
 "All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -104,6 +110,13 @@ let g:ycm_key_list_select_completion = [ '<C-n>', '<Down>']
 let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
 let g:SuperTabDefaultCompletionType = '<C-n>'
 
+" make ultisnips + YCM work together
+" see here: https://stackoverflow.com/questions/14896327/ultisnips-and-youcompleteme
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
 
 "When this option is set to 1, YCM will auto-close the preview window
 "after the user accepts the offered completion string. If there is no
@@ -141,7 +154,6 @@ let g:EclimCompletionMethod = 'omnifunc'
 " let g:ctrlp_cmd = 'CtrlPMRU'
 " for letting ctrlp show hidden files
 " let g:ctrlp_show_hidden = 1
-
 
 " recommendation for solarized
 " set t_Co=16
