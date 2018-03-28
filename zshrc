@@ -1,12 +1,10 @@
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
-
 # Path to your oh-my-zsh installation.
-ZSH=/usr/share/oh-my-zsh/
+export ZSH=~/.oh-my-zsh
 
-# Set name of the theme to load. Optionally, if you set this to "random"
-# it'll load a random theme each time that oh-my-zsh is loaded.
-# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
+# Set name of the theme to load.
+# Look in ~/.oh-my-zsh/themes/
+# Optionally, if you set this to "random", it'll load a random theme each
+# time that oh-my-zsh is loaded.
 ZSH_THEME="agnoster"
 
 # Uncomment the following line to use case-sensitive completion.
@@ -17,7 +15,7 @@ ZSH_THEME="agnoster"
 # HYPHEN_INSENSITIVE="true"
 
 # Uncomment the following line to disable bi-weekly auto-update checks.
-DISABLE_AUTO_UPDATE="true"
+# DISABLE_AUTO_UPDATE="true"
 
 # Uncomment the following line to change how often to auto-update (in days).
 # export UPDATE_ZSH_DAYS=13
@@ -29,7 +27,7 @@ DISABLE_AUTO_UPDATE="true"
 # DISABLE_AUTO_TITLE="true"
 
 # Uncomment the following line to enable command auto-correction.
-ENABLE_CORRECTION="true"
+# ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
 # COMPLETION_WAITING_DOTS="true"
@@ -53,10 +51,12 @@ ENABLE_CORRECTION="true"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git)
 
-
 # User configuration
 
+# export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl"
 # export MANPATH="/usr/local/man:$MANPATH"
+
+source $ZSH/oh-my-zsh.sh
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
@@ -72,7 +72,7 @@ plugins=(git)
 # export ARCHFLAGS="-arch x86_64"
 
 # ssh
-# export SSH_KEY_PATH="~/.ssh/rsa_id"
+# export SSH_KEY_PATH="~/.ssh/dsa_id"
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
@@ -83,76 +83,73 @@ plugins=(git)
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-ZSH_CACHE_DIR=$HOME/.oh-my-zsh-cache
-if [[ ! -d $ZSH_CACHE_DIR ]]; then
-  mkdir $ZSH_CACHE_DIR
-fi
-
-source $ZSH/oh-my-zsh.sh
-
-adjust_terminal_colors() {
-    #####################
-    # For xfce4-terminal
-    #####################
-    # copy terminalrc
-    cp ~/xfce4-terminal-colors-solarized/$1/terminalrc ~/.config/xfce4/terminal/terminalrc
-    # configure GNU ls colors
-    eval $(dircolors ~/dircolors-solarized/dircolors.ansi-${1})
-    #####################
-    # For urxvt-unicode
-    #####################
-    # ln -snf ~/xdefaults_urxvt/Xdefaults_$1 ~/.Xdefaults
-}
-
+eval `dircolors ~/Projects/dircolors-solarized/dircolors.ansi-dark`
 solarized_dark() {
-    adjust_terminal_colors "dark"
+    eval `dircolors ~/Projects/dircolors-solarized/dircolors.ansi-dark`
+    cp ~/.config/xfce4/terminal/terminalrc-solarized-dark ~/.config/xfce4/terminal/terminalrc
 }
 
 solarized_light() {
-    adjust_terminal_colors "light"
+    eval `dircolors ~/Projects/dircolors-solarized/dircolors.ansi-light`
+    cp ~/.config/xfce4/terminal/terminalrc-solarized-light ~/.config/xfce4/terminal/terminalrc
 }
 
-# getting time and setting dark or light theme
-# solarized_files_dir=~/Projects/Solarized_Gnome_Terminal
-sunrise=10#0745
-sunset=10#1900
-time=10#$(date +%H%M)
+default_terminal() {
+    cp ~/.config/xfce4/terminal/terminalrc.bak ~/.config/xfce4/terminal/terminalrc
+}
 
-if [[ sunrise -le time && time -lt sunset ]]; then
-    solarized_light
-else
-    solarized_dark
-fi
+# sunrise=10#0730
+# sunset=10#1940
+# time=10#$(date +%H%M)
 
+# if [[ sunrise -le ${time} && ${time} -le sunset ]]; then
+#     # solarized_light
+#     solarized_dark
+# else
+#     solarized_dark
+# fi
 
-DEFAULT_USER=$USER
+alias vim="stty -ixon; vim"
+# alias sudo="sudo -E"
 alias l="ls -lh"
 alias ll="ls -lha"
-alias cl="clear"
 
-# Go workspace (Go dependencies when used in import statements are searched for
-# in the $GOPATH variable, and then in the $GOROOT(go installation directory,
-# /usr/lib/go by default). IF you expect to use external depdencies, not only
-# basic from $GOROOT, you must specify workspace area in your ~/.bash_profile
-# (or equivalent)
+export PATH=$PATH:~/Downloads/android-studio/bin
+export VISUAL="vim"
+export SWT_GTK3=0
+alias cl="clear"
+alias hackerrank="cd ~/Projects/HackerRank/Algorithms/"
 export GOPATH=~/Projects/go_workspace
 export GOBIN=$GOPATH/bin
+export PATH=$PATH:~/Downloads/idea-IC-172.4343.14/bin
 
-# Add the bin directory of the GOPATH (the go workspace) to run the installed
-# programs from anywhere
-export PATH=$PATH:$GOBIN
+# HIDE THE CURSOR IN C
+# printf("\e[?25l");
+# SHOW THE CURSOR IN C
+# printf("\e[?25h");
 
-# Add gems executables into the path
-export GEMSPATH=~/.gem/ruby/2.5.0
-export PATH=$PATH:$GEMSPATH/bin
-
-alias x3="xinit i3"
-alias x4="xinit xfce4"
-
-export EDITOR=/usr/bin/vim
+export PATH=$PATH:~/.gem/ruby/2.5.0/bin
 
 # added by travis gem
-[ -f /home/tesla/.travis/travis.sh ] && source /home/tesla/.travis/travis.sh
+[ -f ~/.travis/travis.sh ] && source ~/.travis/travis.sh
 
-# zsh-autosuggestions (fish-like zsh terminal autosuggestions)
-source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+# export PATH=~/Projects/pacaur:$PATH
+
+# Get color suport for 'less'
+export LESS="--RAW-CONTROL-CHARS"
+
+# Use colors for less, man, etc...
+[[ -f ~/.LESS_TERMCAP ]] && . ~/.LESS_TERMCAP
+
+# For Jupyter Notebooks 'Failed to launch GPU process' (https://github.com/jupyter/notebook/issues/2836)
+export BROWSER=google-chrome-stable
+
+# Set XDG_DATA_HOME
+if [[ -z "$XDG_DATA_HOME" ]]; then
+    export XDG_DATA_HOME=$HOME/.config
+fi
+
+# For sdcv (offline dictionary)
+# Where to store the dictionaries for sdcv
+export STARDICT_DATA_DIR=$XDG_DATA_HOME
+alias def="sdcv"
