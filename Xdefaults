@@ -1,4 +1,3 @@
-
 !-------------------------------------------------------------------------------
 ! Xft settings
 !-------------------------------------------------------------------------------
@@ -30,13 +29,20 @@ URxvt.lineSpace:            0
 ! Fonts
 URxvt.allow_bold:           true
 /* URxvt.font:                 -*-terminus-medium-r-normal-*-12-120-72-72-c-60-iso8859-1 */
-/* URxvt*font: xft:Inconsolata-g:pixelsize=13 */
-/* URxvt*boldFont: xft:Inconsolata-g:pixelsize=13 */
-URxvt*font: xft:Iosevka Medium:pixelsize=13
-URxvt*boldFont: xft:Iosevka Medium:pixelsize=13
+/* URxvt*font: xft:Inconsolata for Powerline:pixelsize=12 */
+/* URxvt*boldFont: xft:Inconsolata for Powerline:pixelsize=12 */
+/* URxvt*font: xft:Source Code Pro for Powerline:pixelsize=11 */
+/* URxvt*boldFont: xft:Source Code Pro for Powerline:pixelsize=11 */
+/* URxvt*font: xft:Droid Sans Mono Slashed for Powerline:pixelsize=9 */
+/* URxvt*boldFont: xft:Droid Sans Mono Slashed for Powerline:pixelsize=9 */
+URxvt*font: xft:Iosevka Medium:pixelsize=12
+URxvt*boldFont: xft:Iosevka Medium:pixelsize=12
 
 ! Fix font space
-URxvt*letterSpace: -1
+/* Use with Inconsolata for Powerline */
+/* URxvt*letterSpace: -1 */
+/* Use with Source Code Pro for Powerline */
+/* URxvt*letterSpace: -2 */
 
 ! Scrollbar
 URxvt.scrollStyle:          rxvt
