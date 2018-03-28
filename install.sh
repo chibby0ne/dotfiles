@@ -8,9 +8,9 @@ echo "Installing several very useful packages (needs sudo)"
 echo "================="
 distro=$(cat /etc/*-release | grep ^NAME= | sed 's/NAME="\(.*\)"/\1/g')
 if [[ "$distro" == "Arch Linux" ]]; then
-    sudo pacman -Syyu --noconfirm && sudo pacman -S vim tmux dmidecode ruby rubygems docker curl powerline-fonts ttf-dejavu go noto-fonts --noconfirm
+    sudo pacman -Syyu --noconfirm && sudo pacman -S vim tmux dmidecode ruby rubygems rust go python docker curl powerline-fonts ttf-dejavu noto-fonts --noconfirm
 elif [[ "$distro" == "Ubuntu" ]]; then
-    sudo apt-get update && sudo apt-get install vim tmux dmidecode ruby-dev -y
+    sudo apt-get update && sudo apt-get install vim tmux dmidecode ruby-dev rubygems rust python -y
     # Taken from dockers docs: https://docs.docker.com/install/linux/docker-ce/ubuntu/#set-up-the-repository
     sudo apt-get install apt-transport-https ca-certificates curl software-properties-common -y
     curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
@@ -78,6 +78,8 @@ echo "Installing Vundle"
 git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 echo "Installing all other vim plugins listed in .vimrc"
 vim -c ":PluginInstall" -c ":q"
+echo "Installing YouCompleteMe"
+cd ~/.vim/bundle/YouCompleteMe/ && ./install.py --all
 echo -e "All Vim plugins installed!\n"
 
 echo "================="
