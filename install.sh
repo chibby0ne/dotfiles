@@ -15,18 +15,51 @@ function printMessage() {
     fi
 }
 
+function createSwapSpace() {
+    # Allocate 1 GB
+    echo "Allocating 1 GB"
+    sudo dd if=/dev/zero of=/swapfile1 bs=4M count=256
+
+    # Secure swap area
+    echo "Securing swap file"
+    sudo chown root:root /swapfile1
+    sudo chmod 0600 /swapfile
+
+    # Set up swap area
+    echo "Setting up swap file"
+    sudo mkswap /swapfile1
+
+    # Activate swap space
+    echo "Activating swap file"
+    sudo swapon /swapfile1
+
+    # Update fstab file so that it is mounted at boot
+    echo -e "Updating fstab to automount swapfile at reboot\n"
+    sudo sh -c "echo '/swapfile1 none swap sw 0 0' >> /etc/fstab"
+}
+
+swap_space=$(free -g | grep Swap | sed -E 's/Swap:\s+(\w+)\s+.*/\1/g')
+if [[ $swap_space -lt 1 ]]; then
+    echo "Need to create swap space before compiling YouCompleteMe"
+    echo "================="
+    echo "Creating swap space (needs sudo)"
+    echo "================="
+    createSwapSpace
+fi
+
 # Get script directory
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 echo "================="
 echo "Installing several very useful packages (needs sudo)"
 echo "================="
-distro=$(cat /etc/*-release | grep ^NAME= | sed -E 's/NAME="(\w+)\s+\w+"/\1/g' | tr "[:upper:]" "[:lower:]")
+distro=$(cat /etc/*-release | grep ^NAME= | sed -E 's/NAME="(\w+)\s+.*"/\1/g' | tr "[:upper:]" "[:lower:]")
 if [[ "$distro" == "arch" ]]; then
     sudo pacman -Syyu --noconfirm && sudo pacman -S vim tmux dmidecode ruby rubygems \
-        rust go python docker curl powerline-fonts ttf-dejavu noto-fonts --noconfirm
+        rust go python python-dev docker curl powerline-fonts ttf-dejavu noto-fonts cmake mono --noconfirm
 elif [[ "$distro" == "ubuntu" || "$distro" == "debian" || "$distro" == "raspbian" ]]; then
-    sudo apt update && sudo apt install vim tmux dmidecode ruby-dev libgemplugin-ruby rustc python -Vy
+    sudo apt update && sudo apt upgrade -Vy && sudo apt install vim vim-nox tmux \
+        dmidecode ruby-dev rustc python python-dev cmake mono-xbuild -Vy
     curl -sSL get.docker.com | sh
 fi
 printMessage $? "All programs installed\n" "Error installing all the programs\n" "EXIT"
@@ -40,12 +73,6 @@ for file in bashrc zshrc Xdefaults vimrc gitconfig tern-config profile; do
     printMessage $? "$file symlink set" "Failed to set $file symlink"
 done
 
-# echo "Setting bashrc"
-# ln -sf ${SCRIPT_DIR}/bashrc ~/.bashrc
-# echo "Setting zshrc"
-# ln -sf ${SCRIPT_DIR}/zshrc ~/.zshrc
-# echo "Setting Xdefaults"
-# ln -sf ${SCRIPT_DIR}/Xdefaults ~/.Xdefaults
 echo "Setting .config/i3/config"
 mkdir -p ~/.config/i3 && ln -sf ${SCRIPT_DIR}/i3/config ~/.config/i3/config
 printMessage $? ".config/i3/config symlink set" "Failed to set .config/i3/config symlink"
@@ -55,17 +82,6 @@ printMessage $? "i3 lock screen picture symlink set" "Failed to set i3 lockscree
 echo "Setting .tmux/tmux.conf.dev"
 mkdir ~/.tmux && ln -sf ${SCRIPT_DIR}/tmux/tmux.conf.dev ~/.tmux/.tmux.conf.dev
 printMessage $? "i3 lock screen picture symlink set\n" "Failed to set i3 lockscreen picture symlink\n"
-# echo "Setting vimrc"
-# ln -sf ${SCRIPT_DIR}/vimrc ~/.vimrc
-# echo -e "Setting tmux.conf"
-# ln -sf ${SCRIPT_DIR}/tmux.conf ~/.tmux.conf
-# echo -e "Setting gitconfig"
-# ln -sf ${SCRIPT_DIR}/gitconfig ~/.gitconfig
-# echo -e "Setting global tern-config (required for js completion in vim with YCM)"
-# ln -sf ${SCRIPT_DIR}/tern-config ~/.tern-config
-# echo -e "Setting profile\n"
-# ln -sf ${SCRIPT_DIR}/profile ~/.profile
-
 
 # Find computer model to see if the scripts for handling fn keys are required
 laptop_model=$(sudo dmidecode | grep 'Version: ' | head -n 1 | sed 's/Version: \(.*\)/\1/g' | sed 's/[[:blank:]]//g')
@@ -86,14 +102,6 @@ if [[ "$distro" == "arch" && "$laptop_model" == "UX330UAK.301" ]]; then
     printMessage $? "adjust_brightness installed\n" "Failed to install adjust_brightness\n"
 fi
 
-# echo "================="
-# echo "Setting up .tmux.conf.dev"
-# echo "================="
-# echo "Creating ~/.tmux"
-# mkdir ~/.tmux
-# echo -e "Setting symlink\n"
-# ln -sf ${SCRIPT_DIR}/tmux/tmux.conf.dev ~/.tmux/.tmux.conf.dev
-
 echo "================="
 echo "Configuring Vim"
 echo "================="
@@ -104,9 +112,9 @@ echo "Cloning Vundle"
 git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 printMessage $? "Vundle cloned" "Failed to clone Vundle"
 echo "Installing all other vim plugins listed in .vimrc"
-vim -c ":PluginInstall" -c ":q"
+vim -c ":PluginInstall" -c ":q" -c ":q"
 printMessage $? "vim plugins installed" "Failed to install vim plugins"
-echo "Installing YouCompleteMe"
+echo "Installing YouCompleteMe (with support for all languages)"
 cd ~/.vim/bundle/YouCompleteMe/ && ./install.py --all
 printMessage $? "YouCompleteMe installed\n" "Failed to install YouCompleteMe\n"
 
@@ -115,10 +123,6 @@ echo "Configuring Ruby Gems"
 echo "================="
 for app in bundler jekyll; do
     echo "Installing $app"
-    gem install $app
-    printMessage "$app installed" "Error installing $app"
+    gem install $app --user-install
+    printMessage $? "$app installed" "Error installing $app"
 done
-# echo "Installing bundler"
-# gem install bundler
-# echo "Installing jekyll"
-# gem install jekyll
