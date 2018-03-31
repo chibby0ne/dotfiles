@@ -26,25 +26,8 @@ if [[ "$distro" == "arch" ]]; then
     sudo pacman -Syyu --noconfirm && sudo pacman -S vim tmux dmidecode ruby rubygems \
         rust go python docker curl powerline-fonts ttf-dejavu noto-fonts --noconfirm
 elif [[ "$distro" == "ubuntu" || "$distro" == "debian" || "$distro" == "raspbian" ]]; then
-    installDistro=$distro
     sudo apt update && sudo apt install vim tmux dmidecode ruby-dev libgemplugin-ruby rustc python -Vy
-    # Taken from dockers docs: https://docs.docker.com/install/linux/docker-ce/ubuntu/#set-up-the-repository
-    sudo apt install apt-transport-https ca-certificates curl software-properties-common -Vy
-    if [[ "$installDistro" == "raspbian" ]]; then
-        installDistro=debian
-    fi
-    curl -fsSL https://download.docker.com/linux/$installDistro/gpg | sudo apt-key add -
-    if [[ "$distro" == "raspbian" ]]; then
-        # Taken from https://docs.docker.com/install/linux/docker-ce/debian/#set-up-the-repository
-        echo "deb [arch=armhf] https://download.docker.com/linux/debian $(lsb_release -cs) stable" | \
-            sudo tee /etc/apt/sources.list.d/docker.list
-    else
-        # Taken from https://docs.docker.com/install/linux/docker-ce/debian/#set-up-the-repository
-        sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/$distro \
-            $(lsb_release -cs) stable"
-    fi
-    sudo apt update
-    sudo apt install docker-ce -Vy
+    curl -sSL get.docker.com | sh
 fi
 printMessage $? "All programs installed\n" "Error installing all the programs\n" "EXIT"
 
