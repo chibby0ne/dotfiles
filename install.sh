@@ -38,6 +38,13 @@ function createSwapSpace() {
     sudo sh -c "echo '/swapfile1 none swap sw 0 0' >> /etc/fstab"
 }
 
+# $1: dir name
+function createDirIfDoesntExist() {
+    if [[ ! -d $1 ]]; then
+        mkdir -p $1
+    fi
+}
+
 swap_space=$(free -g | grep Swap | sed -E 's/Swap:\s+(\w+)\s+.*/\1/g')
 if [[ $swap_space -lt 1 ]]; then
     echo "Need to create swap space before compiling YouCompleteMe"
@@ -55,11 +62,12 @@ echo "Installing several very useful packages (needs sudo)"
 echo "================="
 distro=$(cat /etc/*-release | grep ^NAME= | sed -E 's/NAME="(\w+)\s+.*"/\1/g' | tr "[:upper:]" "[:lower:]")
 if [[ "$distro" == "arch" ]]; then
-    sudo pacman -Syyu --noconfirm && sudo pacman -S vim tmux dmidecode ruby rubygems \
-        rust go python python-dev docker curl powerline-fonts ttf-dejavu noto-fonts cmake mono --noconfirm
+    sudo pacman -Syyu --noconfirm && sudo pacman -S gvim tmux dmidecode ruby rubygems \
+        rust go python python-dev docker curl powerline-fonts ttf-dejavu noto-fonts cmake \
+        npm cargo node --noconfirm
 elif [[ "$distro" == "ubuntu" || "$distro" == "debian" || "$distro" == "raspbian" ]]; then
-    sudo apt update && sudo apt upgrade -Vy && sudo apt install vim vim-nox tmux \
-        dmidecode ruby-dev rustc python python-dev cmake mono-xbuild -Vy
+    sudo apt update && sudo apt upgrade -Vy && sudo apt install gvim vim-nox tmux \
+        dmidecode ruby-dev rustc python python-dev cmake npm node cargo -Vy
     curl -sSL get.docker.com | sh
 fi
 printMessage $? "All programs installed\n" "Error installing all the programs\n" "EXIT"
@@ -74,13 +82,13 @@ for file in bashrc zshrc Xdefaults vimrc gitconfig tern-config profile; do
 done
 
 echo "Setting .config/i3/config"
-mkdir -p ~/.config/i3 && ln -sf ${SCRIPT_DIR}/i3/config ~/.config/i3/config
+createDirIfDoesntExist ~/.config/i3 && ln -sf ${SCRIPT_DIR}/i3/config ~/.config/i3/config
 printMessage $? ".config/i3/config symlink set" "Failed to set .config/i3/config symlink"
 echo "Setting i3 lockscreen picture"
-mkdir -p ~/Pictures && ln -sf ${SCRIPT_DIR}/i3/marscolonization.png ~/Pictures/marscolonization.png
+createDirIfDoesntExist ~/Pictures && ln -sf ${SCRIPT_DIR}/i3/marscolonization.png ~/Pictures/marscolonization.png
 printMessage $? "i3 lock screen picture symlink set" "Failed to set i3 lockscreen picture symlink"
 echo "Setting .tmux/tmux.conf.dev"
-mkdir ~/.tmux && ln -sf ${SCRIPT_DIR}/tmux/tmux.conf.dev ~/.tmux/.tmux.conf.dev
+createDirIfDoesntExist ~/.tmux && ln -sf ${SCRIPT_DIR}/tmux/tmux.conf.dev ~/.tmux/.tmux.conf.dev
 printMessage $? "i3 lock screen picture symlink set\n" "Failed to set i3 lockscreen picture symlink\n"
 
 # Find computer model to see if the scripts for handling fn keys are required
@@ -115,7 +123,7 @@ echo "Installing all other vim plugins listed in .vimrc"
 vim -c ":PluginInstall" -c ":q" -c ":q"
 printMessage $? "vim plugins installed" "Failed to install vim plugins"
 echo "Installing YouCompleteMe (with support for all languages)"
-cd ~/.vim/bundle/YouCompleteMe/ && ./install.py --all
+cd ~/.vim/bundle/YouCompleteMe/ && ./install.py --clang-completer --go-completer --rust-completer --js-completer --java-completer
 printMessage $? "YouCompleteMe installed\n" "Failed to install YouCompleteMe\n"
 
 echo "================="
@@ -123,6 +131,6 @@ echo "Configuring Ruby Gems"
 echo "================="
 for app in bundler jekyll; do
     echo "Installing $app"
-    gem install $app --user-install
+    sudo gem install $app
     printMessage $? "$app installed" "Error installing $app"
 done

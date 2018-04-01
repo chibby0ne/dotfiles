@@ -123,7 +123,7 @@ let g:UltiSnipsEditSplit="vertical"
 "preview window triggered because there is no preview string in completeopt,
 "this option is irrelevant. See the g:ycm_add_preview_to_completeopt option
 "for more details.
-let g:ycm_autoclose_preview_window_after_completion = 1
+let g:ycm_autoclose_preview_window_after_completion = 0
 
 " Semantic Completer for STL containers and std library objetcs and functions
 " (needed to add paths for gcc includes
