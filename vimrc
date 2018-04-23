@@ -150,6 +150,10 @@ let g:ycm_show_diagnostics_ui = 0
 " settings for java autocompletion using eclim
 let g:EclimCompletionMethod = 'omnifunc'
 
+
+" Automatically add imports on save in go files
+let g:go_fmt_command = "goimports"
+
 " for opening ctrlp in MRU file mode
 " let g:ctrlp_cmd = 'CtrlPMRU'
 " for letting ctrlp show hidden files
