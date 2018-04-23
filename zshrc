@@ -122,6 +122,7 @@ alias hackerrank="cd ~/Projects/HackerRank/Algorithms/"
 export GOPATH=~/Projects/go_workspace
 export GOBIN=$GOPATH/bin
 export PATH=$PATH:~/Downloads/idea-IC-172.4343.14/bin
+export PATH=$PATH:$GOBIN
 
 # HIDE THE CURSOR IN C
 # printf("\e[?25l");
