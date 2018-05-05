@@ -154,3 +154,7 @@ fi
 # Where to store the dictionaries for sdcv
 export STARDICT_DATA_DIR=$XDG_DATA_HOME
 alias def="sdcv"
+
+# For cuda installed from pacman
+export PATH=$PATH:/opt/cuda/bin
+export LD_LIBRARY_PATH=/opt/cuda/lib64
