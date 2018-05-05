@@ -150,13 +150,17 @@ let g:ycm_show_diagnostics_ui = 0
 " settings for java autocompletion using eclim
 let g:EclimCompletionMethod = 'omnifunc'
 
-
 " Automatically add imports on save in go files
 let g:go_fmt_command = "goimports"
 let g:syntastic_go_checkers = ['go']
 " let g:syntastic_go_checkers = ['golint', 'govet', 'gometalinter', 'go']
 let g:syntastic_go_metalinter_args = ['--disable-all', '--enable=errcheck']
 " let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
+
+""""""""""""""""""""""""""
+" let airline use powerline fonts (need to install them using package manager)
+""""""""""""""""""""""""""
+let g:airline_powerline_fonts = 1
 
 " for opening ctrlp in MRU file mode
 " let g:ctrlp_cmd = 'CtrlPMRU'
