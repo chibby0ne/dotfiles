@@ -153,6 +153,10 @@ let g:EclimCompletionMethod = 'omnifunc'
 
 " Automatically add imports on save in go files
 let g:go_fmt_command = "goimports"
+let g:syntastic_go_checkers = ['go']
+" let g:syntastic_go_checkers = ['golint', 'govet', 'gometalinter', 'go']
+let g:syntastic_go_metalinter_args = ['--disable-all', '--enable=errcheck']
+" let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
 
 " for opening ctrlp in MRU file mode
 " let g:ctrlp_cmd = 'CtrlPMRU'
