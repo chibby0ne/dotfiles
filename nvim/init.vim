@@ -63,6 +63,13 @@ call plug#begin('~/.local/share/nvim/plugged')
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 
+" vim-colors-solarized
+Plug 'altercation/vim-colors-solarized'
+
+" vim-comementary: provides shortcuts and keybindings for
+" commenting/uncommenting code
+Plug 'tpope/vim-commentary'
+
 " ale (Asynchronous Lint Engine)
 Plug 'w0rp/ale'
 
@@ -142,6 +149,21 @@ let g:airline_theme='solarized'
 let g:airline_solarized_bg='dark'
 
 """"""""""""""""""""""""""""""""""
+" vim-colors-solarized
+""""""""""""""""""""""""""""""""""
+set background=dark
+let g:solarized_termcolors=16
+colorscheme solarized
+
+""""""""""""""""""""""""""""""""""
+" Ultisnips
+""""""""""""""""""""""""""""""""""
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+let g:UltiSnipsEditSplit="vectical>"
+
+""""""""""""""""""""""""""""""""""
 " deoplete
 """"""""""""""""""""""""""""""""""
 let g:deoplete#enable_at_startup = 1
@@ -160,6 +182,7 @@ if g:flow_path != 'flow not found'
   let g:deoplete#sources#flow#flow_bin = g:flow_path
 endif
 
+
 """"""""""""""""""""""""""""""""""
 " deoplete-jedi (for python)
 """"""""""""""""""""""""""""""""""
@@ -175,7 +198,7 @@ let g:deoplete#sources#rust#racer_source_path = '~/.rustup/toolchains/stable-x86
 " deoplete-clang (for C/C++/Objective-C/Objective-C++)
 """"""""""""""""""""""""""""""""""
 let g:deoplete#sources#clang#libclang_path = '/usr/lib/libclang.so'
-let g:deoplete#sources#clang#clang_header =  '/usr/lib/clang/'
+let g:deoplete#sources#clang#clang_header =  '/usr/include/clang/'
 
 """""""""""""""""""""""""""""""""""
 " mapping h, j, k, l to j, k, l. ;
