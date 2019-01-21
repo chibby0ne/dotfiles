@@ -27,3 +27,5 @@
     co = checkout
     logcolor = log --decorate
     graph = log --graph --oneline --decorate --all
+[commit]
+	gpgsign = true
