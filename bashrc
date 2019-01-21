@@ -186,4 +186,7 @@ alias tmux="TERM=screen-256color-bce tmux"
 export GOPATH=$HOME/Projects/go_workspace
 
 # added by travis gem
-[ -f /home/tesla/.travis/travis.sh ] && source /home/tesla/.travis/travis.sh
+[ -f ~/.travis/travis.sh ] && source ~/.travis/travis.sh
+
+# added by Miniconda3 installer
+export PATH="~/miniconda3/bin:$PATH"

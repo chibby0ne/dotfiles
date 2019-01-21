@@ -8,7 +8,7 @@ export ZSH=~/.oh-my-zsh
 ZSH_THEME="agnoster"
 
 # Uncomment the following line to use case-sensitive completion.
-# CASE_SENSITIVE="true"
+CASE_SENSITIVE="true"
 
 # Uncomment the following line to use hyphen-insensitive completion. Case
 # sensitive completion must be off. _ and - will be interchangeable.
@@ -86,30 +86,34 @@ source $ZSH/oh-my-zsh.sh
 eval `dircolors ~/Projects/dircolors-solarized/dircolors.ansi-dark`
 solarized_dark() {
     eval `dircolors ~/Projects/dircolors-solarized/dircolors.ansi-dark`
-    cp ~/.config/xfce4/terminal/terminalrc-solarized-dark ~/.config/xfce4/terminal/terminalrc
+    # cp ~/.config/xfce4/terminal/terminalrc-solarized-dark ~/.config/xfce4/terminal/terminalrc
+    # sed -i 's/*background: #fdf6e3/*background: #002b36/g' ~/.Xdefaults
+    sed -i 's/*background: #fdf6e3/*background: #002b36/g' ~/.Xresources
+    sed -i 's/set background=light/set background=dark/g' ~/.config/nvim/init.vim
+    xrdb ~/.Xresources
+
+    # Uncomment dark and comment light if necessary
+    sed -i 's/^#\(.*solarized-dark.*\)/\1/g' ~/.taskrc
+    sed -i 's/^\([^#]\)\(.*solarized-light.*\)/#\1\2/g' ~/.taskrc
 }
 
 solarized_light() {
     eval `dircolors ~/Projects/dircolors-solarized/dircolors.ansi-light`
-    cp ~/.config/xfce4/terminal/terminalrc-solarized-light ~/.config/xfce4/terminal/terminalrc
+    # cp ~/.config/xfce4/terminal/terminalrc-solarized-light ~/.config/xfce4/terminal/terminalrc
+    # sed -i 's/*background: #002b36/*background: #fdf6e3/g' ~/.Xdefaults
+    sed -i 's/*background: #002b36/*background: #fdf6e3/g' ~/.Xresources
+    sed -i 's/set background=dark/set background=light/g' ~/.config/nvim/init.vim
+    xrdb ~/.Xresources
+
+    # Uncomment light and comment dark if necessary
+    sed -i 's/^#\(.*solarized-light.*\)/\1/g' ~/.taskrc
+    sed -i 's/^\([^#]\)\(.*solarized-dark.*\)/#\1\2/g' ~/.taskrc
 }
 
 default_terminal() {
     cp ~/.config/xfce4/terminal/terminalrc.bak ~/.config/xfce4/terminal/terminalrc
 }
 
-# sunrise=10#0730
-# sunset=10#1940
-# time=10#$(date +%H%M)
-
-# if [[ sunrise -le ${time} && ${time} -le sunset ]]; then
-#     # solarized_light
-#     solarized_dark
-# else
-#     solarized_dark
-# fi
-
-alias vim="stty -ixon; vim"
 # alias sudo="sudo -E"
 alias l="ls -lh"
 alias ll="ls -lha"
@@ -134,8 +138,6 @@ export PATH=$PATH:~/.gem/ruby/2.5.0/bin
 # added by travis gem
 [ -f ~/.travis/travis.sh ] && source ~/.travis/travis.sh
 
-# export PATH=~/Projects/pacaur:$PATH
-
 # Get color suport for 'less'
 export LESS="--RAW-CONTROL-CHARS"
 
@@ -158,3 +160,57 @@ alias def="sdcv"
 # For cuda installed from pacman
 export PATH=$PATH:/opt/cuda/bin
 export LD_LIBRARY_PATH=/opt/cuda/lib64
+
+#alias vim="stty -ixon; vim"
+alias vi='nvim'
+alias vim='nvim'
+export GPG_TTY=$(tty)
+alias netstat='ss'
+
+# Added after installing nvm (node version manager)
+source /usr/share/nvm/init-nvm.sh
+
+# Adding path to npm installed binaries
+export PATH=$PATH:~/.nvm/versions/node/v10.4.1/bin
+
+# Home installed binaries
+export PATH=$PATH:~/.bin
+
+# Add exercism command completion
+if [ -f ~/.config/exercism/exercism_completion.zsh ]; then
+    source ~/.config/exercism/exercism_completion.zsh
+fi
+
+# Adding racer to path
+export PATH=$PATH:~/.cargo/bin
+
+# $1: directory where to move
+# cd() {
+#     builtin cd $*
+#     ls -lh
+# }
+
+
+add_to_pythonpath() {
+    [[ ":$PYTHONPATH:" != *":${PWD}:"* ]] && PYTHONPATH="${PWD}:${PYTHONPATH}"
+    export PYTHONPATH
+}
+
+export SYSTEMD_EDITOR="/bin/nvim"
+
+# For powerline and powerline fonts
+# powerline-daemon -q
+# source /usr/lib/python3.7/site-packages/powerline/bindings/zsh/powerline.zsh
+#
+#
+# eval "$(pyenv init -)"
+#
+# Needed for miniconda
+source /home/tesla/miniconda3/etc/profile.d/conda.sh
+export PATH="$PATH:/home/tesla/miniconda3/bin"
+
+export PATH=$PATH:~/.local/bin
+
+export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
+
+export MANWIDTH=80
