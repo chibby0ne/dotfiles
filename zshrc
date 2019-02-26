@@ -206,8 +206,8 @@ export SYSTEMD_EDITOR="/bin/nvim"
 # eval "$(pyenv init -)"
 #
 # Needed for miniconda
-source /home/tesla/miniconda3/etc/profile.d/conda.sh
-export PATH="$PATH:/home/tesla/miniconda3/bin"
+source ~/miniconda3/etc/profile.d/conda.sh
+export PATH="$PATH:~/miniconda3/bin"
 
 export PATH=$PATH:~/.local/bin
 

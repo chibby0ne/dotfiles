@@ -190,3 +190,5 @@ export GOPATH=$HOME/Projects/go_workspace
 
 # added by Miniconda3 installer
 export PATH="~/miniconda3/bin:$PATH"
+
+alias vim="nvim"

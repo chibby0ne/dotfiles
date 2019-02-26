@@ -45,6 +45,27 @@ set incsearch
 "set paste key
 set pastetoggle=<F2>
 
+if has("nvim")
+  set undodir=$HOME/.config/nvim/undo " where to save undo histories
+  set backupdir=$HOME/.config/nvim/backup/
+  set directory=$HOME/.config/nvim/backup/
+else
+  set nocompatible
+  set undodir=$HOME/.config/vim/undo " where to save undo histories
+  set backupdir=$HOME/.config/vim/backup/
+  set directory=$HOME/.config/vim/backup/
+  set viminfo+=$HOME/.config/vim/viminfo
+  set runtimepath+=$HOME/.config/vim
+endif
+
+set undofile                " Save undo's after file closes
+set undolevels=1000         " How many undos
+set undoreload=10000        " number of lines to save for undo
+set backup
+
+" set termguicolors (needed for neosolarized, vim-solarized and other
+" solarized themes) ONLY FOR TERMINALS THAT SUPPORT TRUE COLORS
+"set termguicolors
 
 " Specify a directory for plugins
 " - For Neovim: ~/.local/share/nvim/plugged
@@ -66,12 +87,14 @@ Plug 'honza/vim-snippets'
 " vim-colors-solarized
 Plug 'altercation/vim-colors-solarized'
 
-" vim-comementary: provides shortcuts and keybindings for
-" commenting/uncommenting code
-Plug 'tpope/vim-commentary'
+" vim-javascript
+Plug 'pangloss/vim-javascript'
+
+" vim-jsx
+Plug 'mxw/vim-jsx'
 
 " ale (Asynchronous Lint Engine)
-Plug 'w0rp/ale'
+" Plug 'w0rp/ale'
 
 " vim-airline
 Plug 'vim-airline/vim-airline'
@@ -82,20 +105,20 @@ Plug 'vim-airline/vim-airline-themes'
 " deoplete
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
-" deoplete-flow
-Plug 'steelsojka/deoplete-flow'
+" language client
+Plug 'autozimu/LanguageClient-neovim', {
+            \ 'branch': 'next',
+            \ 'do': 'bash install.sh',
+            \ }
 
-" deoplete-jedi (for python)
-Plug 'zchee/deoplete-jedi'
+" vim-commentary
+Plug 'tpope/vim-commentary'
 
-" deoplete-go (for go)
-Plug 'zchee/deoplete-go', { 'do': 'make' }
+" vim-fugitive
+Plug 'tpope/vim-fugitive'
 
-" deoplete-clang (for c/c++/objective-c/objective-c++)
-Plug 'zchee/deoplete-clang'
-
-" deoplete-rust (for rust)
-Plug 'sebastianmarkow/deoplete-rust'
+" TagBar
+Plug 'majutsushi/tagbar'
 
 " On-demand loading
 "Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
@@ -105,7 +128,11 @@ Plug 'sebastianmarkow/deoplete-rust'
 "Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
 
 " Using a tagged release; wildcard allowed (requires git 1.9.2 or above)
-"Plug 'fatih/vim-go', { 'tag': '*' }
+" Plug 'fatih/vim-go', { 'tag': '*' }
+" Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+
+" Zeal for vim
+Plug 'KabbAmine/zeavim.vim'
 
 " Plugin options
 "Plug 'nsf/gocode', { 'tag': 'v.20150303', 'rtp': 'vim' }
@@ -154,6 +181,8 @@ let g:airline_solarized_bg='dark'
 set background=dark
 let g:solarized_termcolors=16
 colorscheme solarized
+let g:solarized_termtrans=1
+
 
 """"""""""""""""""""""""""""""""""
 " Ultisnips
@@ -161,7 +190,7 @@ colorscheme solarized
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
-let g:UltiSnipsEditSplit="vectical>"
+let g:UltiSnipsEditSplit="vertical"
 
 """"""""""""""""""""""""""""""""""
 " deoplete
@@ -169,36 +198,48 @@ let g:UltiSnipsEditSplit="vectical>"
 let g:deoplete#enable_at_startup = 1
 
 """"""""""""""""""""""""""""""""""
-" deoplete-flow
+" language client configuration
 """"""""""""""""""""""""""""""""""
-let g:deoplete#sources#flow#flow_bin = 'flow' 
-function! StrTrim(txt)
-  return substitute(a:txt, '^\n*\s*\(.\{-}\)\n*\s*$', '\1', '')
-endfunction
+let g:LanguageClient_serverCommands = {
+            \ 'rust': ['/usr/bin/rustup', 'run', 'stable', 'rls'],
+            \ 'python': ['/usr/bin/pyls'],
+            \ 'go': ['~/Projects/go_workspace/bin/go-langserver'],
+            \ 'javascript': ['/usr/bin/javascript-typescript-langserver'],
+            \ 'cpp': ['/usr/bin/cquery', '--log-file=/tmp/cq.log'],
+            \ 'c': ['/usr/bin/cquery', '--log-file=/tmp/cq.log'],
+            \ 'h': ['/usr/bin/cquery', '--log-file=/tmp/cq.log'],
+            \ 'sh': ['/usr/bin/bash-language-server', 'start'],
+            \ }
 
-let g:flow_path = StrTrim(system('PATH=$(npm bin):$PATH && which flow'))
+" nnoremap <F5> :call LanguageClient_contextMenu()<CR>
+" Or map each action separately
+" Shows info of whatever the cursor in hovering on
+nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
+" Jumps to definition
+nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+" Renames all symbols in the code
+nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
+" Can find a symbol in the code
+nnoremap <silent> gs :call LanguageClient#textDocument_documentSymbol()<CR>
+" Calls the formatter on the source file
+nnoremap <silent> <C-f> :call LanguageClient#textDocument_formatting()<CR>
+" Show all references of symb
+nnoremap <silent> gr :call LanguageClient#textDocument_references()<CR>
 
-if g:flow_path != 'flow not found'
-  let g:deoplete#sources#flow#flow_bin = g:flow_path
-endif
+
+" let $RUST_BACKTRACE = 1
+" let g:LanguageClient_loggingLevel = 'INFO'
+" let g:LanguageClient_loggingFile =  expand('~/.local/share/nvim/LanguageClient.log')
+" let g:LanguageClient_serverStderr = expand('~/.local/share/nvim/LanguageServer.log')
 
 
-""""""""""""""""""""""""""""""""""
-" deoplete-jedi (for python)
-""""""""""""""""""""""""""""""""""
-let g:deoplete#sources#jedi#show_docstring = 1
-
-""""""""""""""""""""""""""""""""""
-" deoplete-rust (for rust)
-""""""""""""""""""""""""""""""""""
-let g:deoplete#sources#rust#racer_binary = '~/.cargo/bin/racer'
-let g:deoplete#sources#rust#racer_source_path = '~/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src/'
-
-""""""""""""""""""""""""""""""""""
-" deoplete-clang (for C/C++/Objective-C/Objective-C++)
-""""""""""""""""""""""""""""""""""
-let g:deoplete#sources#clang#libclang_path = '/usr/lib/libclang.so'
-let g:deoplete#sources#clang#clang_header =  '/usr/include/clang/'
+"""""""""""""""""""""""""""""""""""
+" Zeal for vim
+"""""""""""""""""""""""""""""""""""
+nmap <leader>z <Plug>Zeavim<CR>
+vmap <leader>z <Plug>ZVVisSelection<CR>
+nmap gz <Plug>ZVOperator<CR>
+nmap <leader><leader>z <Plug>ZVKeyDocset<CR>
 
 """""""""""""""""""""""""""""""""""
 " mapping h, j, k, l to j, k, l. ;
@@ -361,6 +402,8 @@ if has("autocmd")
         " For all text files set 'textwidth' to 78 characters.
         autocmd FileType text setlocal spell textwidth=78 fo+=t
 
+        autocmd BufRead,BufNewFile *.yml,*.yaml,*.yml.jinja,*.yaml.jinja set shiftwidth=2 | set tabstop=2 | set filetype=yaml
+
         " For all text files set 'textwidth' to 78 characters.
 
         " source .vimrc any time a file is saved so the background color changes if
@@ -393,6 +436,9 @@ if has("autocmd")
         " for CMakeList
         autocmd bufnewfile CMakeLists.txt so ~/Templates/CMakeLists_template.txt
         autocmd BufRead,BufNewFile *.cpp,*.c,*.h, set textwidth=80 fo+=t
+
+        " for rust
+        autocmd BufReadPost *.rs setlocal filetype=rust
 
         " When editing a file, always jump to the last known cursor position.
         " Don't do it when the position is invalid or when inside an event handler
