@@ -211,6 +211,11 @@ let g:LanguageClient_serverCommands = {
             \ 'sh': ['/usr/bin/bash-language-server', 'start'],
             \ }
 
+let g:LanguageClient_loadSettings = 1 " Use an absolute configuration path if you want system-wide settings
+let g:LanguageClient_settingsPath = '/home/tesla/.config/nvim/settings.json'
+set completefunc=LanguageClient#complete
+set formatexpr=LanguageClient_textDocument_rangeFormatting()
+
 " nnoremap <F5> :call LanguageClient_contextMenu()<CR>
 " Or map each action separately
 " Shows info of whatever the cursor in hovering on
