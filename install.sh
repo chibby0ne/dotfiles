@@ -103,7 +103,7 @@ function installBasicPackages() {
     distro=$(cat /etc/*-release | grep ^NAME= | sed -E 's/NAME="(\w+)\s+.*"/\1/g' | tr "[:upper:]" "[:lower:]")
     if [[ "$distro" == "arch" ]]; then
         sudo pacman -Syyu --noconfirm && sudo pacman -S gvim nvim tmux dmidecode ruby rubygems \
-            rustup go python python-dev docker curl noto-fonts cmake \
+            rustup go python python-dev docker curl noto-fonts cmake alacritty \
             npm node --noconfirm
     elif [[ "$distro" == "ubuntu" || "$distro" == "debian" || "$distro" == "raspbian" ]]; then
         sudo apt update && sudo apt upgrade -Vy && sudo apt install gvim nvim vim-nox tmux \
@@ -129,6 +129,9 @@ function installingSymlinks() {
         printMessage $? "$file symlink set" "Failed to set $file symlink"
     done
 
+    echo "Setting alacritty.yml"
+    mkdir -p ~/.config/alacritty/ && ln -sf ${SCRIPT_DIR}/alacritty.yml ~/.config/alacritty/alacritty.yml
+    printMessage $? "alacritty.yml symlink set\n" "Failed to set alacritty.yml symlink\n"
     echo "Setting .config/i3/config"
     mkdir -p ~/.config/i3 && ln -sf ${SCRIPT_DIR}/i3/config ~/.config/i3/config
     printMessage $? ".config/i3/config symlink set" "Failed to set .config/i3/config symlink"
