@@ -83,11 +83,10 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+
 eval `dircolors ~/Projects/dircolors-solarized/dircolors.ansi-dark`
 solarized_dark() {
     eval `dircolors ~/Projects/dircolors-solarized/dircolors.ansi-dark`
-    # cp ~/.config/xfce4/terminal/terminalrc-solarized-dark ~/.config/xfce4/terminal/terminalrc
-    # sed -i 's/*background: #fdf6e3/*background: #002b36/g' ~/.Xdefaults
     sed -i 's/*background: #fdf6e3/*background: #002b36/g' ~/.Xresources
     sed -i 's/set background=light/set background=dark/g' ~/.config/nvim/init.vim
     xrdb ~/.Xresources
@@ -99,8 +98,6 @@ solarized_dark() {
 
 solarized_light() {
     eval `dircolors ~/Projects/dircolors-solarized/dircolors.ansi-light`
-    # cp ~/.config/xfce4/terminal/terminalrc-solarized-light ~/.config/xfce4/terminal/terminalrc
-    # sed -i 's/*background: #002b36/*background: #fdf6e3/g' ~/.Xdefaults
     sed -i 's/*background: #002b36/*background: #fdf6e3/g' ~/.Xresources
     sed -i 's/set background=dark/set background=light/g' ~/.config/nvim/init.vim
     xrdb ~/.Xresources
@@ -114,25 +111,12 @@ default_terminal() {
     cp ~/.config/xfce4/terminal/terminalrc.bak ~/.config/xfce4/terminal/terminalrc
 }
 
-# alias sudo="sudo -E"
 alias l="ls -lh"
 alias ll="ls -lha"
-
-export PATH=$PATH:~/Downloads/android-studio/bin
-export VISUAL="vim"
-export SWT_GTK3=0
 alias cl="clear"
 alias hackerrank="cd ~/Projects/HackerRank/Algorithms/"
-export GOPATH=~/Projects/go_workspace
-export GOBIN=$GOPATH/bin
-export PATH=$PATH:~/Downloads/idea-IC-172.4343.14/bin
-export PATH=$PATH:$GOBIN
 
-# HIDE THE CURSOR IN C
-# printf("\e[?25l");
-# SHOW THE CURSOR IN C
-# printf("\e[?25h");
-
+export VISUAL="vim"
 export PATH=$PATH:~/.gem/ruby/2.5.0/bin
 
 # added by travis gem
@@ -142,7 +126,7 @@ export PATH=$PATH:~/.gem/ruby/2.5.0/bin
 export LESS="--RAW-CONTROL-CHARS"
 
 # Use colors for less, man, etc...
-[[ -f ~/.LESS_TERMCAP ]] && . ~/.LESS_TERMCAP
+[[ -f ~/.LESS_TERMCAP ]] && source ~/.LESS_TERMCAP
 
 # For Jupyter Notebooks 'Failed to launch GPU process' (https://github.com/jupyter/notebook/issues/2836)
 export BROWSER=google-chrome-stable
@@ -161,35 +145,20 @@ alias def="sdcv"
 export PATH=$PATH:/opt/cuda/bin
 export LD_LIBRARY_PATH=/opt/cuda/lib64
 
-#alias vim="stty -ixon; vim"
 alias vi='nvim'
 alias vim='nvim'
 export GPG_TTY=$(tty)
 alias netstat='ss'
 
 # Added after installing nvm (node version manager)
-source /usr/share/nvm/init-nvm.sh
-
-# Adding path to npm installed binaries
-export PATH=$PATH:~/.nvm/versions/node/v10.4.1/bin
-
-# Home installed binaries
-export PATH=$PATH:~/.bin
+if [ -f ~/.config/exercism/exercism_completion.zsh ]; then
+    source /usr/share/nvm/init-nvm.sh
+fi
 
 # Add exercism command completion
 if [ -f ~/.config/exercism/exercism_completion.zsh ]; then
     source ~/.config/exercism/exercism_completion.zsh
 fi
-
-# Adding racer to path
-export PATH=$PATH:~/.cargo/bin
-
-# $1: directory where to move
-# cd() {
-#     builtin cd $*
-#     ls -lh
-# }
-
 
 add_to_pythonpath() {
     [[ ":$PYTHONPATH:" != *":${PWD}:"* ]] && PYTHONPATH="${PWD}:${PYTHONPATH}"
@@ -211,8 +180,16 @@ if [[ -f  ~/miniconda3/etc/profile.d/conda.sh ]]; then
     export PATH="$PATH:~/miniconda3/bin"
 fi
 
-export PATH=$PATH:~/.local/bin
-
-export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
-
 export MANWIDTH=80
+
+export GOPATH=~/Projects/go_workspace
+export GOBIN=$GOPATH/bin
+export PATH=$PATH:$GOBIN
+export PATH=$PATH:~/.local/bin
+export PATH=$PATH:~/.cargo/bin
+# Home installed binaries
+export PATH=$PATH:~/.bin
+
+# For cuda installed from pacman
+export PATH=$PATH:/opt/cuda/bin
+export LD_LIBRARY_PATH=/opt/cuda/lib64
