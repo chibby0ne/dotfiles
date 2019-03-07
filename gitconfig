@@ -3,13 +3,13 @@
 	email = chibby0ne@gmail.com
     username = chibby0ne
 [core]
-	editor = vim
+	editor = nvim
 [merge]
-	tool = vimdiff
+	tool = nvim -d
 [credential]
 	helper = cache --timeout=3600
 [diff]
-	tool = vimdiff
+	tool = nvim -d
 [difftool]
 	prompt = false
 [alias]
