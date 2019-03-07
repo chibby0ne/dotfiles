@@ -83,6 +83,11 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+######################################
+#
+# Functions
+#
+######################################
 
 eval `dircolors ~/Projects/dircolors-solarized/dircolors.ansi-dark`
 solarized_dark() {
@@ -111,16 +116,33 @@ default_terminal() {
     cp ~/.config/xfce4/terminal/terminalrc.bak ~/.config/xfce4/terminal/terminalrc
 }
 
+add_to_pythonpath() {
+    [[ ":$PYTHONPATH:" != *":${PWD}:"* ]] && PYTHONPATH="${PWD}:${PYTHONPATH}"
+    export PYTHONPATH
+}
+
+
+######################################
+#
+# Aliases
+#
+######################################
+
 alias l="ls -lh"
 alias ll="ls -lha"
 alias cl="clear"
 alias hackerrank="cd ~/Projects/HackerRank/Algorithms/"
+alias vi='nvim'
+alias vim='nvim'
+alias netstat='ss'
+alias def="sdcv"
 
-export VISUAL="vim"
-export PATH=$PATH:~/.gem/ruby/2.5.0/bin
 
-# added by travis gem
-[ -f ~/.travis/travis.sh ] && source ~/.travis/travis.sh
+######################################
+#
+# Exports and Sourcing
+#
+######################################
 
 # Get color suport for 'less'
 export LESS="--RAW-CONTROL-CHARS"
@@ -139,19 +161,11 @@ fi
 # For sdcv (offline dictionary)
 # Where to store the dictionaries for sdcv
 export STARDICT_DATA_DIR=$XDG_DATA_HOME
-alias def="sdcv"
 
-# For cuda installed from pacman
-export PATH=$PATH:/opt/cuda/bin
-export LD_LIBRARY_PATH=/opt/cuda/lib64
-
-alias vi='nvim'
-alias vim='nvim'
 export GPG_TTY=$(tty)
-alias netstat='ss'
 
 # Added after installing nvm (node version manager)
-if [ -f ~/.config/exercism/exercism_completion.zsh ]; then
+if [ -f /usr/share/nvm/init-nvm.sh ]; then
     source /usr/share/nvm/init-nvm.sh
 fi
 
@@ -160,36 +174,39 @@ if [ -f ~/.config/exercism/exercism_completion.zsh ]; then
     source ~/.config/exercism/exercism_completion.zsh
 fi
 
-add_to_pythonpath() {
-    [[ ":$PYTHONPATH:" != *":${PWD}:"* ]] && PYTHONPATH="${PWD}:${PYTHONPATH}"
-    export PYTHONPATH
-}
-
+# systemd editor
 export SYSTEMD_EDITOR="/bin/nvim"
 
-# For powerline and powerline fonts
-# powerline-daemon -q
-# source /usr/lib/python3.7/site-packages/powerline/bindings/zsh/powerline.zsh
-#
-#
-# eval "$(pyenv init -)"
-#
-# Needed for miniconda
+# Miniconda
 if [[ -f  ~/miniconda3/etc/profile.d/conda.sh ]]; then
     source ~/miniconda3/etc/profile.d/conda.sh
     export PATH="$PATH:~/miniconda3/bin"
 fi
 
+# Set width of man pages to 80
 export MANWIDTH=80
 
+# Editor
+export VISUAL="nvim"
+
+# Go related
 export GOPATH=~/Projects/go_workspace
 export GOBIN=$GOPATH/bin
+
+# Binaries from GOPATH
 export PATH=$PATH:$GOBIN
+
+# Other binaries
 export PATH=$PATH:~/.local/bin
+
+# Binaries installed with cargo, assuming cargo is installed using rustup
 export PATH=$PATH:~/.cargo/bin
+
 # Home installed binaries
 export PATH=$PATH:~/.bin
 
-# For cuda installed from pacman
-export PATH=$PATH:/opt/cuda/bin
-export LD_LIBRARY_PATH=/opt/cuda/lib64
+# For cuda installed in /opt/cuda (pacman does this too)
+if [[ -x /opt/cuda/bin/nvcc ]]; then
+    export PATH=$PATH:/opt/cuda/bin
+    export LD_LIBRARY_PATH=/opt/cuda/lib64
+fi
