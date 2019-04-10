@@ -222,9 +222,9 @@ autoload -Uz add-zsh-hook
 rehash_precmd() (
     if [[ -a /var/cache/zsh/pacman ]]; then
         local paccache_time="$(date -r /var/cache/zsh/pacman +%s%N)"
-        if (( zshcache_time < paccache_time )); then
+        if (( $zshcache_time < $paccache_time )); then
             rehash
-            zshcache_time = "$paccache_time"
+            zshcache_time="$paccache_time"
         fi
     fi
 )
