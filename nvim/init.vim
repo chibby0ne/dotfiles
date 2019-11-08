@@ -203,16 +203,14 @@ let g:deoplete#enable_at_startup = 1
 let g:LanguageClient_serverCommands = {
             \ 'rust': ['/usr/bin/rustup', 'run', 'stable', 'rls'],
             \ 'python': ['/usr/bin/pyls'],
-            \ 'go': ['~/Projects/go_workspace/bin/go-langserver'],
+            \ 'go': ['/usr/bin/gopls'],
             \ 'javascript': ['/usr/bin/javascript-typescript-langserver'],
-            \ 'cpp': ['/usr/bin/cquery', '--log-file=/tmp/cq.log'],
-            \ 'c': ['/usr/bin/cquery', '--log-file=/tmp/cq.log'],
-            \ 'h': ['/usr/bin/cquery', '--log-file=/tmp/cq.log'],
+            \ 'cpp': ['/usr/bin/cquery', '--log-file=/tmp/cq.log', '--init={"cacheDirectory":"~/.cache/cquery"}'],
+            \ 'c': ['/usr/bin/cquery', '--log-file=/tmp/cq.log', '--init={"cacheDirectory":"~/.cache/cquery"}'],
+            \ 'h': ['/usr/bin/cquery', '--log-file=/tmp/cq.log', '--init={"cacheDirectory":"~/.cache/cquery"}'],
             \ 'sh': ['/usr/bin/bash-language-server', 'start'],
             \ }
 
-let g:LanguageClient_loadSettings = 1 " Use an absolute configuration path if you want system-wide settings
-let g:LanguageClient_settingsPath = '/home/tesla/.config/nvim/settings.json'
 set completefunc=LanguageClient#complete
 set formatexpr=LanguageClient_textDocument_rangeFormatting()
 
@@ -353,7 +351,7 @@ augroup CLNRSet
 augroup END
 
 set cursorline
-" " set relativenumber
+set relativenumber
 
 "set tab space = 4
 set tabstop=4
