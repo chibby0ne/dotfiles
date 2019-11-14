@@ -93,9 +93,6 @@ Plug 'pangloss/vim-javascript'
 " vim-jsx
 Plug 'mxw/vim-jsx'
 
-" ale (Asynchronous Lint Engine)
-" Plug 'w0rp/ale'
-
 " vim-airline
 Plug 'vim-airline/vim-airline'
 
@@ -146,24 +143,6 @@ Plug 'KabbAmine/zeavim.vim'
 " Initialize plugin system
 call plug#end()
 
-"""""""""""""""""""""""""""""""
-" ALE Config
-""""""""""""""""""""""""""""""""
-" AFter this is configured :ALEFix will try and fix your JS code with eslint
-let g:ale_fixers = {
-\ 'javascript': ['eslint'],
-\}
-
-" Set this setting in vimrc if you want to fix files automatically on save.
-" This is off by default
-let g:ale_fix_on_save  = 1
-
-" Ale completion where possible
-let g:ale_completion_enabled = 1
-
-" Shortcut for :ALEFix
-nmap <leader>d <Plug>(ale_fix)
-
 """"""""""""""""""""""""""""""""""
 " vim-airline config
 """"""""""""""""""""""""""""""""""
@@ -183,7 +162,6 @@ let g:solarized_termcolors=16
 colorscheme solarized
 let g:solarized_termtrans=1
 
-
 """"""""""""""""""""""""""""""""""
 " Ultisnips
 """"""""""""""""""""""""""""""""""
@@ -201,16 +179,18 @@ let g:deoplete#enable_at_startup = 1
 " language client configuration
 """"""""""""""""""""""""""""""""""
 let g:LanguageClient_serverCommands = {
-            \ 'rust': ['/usr/bin/rustup', 'run', 'stable', 'rls'],
-            \ 'python': ['/usr/bin/pyls'],
-            \ 'go': ['/usr/bin/gopls'],
-            \ 'javascript': ['/usr/bin/javascript-typescript-langserver'],
-            \ 'cpp': ['/usr/bin/cquery', '--log-file=/tmp/cq.log', '--init={"cacheDirectory":"~/.cache/cquery"}'],
-            \ 'c': ['/usr/bin/cquery', '--log-file=/tmp/cq.log', '--init={"cacheDirectory":"~/.cache/cquery"}'],
-            \ 'h': ['/usr/bin/cquery', '--log-file=/tmp/cq.log', '--init={"cacheDirectory":"~/.cache/cquery"}'],
-            \ 'sh': ['/usr/bin/bash-language-server', 'start'],
+            \ 'rust': ['rustup', 'run', 'stable', 'rls'],
+            \ 'python': ['pyls'],
+            \ 'go': ['gopls'],
+            \ 'javascript': ['javascript-typescript-langserver'],
+            \ 'cpp': ['clangd'],
+            \ 'c': ['clangd'],
+            \ 'h': ['clangd'],
+            \ 'sh': ['bash-language-server', 'start'],
             \ }
 
+" let g:LanguageClient_loadSettings = 1 " Use an absolute configuration path if you want system-wide settings
+" let g:LanguageClient_settingsPath = '/home/tesla/.config/nvim/settings.json'
 set completefunc=LanguageClient#complete
 set formatexpr=LanguageClient_textDocument_rangeFormatting()
 
