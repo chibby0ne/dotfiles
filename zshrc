@@ -230,3 +230,14 @@ rehash_precmd() (
 )
 
 add-zsh-hook -Uz precmd rehash_precmd
+
+
+
+ssh_resin() {
+    ssh -t resin_developer@ssh.resindevice.io host $@
+}
+
+export PATH=$PATH:/opt/piavpn/bin
+
+[[ -f /usr/share/fzf/key-bindings.zsh ]] && source /usr/share/fzf/key-bindings.zsh
+[[ -f /usr/share/fzf/completion.zsh ]] && source /usr/share/fzf/completion.zsh

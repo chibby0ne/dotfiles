@@ -29,3 +29,7 @@
     graph = log --graph --oneline --decorate --all
 [commit]
 	gpgsign = true
+[rerere]
+	enabled = true
+[url "git@github.com:"]
+	insteadOf = https://github.com/

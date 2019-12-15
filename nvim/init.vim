@@ -420,6 +420,9 @@ if has("autocmd")
         autocmd bufnewfile CMakeLists.txt so ~/Templates/CMakeLists_template.txt
         autocmd BufRead,BufNewFile *.cpp,*.c,*.h, set textwidth=80 fo+=t
 
+        " for go
+        autocmd BufWritePre *.go :call LanguageClient#textDocument_formatting_sync() 
+
         " for rust
         autocmd BufReadPost *.rs setlocal filetype=rust
 
