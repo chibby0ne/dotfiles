@@ -317,6 +317,13 @@ map <leader>p [s
 map <leader>a zg
 map <leader>q z=
 
+
+
+""""""""""""""""""""""""""""""""""""""""""""""
+" alias for searching visually selected text
+""""""""""""""""""""""""""""""""""""""""""""""
+vnoremap // y/\V<C-R>=escape(@",'/\')<CR><CR>
+
 " folding to automatic and also be able to create new folds
 augroup vimrc
     au BufReadPre * setlocal foldmethod=indent
