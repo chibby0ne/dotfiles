@@ -189,6 +189,7 @@ let g:LanguageClient_serverCommands = {
             \ 'c': ['clangd'],
             \ 'h': ['clangd'],
             \ 'sh': ['bash-language-server', 'start'],
+            \ 'java': [ '/usr/local/bin/jdtls', '-data', getcwd() ],
             \ }
 
 " let g:LanguageClient_loadSettings = 1 " Use an absolute configuration path if you want system-wide settings
