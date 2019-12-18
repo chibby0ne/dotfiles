@@ -218,6 +218,7 @@ nnoremap <silent> gr :call LanguageClient#textDocument_references()<CR>
 " let g:LanguageClient_loggingFile =  expand('~/.local/share/nvim/LanguageClient.log')
 " let g:LanguageClient_serverStderr = expand('~/.local/share/nvim/LanguageServer.log')
 
+let g:LanguageClient_useFloatingHover=0
 
 """""""""""""""""""""""""""""""""""
 " Zeal for vim
