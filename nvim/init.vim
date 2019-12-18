@@ -65,7 +65,9 @@ set backup
 
 " set termguicolors (needed for neosolarized, vim-solarized and other
 " solarized themes) ONLY FOR TERMINALS THAT SUPPORT TRUE COLORS
-"set termguicolors
+" if has ("termguicolors")
+"     set termguicolors
+" endif
 
 " Specify a directory for plugins
 " - For Neovim: ~/.local/share/nvim/plugged
