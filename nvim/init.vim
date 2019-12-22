@@ -65,9 +65,7 @@ set backup
 
 " set termguicolors (needed for neosolarized, vim-solarized and other
 " solarized themes) ONLY FOR TERMINALS THAT SUPPORT TRUE COLORS
-" if has ("termguicolors")
-"     set termguicolors
-" endif
+"set termguicolors
 
 " Specify a directory for plugins
 " - For Neovim: ~/.local/share/nvim/plugged
@@ -137,13 +135,18 @@ Plug 'KabbAmine/zeavim.vim'
 "Plug 'nsf/gocode', { 'tag': 'v.20150303', 'rtp': 'vim' }
 
 " Plugin outside ~/.vim/plugged with post-update hook
-"Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+" Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 
 " Unmanaged plugin (manually installed and updated)
 "Plug '~/my-prototype-plugin'
 
 " Initialize plugin system
 call plug#end()
+
+""""""""""""""""""""""""""""""
+" fzf plugin
+""""""""""""""""""""""""""""""
+
 
 """"""""""""""""""""""""""""""""""
 " vim-airline config
@@ -163,6 +166,7 @@ set background=dark
 let g:solarized_termcolors=16
 colorscheme solarized
 let g:solarized_termtrans=1
+
 
 """"""""""""""""""""""""""""""""""
 " Ultisnips
@@ -189,17 +193,16 @@ let g:LanguageClient_serverCommands = {
             \ 'c': ['clangd'],
             \ 'h': ['clangd'],
             \ 'sh': ['bash-language-server', 'start'],
-            \ 'java': [ '/usr/local/bin/jdtls', '-data', getcwd() ],
+            \ 'java': ['jdtls', '-data', getcwd()],
             \ }
-
-" let g:LanguageClient_loadSettings = 1 " Use an absolute configuration path if you want system-wide settings
-" let g:LanguageClient_settingsPath = '~/.config/nvim/settings.json'
-set completefunc=LanguageClient#complete
-set formatexpr=LanguageClient_textDocument_rangeFormatting()
 
 " nnoremap <F5> :call LanguageClient_contextMenu()<CR>
 " Or map each action separately
 " Shows info of whatever the cursor in hovering on
+" let g:LanguageClient_loadSettings = 1 " Use an absolute configuration path if you want system-wide settings
+" let g:LanguageClient_settingsPath = '~/.config/nvim/settings.json'
+set completefunc=LanguageClient#complete
+set formatexpr=LanguageClient_textDocument_rangeFormatting()
 nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
 " Jumps to definition
 nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
@@ -212,13 +215,24 @@ nnoremap <silent> <C-f> :call LanguageClient#textDocument_formatting()<CR>
 " Show all references of symb
 nnoremap <silent> gr :call LanguageClient#textDocument_references()<CR>
 
+" Getting the debug info
+nnoremap <silent> <leader>ll :call LanguageClient#debugInfo()<CR>
+
+" Go pls
+autocmd BufWritePre *.go :call LanguageClient#textDocument_formatting_sync()
+" autocmd BufWritePre *.go :call LanguageClient#textDocument_codeAction_select("source.organizeImports")
+nnoremap <silent> <C-1> :call LanguageClient#textDocument_codeAction()<CR>
+" autocmd BufWritePre *.go :call LanguageClient#textDocument_codeAction(["source.organizeImports"])<CR>
 
 " let $RUST_BACKTRACE = 1
 " let g:LanguageClient_loggingLevel = 'INFO'
 " let g:LanguageClient_loggingFile =  expand('~/.local/share/nvim/LanguageClient.log')
 " let g:LanguageClient_serverStderr = expand('~/.local/share/nvim/LanguageServer.log')
 
+" LanguageClient#textDocument_codeAction_select(actionName)
+
 let g:LanguageClient_useFloatingHover=0
+
 
 """""""""""""""""""""""""""""""""""
 " Zeal for vim
@@ -281,6 +295,10 @@ imap jk <Esc>
 cmap jk <c-u><bs>
 vmap jk <Esc>
 
+imap jk <Esc>
+cmap jk <c-u><bs>
+vmap jk <Esc>
+
 " mapping of Tagbar
 nmap <c-m> :Tagbar<CR>
 
@@ -316,8 +334,6 @@ map <leader>n ]s
 map <leader>p [s
 map <leader>a zg
 map <leader>q z=
-
-
 
 """"""""""""""""""""""""""""""""""""""""""""""
 " alias for searching visually selected text
