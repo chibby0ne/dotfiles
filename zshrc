@@ -151,7 +151,7 @@ export LESS="--RAW-CONTROL-CHARS"
 [[ -f ~/.LESS_TERMCAP ]] && source ~/.LESS_TERMCAP
 
 # For Jupyter Notebooks 'Failed to launch GPU process' (https://github.com/jupyter/notebook/issues/2836)
-export BROWSER=google-chrome-stable
+export BROWSER=firefox-developer-edition
 
 # Set XDG_DATA_HOME
 if [[ -z "$XDG_DATA_HOME" ]]; then
@@ -174,13 +174,18 @@ if [ -f ~/.config/exercism/exercism_completion.zsh ]; then
     source ~/.config/exercism/exercism_completion.zsh
 fi
 
+# Add hub command completion
+# if [ -f ~/.oh-my-zsh/completions/hub.zsh_completion ]; then
+#     source ~/.oh-my-zsh/completions/hub.zsh_completion
+# fi
+
 # systemd editor
 export SYSTEMD_EDITOR="/bin/nvim"
 
 # Miniconda
-if [[ -f  ~/miniconda3/etc/profile.d/conda.sh ]]; then
-    source ~/miniconda3/etc/profile.d/conda.sh
-    export PATH="$PATH:~/miniconda3/bin"
+if [[ -f  /opt/miniconda3/etc/profile.d/conda.sh ]]; then
+    source /opt/miniconda3/etc/profile.d/conda.sh
+    export PATH="$PATH:/opt/miniconda3/bin"
 fi
 
 # Set width of man pages to 80
@@ -230,3 +235,22 @@ rehash_precmd() (
 )
 
 add-zsh-hook -Uz precmd rehash_precmd
+
+if [[ -f ~/.ghcup/env ]]; then
+    source ~/.ghcup/env
+fi
+
+source /usr/share/fzf/key-bindings.zsh
+source /usr/share/fzf/completion.zsh
+
+to_hex() {
+    echo "obase=16; $1" | bc
+}
+
+to_dec() {
+    echo "ibase=16; $1" | bc
+}
+
+export PATH=$PATH:/opt/piavpn/bin
+
+export GO111MODULE=on
