@@ -103,18 +103,18 @@ function installBasicPackages() {
     distro=$(cat /etc/*-release | grep ^NAME= | sed -E 's/NAME="(\w+)\s+.*"/\1/g' | tr "[:upper:]" "[:lower:]")
     if [[ "$distro" == "arch" ]]; then
         sudo pacman -Syyu --noconfirm && sudo pacman -S gvim nvim tmux dmidecode ruby rubygems \
-            rustup go python python-dev docker curl noto-fonts cmake alacritty \
+            rustup go python python-dev docker clang curl noto-fonts cmake alacritty \
             npm node --noconfirm
     elif [[ "$distro" == "ubuntu" || "$distro" == "debian" || "$distro" == "raspbian" ]]; then
         sudo apt update && sudo apt upgrade -Vy && sudo apt install gvim nvim vim-nox tmux \
-            dmidecode ruby-dev rustup python python-dev cmake npm node -Vy
+            dmidecode ruby-dev rustup clang python python-dev cmake npm node -Vy
         curl -sSL get.docker.com | sh
     fi
     printMessage $? "All programs installed\n" "Error installing all the programs\n" "EXIT"
 }
 
 
-function installingSymlinks() {
+function installSymlinks() {
     check_value_equals_one_otherwise_return "installing symlinks" "SYMLINKS"
 
     # Get script directory
@@ -123,7 +123,7 @@ function installingSymlinks() {
     echo "================="
     echo "Setting symlinks"
     echo "================="
-    for file in bashrc zshrc Xresources vimrc gitconfig tern-config profile nvim; do
+    for file in bashrc zshrc Xresources vimrc gitconfig tern-config profile; do
         echo "Setting $file"
         ln -sf ${SCRIPT_DIR}/$file ~/.$file
         printMessage $? "$file symlink set" "Failed to set $file symlink"
@@ -141,6 +141,9 @@ function installingSymlinks() {
     echo "Setting .tmux/tmux.conf.dev"
     mkdir -p ~/.tmux && ln -sf ${SCRIPT_DIR}/tmux/tmux.conf.dev ~/.tmux/.tmux.conf.dev
     printMessage $? "i3 lock screen picture symlink set\n" "Failed to set i3 lockscreen picture symlink\n"
+    echo "Setting .config/nvim/init.vim"
+    mkdir -p ~/.config/nvim && ln -sf ${SCRIPT_DIR}/nvim/init.vim ~/.config/nvim
+    printMessage $? "~/.config/nvim/init.vim symlink set" "Failed to set ~/.config/nvim/init.vim symlink"
 
     # Find computer model to see if the scripts for handling fn keys are required
     laptop_model=$(sudo dmidecode | grep 'Version: ' | head -n 1 | sed 's/Version: \(.*\)/\1/g' | sed 's/[[:blank:]]//g')
@@ -190,12 +193,6 @@ function configureNeovim() {
     echo "================="
     echo "Configuring Neovim"
     echo "================="
-    echo "Creating ~/.config/nvim/"
-    mkdir -p ~/.config/nvim
-    printMessage $? "~/.config/nvim created" "Failed to create ~/.config/nvim"
-    echo "Copying init.vim"
-    cp nvim/init.vim ~/.config/nvim
-    printMessage $? "~/.config/nvim/init.vim copied" "Failed to copy ~/.config/nvim/init.vim"
     # Taken from https://github.com/junegunn/vim-plug
     echo "Installing vim-plug"
     curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
@@ -204,15 +201,6 @@ function configureNeovim() {
     echo "Installing python-neovim (required for deoplete nvim plugin)"
     sudo pacman -S python-neovim
     printMessage $? "python-neovim installed\n" "Failed to install python-neovim\n"
-    echo "Installing gocode (required for deoplete-go nvim plugin)"
-    go get -u github.com/nsf/gocode
-    printMessage $? "gocode installed\n" "Failed to install gocode\n"
-    echo "Installing clang (required for deoplete-clang nvim plugin)"
-    sudo pacman -S clang
-    printMessage $? "clang installed\n" "Failed to install clang\n"
-    echo "Installing racer (required for deoplete-rust nvim plugin)"
-    cargo install racer
-    printMessage $? "racer installed\n" "Failed to install racer\n"
     echo "Creating virtualenv for neovim (so that we can use nvim inside virtualenv)"
     virtualenv ~/.config/nvim/env
     printMessage $? "virtualenv ~/.config/nvim/env created\n" "Failed to create ~/.config/nvim/env\n"
