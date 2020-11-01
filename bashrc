@@ -192,3 +192,5 @@ export GOPATH=$HOME/Projects/go_workspace
 export PATH="~/miniconda3/bin:$PATH"
 
 alias vim="nvim"
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash

@@ -29,3 +29,7 @@
     graph = log --graph --oneline --decorate --all
 [commit]
 	gpgsign = true
+[url "git@bitbucket.org:"]
+	insteadOf = https://bitbucket.org/
+[pull]
+	ff = only

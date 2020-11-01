@@ -228,6 +228,8 @@ function configureNeovim() {
     echo "Installing all other nvim plugins listed in init.vim"
     nvim -c ":PlugInstall" -c ":q" -c ":q"
     printMessage $? "nvim plugins installed" "Failed to install nvim plugins"
+    echo "Installing coc-extensions"
+    nvim/install_coc_plugins.sh
 }
 
 

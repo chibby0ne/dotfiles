@@ -49,13 +49,14 @@ CASE_SENSITIVE="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+plugins=(git ssh-agent exercism)
 
 # User configuration
 
 # export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl"
 # export MANPATH="/usr/local/man:$MANPATH"
 
+DISABLE_MAGIC_FUNCTIONS=true
 source $ZSH/oh-my-zsh.sh
 
 # You may need to manually set your language environment
@@ -169,19 +170,6 @@ if [ -f /usr/share/nvm/init-nvm.sh ]; then
     source /usr/share/nvm/init-nvm.sh
 fi
 
-# Add exercism command completion
-if [ -f ~/.config/exercism/exercism_completion.zsh ]; then
-    source ~/.config/exercism/exercism_completion.zsh
-fi
-
-# Add hub command completion
-# if [ -f ~/.oh-my-zsh/completions/hub.zsh_completion ]; then
-#     source ~/.oh-my-zsh/completions/hub.zsh_completion
-# fi
-
-# systemd editor
-export SYSTEMD_EDITOR="/bin/nvim"
-
 # Miniconda
 if [[ -f  /opt/miniconda3/etc/profile.d/conda.sh ]]; then
     source /opt/miniconda3/etc/profile.d/conda.sh
@@ -199,7 +187,7 @@ export GOPATH=~/Projects/go_workspace
 export GOBIN=$GOPATH/bin
 
 # Binaries from GOPATH
-export PATH=$PATH:$GOBIN
+export PATH=$GOBIN:$PATH
 
 # Other binaries
 export PATH=$PATH:~/.local/bin
@@ -251,6 +239,16 @@ to_dec() {
     echo "ibase=16; $1" | bc
 }
 
-export PATH=$PATH:/opt/piavpn/bin
-
+# Enable go modules
 export GO111MODULE=on
+
+# for PIA
+export PATH=/opt/piavpn/bin:$PATH
+
+# bundle
+export PATH=/home/tesla/.gem/ruby/2.7.0/bin:$PATH
+
+# Needs to be Java 11 for correct behavior of vim's coc-metals
+export JAVA_HOME=/usr/lib/jvm/java-11-openjdk/
+
+export SYSTEMD_EDITOR=/bin/nvim
