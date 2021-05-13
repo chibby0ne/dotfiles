@@ -333,6 +333,9 @@ omap ac <Plug>(coc-classobj-a)
 nmap <silent> <C-s> <Plug>(coc-range-select)
 xmap <silent> <C-s> <Plug>(coc-range-select)
 
+" Toggle coc diagnostics
+nmap <C-S-P> :call CocAction('diagnosticToggle')<CR>
+
 " Add `:Format` command to format current buffer.
 command! -nargs=0 Format :call CocAction('format')
 
