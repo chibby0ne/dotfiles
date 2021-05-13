@@ -252,3 +252,9 @@ export PATH=/home/tesla/.gem/ruby/2.7.0/bin:$PATH
 export JAVA_HOME=/usr/lib/jvm/java-11-openjdk/
 
 export SYSTEMD_EDITOR=/bin/nvim
+
+zeal-docs-fix() {
+    pushd "$HOME/.local/share/Zeal/Zeal/docsets" >/dev/null || return
+    find . -iname 'react-main*.js' -exec rm '{}' \;
+    popd >/dev/null || exit
+}
