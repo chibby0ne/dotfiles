@@ -1,0 +1,8 @@
+# Copy selection to clipboard
+set selection-clipboard clipboard
+
+# Remap j,k to k,l as my vim keybindings
+unmap j
+unmap k
+map k scroll down
+map l scroll up
