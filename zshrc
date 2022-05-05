@@ -49,7 +49,7 @@ CASE_SENSITIVE="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git ssh-agent exercism)
+plugins=(git ssh-agent exercism zsh-completions zsh-autosuggestions)
 
 # User configuration
 
@@ -258,3 +258,10 @@ zeal-docs-fix() {
     find . -iname 'react-main*.js' -exec rm '{}' \;
     popd >/dev/null || exit
 }
+
+
+for env in $(ls -1 ~/.oh-my-zsh/custom/completions/); do
+    source ~/.oh-my-zsh/custom/completions/$env
+done
+
+source /usr/share/zsh/site-functions/_gcloud
