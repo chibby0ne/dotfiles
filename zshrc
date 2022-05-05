@@ -265,3 +265,6 @@ for env in $(ls -1 ~/.oh-my-zsh/custom/completions/); do
 done
 
 source /usr/share/zsh/site-functions/_gcloud
+
+# Change highlight color for zsh-autosuggestions with solarized_dark theme
+export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=60'
