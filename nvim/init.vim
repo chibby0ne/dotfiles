@@ -166,9 +166,7 @@ let g:airline_solarized_bg='dark'
 " vim-colors-solarized
 """"""""""""""""""""""""""""""""""
 set background=dark
-let g:solarized_termcolors=16
 colorscheme solarized
-let g:solarized_termtrans=1
 
 
 """"""""""""""""""""""""""""""""""
