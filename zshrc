@@ -56,7 +56,8 @@ plugins=(git ssh-agent exercism zsh-completions zsh-autosuggestions)
 # export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl"
 # export MANPATH="/usr/local/man:$MANPATH"
 
-DISABLE_MAGIC_FUNCTIONS=true
+fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
+# DISABLE_MAGIC_FUNCTIONS=true
 source $ZSH/oh-my-zsh.sh
 
 # You may need to manually set your language environment
@@ -96,10 +97,13 @@ solarized_dark() {
     sed -i 's/*background: #fdf6e3/*background: #002b36/g' ~/.Xresources
     sed -i 's/set background=light/set background=dark/g' ~/.config/nvim/init.vim
     xrdb ~/.Xresources
+    sed -i 's/^colors: \*light/colors: *dark/g' ~/.config/alacritty/alacritty.yml
 
     # Uncomment dark and comment light if necessary
     sed -i 's/^#\(.*solarized-dark.*\)/\1/g' ~/.taskrc
     sed -i 's/^\([^#]\)\(.*solarized-light.*\)/#\1\2/g' ~/.taskrc
+
+    export BAT_THEME='Solarized (dark)'
 }
 
 solarized_light() {
@@ -107,10 +111,13 @@ solarized_light() {
     sed -i 's/*background: #002b36/*background: #fdf6e3/g' ~/.Xresources
     sed -i 's/set background=dark/set background=light/g' ~/.config/nvim/init.vim
     xrdb ~/.Xresources
+    sed -i 's/^colors: \*dark/colors: *light/g' ~/.config/alacritty/alacritty.yml
 
     # Uncomment light and comment dark if necessary
     sed -i 's/^#\(.*solarized-light.*\)/\1/g' ~/.taskrc
     sed -i 's/^\([^#]\)\(.*solarized-dark.*\)/#\1\2/g' ~/.taskrc
+
+    export BAT_THEME='Solarized (light)'
 }
 
 default_terminal() {
@@ -137,6 +144,7 @@ alias vi='nvim'
 alias vim='nvim'
 alias netstat='ss'
 alias def="sdcv"
+alias sudo="sudo -E"
 
 
 ######################################
@@ -264,7 +272,23 @@ for env in $(ls -1 ~/.oh-my-zsh/custom/completions/); do
     source ~/.oh-my-zsh/custom/completions/$env
 done
 
-source /usr/share/zsh/site-functions/_gcloud
+# source /usr/share/zsh/site-functions/_gcloud
 
 # Change highlight color for zsh-autosuggestions with solarized_dark theme
 export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=60'
+
+
+
+export PYENV_ROOT="$HOME/.pyenv"
+command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '~/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '~/Downloads/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '~/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '~/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
+
+
+# https://cloud.google.com/blog/products/containers-kubernetes/kubectl-auth-changes-in-gke
+export USE_GKE_GCLOUD_AUTH_PLUGIN=True
