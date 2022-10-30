@@ -87,12 +87,6 @@ Plug 'honza/vim-snippets'
 " vim-colors-solarized
 Plug 'altercation/vim-colors-solarized'
 
-" vim-javascript
-Plug 'pangloss/vim-javascript'
-
-" vim-jsx
-Plug 'mxw/vim-jsx'
-
 " vim-airline
 Plug 'vim-airline/vim-airline'
 
@@ -101,12 +95,6 @@ Plug 'vim-airline/vim-airline-themes'
 
 " deoplete
 " Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-
-" language client
-" Plug 'autozimu/LanguageClient-neovim', {
-"             \ 'branch': 'next',
-"             \ 'do': 'bash install.sh',
-"             \ }
 
 " coc.vim
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -165,9 +153,13 @@ let g:airline_solarized_bg='dark'
 """"""""""""""""""""""""""""""""""
 " vim-colors-solarized
 """"""""""""""""""""""""""""""""""
-set background=dark
+set background=light
 colorscheme solarized
 
+" This fixes the colors with coc popup windows after the most recent update
+" (around September/October 2022)
+" https://github.com/neoclide/coc.nvim/issues/3473
+" autocmd VimEnter,ColorScheme * hi! link CocFloating CocHintFloat
 
 """"""""""""""""""""""""""""""""""
 " Ultisnips
@@ -370,66 +362,14 @@ nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 autocmd FileType json syntax match Comment +\/\/.\+$+
 
 
-""""""""""""""""""""""""""""""""""
-" language client configuration
-""""""""""""""""""""""""""""""""""
-" let g:LanguageClient_serverCommands = {
-"             \ 'rust': ['rustup', 'run', 'stable', 'rls'],
-"             \ 'python': ['pyls'],
-"             \ 'go': ['gopls'],
-"             \ 'javascript': ['javascript-typescript-langserver'],
-"             \ 'cpp': ['clangd'],
-"             \ 'c': ['clangd'],
-"             \ 'h': ['clangd'],
-"             \ 'sh': ['bash-language-server', 'start'],
-"             \ 'java': ['jdtls', '-data', getcwd()],
-"             \ }
-
-" nnoremap <F5> :call LanguageClient_contextMenu()<CR>
-" Or map each action separately
-" Shows info of whatever the cursor in hovering on
-" let g:LanguageClient_loadSettings = 1 " Use an absolute configuration path if you want system-wide settings
-" let g:LanguageClient_settingsPath = '~/.config/nvim/settings.json'
-" set completefunc=LanguageClient#complete
-" set formatexpr=LanguageClient_textDocument_rangeFormatting()
-" nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
-" Jumps to definition
-" nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
-" Renames all symbols in the code
-" nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
-" Can find a symbol in the code
-" nnoremap <silent> gs :call LanguageClient#textDocument_documentSymbol()<CR>
-" Calls the formatter on the source file
-" nnoremap <silent> <C-f> :call LanguageClient#textDocument_formatting()<CR>
-" Show all references of symb
-" nnoremap <silent> gr :call LanguageClient#textDocument_references()<CR>
-
-" Getting the debug info
-" nnoremap <silent> <leader>ll :call LanguageClient#debugInfo()<CR>
-
-" Go pls
-" autocmd BufWritePre *.go :call LanguageClient#textDocument_formatting_sync()
-" autocmd BufWritePre *.go :call LanguageClient#textDocument_codeAction_select("source.organizeImports")
-" nnoremap <silent> <C-1> :call LanguageClient#textDocument_codeAction()<CR>
-" autocmd BufWritePre *.go :call LanguageClient#textDocument_codeAction(["source.organizeImports"])<CR>
-
-" let $RUST_BACKTRACE = 1
-" let g:LanguageClient_loggingLevel = 'INFO'
-" let g:LanguageClient_loggingFile =  expand('~/.local/share/nvim/LanguageClient.log')
-" let g:LanguageClient_serverStderr = expand('~/.local/share/nvim/LanguageServer.log')
-
-" LanguageClient#textDocument_codeAction_select(actionName)
-
-" let g:LanguageClient_useFloatingHover=0
-
 
 """""""""""""""""""""""""""""""""""
 " Zeal for vim
 """""""""""""""""""""""""""""""""""
-nmap <leader>z <Plug>Zeavim<CR>
-vmap <leader>z <Plug>ZVVisSelection<CR>
-nmap gz <Plug>ZVOperator<CR>
-nmap <leader><leader>z <Plug>ZVKeyDocset<CR>
+nmap <leader>z Zeavim<CR>
+vmap <leader>z ZVVisSelection<CR>
+nmap gz ZVOperator<CR>
+nmap <leader><leader>z ZVKeyDocset<CR>
 
 """""""""""""""""""""""""""""""""""
 " mapping h, j, k, l to j, k, l. ;
@@ -489,7 +429,7 @@ cmap jk <c-u><bs>
 vmap jk <Esc>
 
 " mapping of Tagbar
-nmap <c-m> :Tagbar<CR>
+nmap <c-l> :Tagbar<CR>
 
 " mapping of h to nothing
 nmap h <nop>

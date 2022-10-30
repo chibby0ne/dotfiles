@@ -163,9 +163,7 @@ bar {
         strip_workspace_name yes
         strip_workspace_numbers no
         swaybar_command waybar
-        #status_command i3status 
         tray_output primary
-        # status_command ~/.bin/my_i3status.sh
 }
 
 # Screen brightness controls
@@ -201,6 +199,7 @@ input "1267:12328:ELAN1300:00_04F3:3028_Touchpad" {
     tap_button_map lrm
 }
 
+
 # Disable caplocks
 input type:keyboard {
     xkb_options ctrl:nocaps
@@ -208,8 +207,8 @@ input type:keyboard {
 
 # Output configuration
 #
-output 'Ancor Communications Inc ASUS VP247 FCLMTF068292' position 0 0
 output eDP-1 position 0 1080
+output HDMI-A-1 mode 2560x1440
 
 bindsym $mod+p exec grim -g "$(slurp -d)" - | wl-copy
 
@@ -219,3 +218,8 @@ exec swayidle -w \
     resume 'swaymsg "output * dpms on"' \
     before-sleep 'swaylock -f -i ~/Pictures/marscolonization_1920_1080.png'
 
+
+
+# Make sure XDG_CURRENT_DESKTOP is set. Make sure WAYLAND_DISPLAY and XDG_CURRENT_DESKTOP are imported into D-Bus
+# https://github.com/emersion/xdg-desktop-portal-wlr
+exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
