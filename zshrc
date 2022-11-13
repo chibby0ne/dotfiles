@@ -97,7 +97,7 @@ solarized_dark() {
     sed -i 's/*background: #fdf6e3/*background: #002b36/g' ~/.Xresources
     sed -i 's/set background=light/set background=dark/g' ~/.config/nvim/init.vim
     xrdb ~/.Xresources
-    sed -i 's/^colors: \*light/colors: *dark/g' ~/.config/alacritty/alacritty.yml
+    sed -i 's/^colors: \*gruvbox_light/colors: *gruvbox_dark/g' ~/.config/alacritty/alacritty.yml
 
     # Uncomment dark and comment light if necessary
     sed -i 's/^#\(.*solarized-dark.*\)/\1/g' ~/.taskrc
@@ -111,7 +111,7 @@ solarized_light() {
     sed -i 's/*background: #002b36/*background: #fdf6e3/g' ~/.Xresources
     sed -i 's/set background=dark/set background=light/g' ~/.config/nvim/init.vim
     xrdb ~/.Xresources
-    sed -i 's/^colors: \*dark/colors: *light/g' ~/.config/alacritty/alacritty.yml
+    # sed -i 's/^colors: \*gruvbox_dark/colors: *gruvbox_light/g' ~/.config/alacritty/alacritty.yml
 
     # Uncomment light and comment dark if necessary
     sed -i 's/^#\(.*solarized-light.*\)/\1/g' ~/.taskrc
@@ -284,11 +284,48 @@ command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
 
 # The next line updates PATH for the Google Cloud SDK.
-if [ -f '~/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '~/Downloads/google-cloud-sdk/path.zsh.inc'; fi
+if [ -f ~/Downloads/google-cloud-sdk/path.zsh.inc ]; then . ~/Downloads/google-cloud-sdk/path.zsh.inc; fi
 
 # The next line enables shell command completion for gcloud.
-if [ -f '~/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '~/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
+if [ -f ~/Downloads/google-cloud-sdk/completion.zsh.inc ]; then . ~/Downloads/google-cloud-sdk/completion.zsh.inc; fi
 
 
 # https://cloud.google.com/blog/products/containers-kubernetes/kubectl-auth-changes-in-gke
 export USE_GKE_GCLOUD_AUTH_PLUGIN=True
+
+#############################
+##
+## Quotes
+##
+#############################
+bold=$(tput bold)
+normal=$(tput sgr0)
+quotes=(
+    "${bold}\"Only time can heal what reason cannot\"${normal} -  Seneca"
+    "${bold}\"Any person capable of angering you becomes your master\"${normal} -  Epictetus"
+    "${bold}\"Have patience. All things are difficult before they become easy\"${normal} -  Saadi Shirazi"
+    "${bold}\"It is no the man who has little but he who craves more that is poor\"${normal} -  Seneca"
+    "${bold}\"Knowing is not enough, we must apply. Willing is not enough, we must do\"${normal} -  Johann von Goethe"
+    "${bold}\"More is lost by indecision that wrong decision\"${normal} -  Marcus Tullius Cicero"
+    "${bold}\"Luck is what happens when preparation meets opportunity\"${normal} - Seneca"
+    "${bold}\"How much time one saves who does not look to see what their neighbor says or does or thinks.\"${normal} - Marcus Aurelius"
+    "${bold}\"One day or day one. You decide\"${normal} - Unknown"
+    "${bold}\"Worrying is like paying a debt you don't owe\"${normal} - Mark Twain"
+    "${bold}\"It is difficult to find happiness within oneself but it is impossible to find it anywhere else.\"${normal} - Arthur Schopenhauer"
+    "${bold}\"What we fear doing most is usually what we most need to do\"${normal} - Tim Ferris"
+    "${bold}\"Don't judge each day by the hearvest you reap but by the seeds that you plant\"${normal} - Robert Louis Stevenson"
+    "${bold}\"Don't wait. The time will never be just right\"${normal} - Napoleon Hill"
+    "${bold}\"No man ever steps in the same river twice, for it is not the same river and he is not the same man.\"${normal} - Heraclitus"
+    "${bold}\"The smallest deed is better than the grandest intention\"${normal} - John Burroughs"
+    "${bold}\"Difficulties strengthen the mind, as labor does the body\"${normal} - Seneca"
+    "${bold}\"Failure is success in progress\"${normal} - Albert Einstein"
+    "${bold}\"Knowledge isn't power until it is applied\"${normal} - Dale Carnegie"
+    "${bold}\"There is only one way to avoid criticism: Do nothing, say nothing and be nothing\"${normal} - Elbert Hubbard"
+    "${bold}\"It is the the mark of an educated mind to be able to entertain a thought without accepting it\"${normal} - Aristotle"
+)
+# Allow having the array[${i}] syntax
+setopt KSH_ARRAYS
+index=$(( $RANDOM % ${#quotes[@]} ))
+echo ${quotes[${index}]}
+# Remove it for the rest of the scripts
+unsetopt KSH_ARRAYS
