@@ -4,6 +4,7 @@
     font-family: "Ubuntu Nerd Font";
     font-size: 13px;
     min-height: 0;
+    color: white;
 }
 
 window#waybar {
