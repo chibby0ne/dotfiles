@@ -84,9 +84,6 @@ call plug#begin('~/.local/share/nvim/plugged')
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 
-" vim-colors-solarized
-Plug 'altercation/vim-colors-solarized'
-
 " vim-airline
 Plug 'vim-airline/vim-airline'
 
@@ -107,6 +104,12 @@ Plug 'tpope/vim-fugitive'
 
 " TagBar
 Plug 'majutsushi/tagbar'
+
+" Gruvbox theme
+Plug 'morhetz/gruvbox'
+
+" Syntax highlighting
+Plug 'rust-lang/rust.vim'
 
 " On-demand loading
 "Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
@@ -153,8 +156,8 @@ let g:airline_solarized_bg='dark'
 """"""""""""""""""""""""""""""""""
 " vim-colors-solarized
 """"""""""""""""""""""""""""""""""
-set background=light
-colorscheme solarized
+colorscheme gruvbox
+set background=dark
 
 " This fixes the colors with coc popup windows after the most recent update
 " (around September/October 2022)
@@ -445,8 +448,15 @@ nmap <c-s> :vsp<CR>
 " remap <Leader>
 let mapleader="'"
 
+
 " mapping closing buffer
 nmap <Leader>c :bd<CR>
+
+"""""""""""""""""""
+" Edit file in place
+"""""""""""""""""""
+map <leader>e :set backupcopy=yes<cr>
+
 
 """""""""""""""""""""""""""""""""""""""""""""""
 " Spell checker

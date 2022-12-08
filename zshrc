@@ -322,6 +322,7 @@ quotes=(
     "${bold}\"Knowledge isn't power until it is applied\"${normal} - Dale Carnegie"
     "${bold}\"There is only one way to avoid criticism: Do nothing, say nothing and be nothing\"${normal} - Elbert Hubbard"
     "${bold}\"It is the the mark of an educated mind to be able to entertain a thought without accepting it\"${normal} - Aristotle"
+    "${bold}\"Putting off things is the biggest waste of life: It snatches away each day as it comes and denies us the present by promising the future\"${normal} - Seneca"
 )
 # Allow having the array[${i}] syntax
 setopt KSH_ARRAYS

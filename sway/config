@@ -169,7 +169,7 @@ bar {
 # Screen brightness controls
 bindsym XF86MonBrightnessUp exec brightnessctl set +1%
 bindsym XF86MonBrightnessDown exec brightnessctl set 1%-
-        
+
 # Keyboard backlight control
 bindsym XF86KbdBrightnessUp exec --no-startup-id "~/.config/i3/kb-light.py +"
 bindsym XF86KbdBrightnessDown exec --no-startup-id "~/.config/i3/kb-light.py -"
