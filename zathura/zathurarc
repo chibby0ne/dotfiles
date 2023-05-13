@@ -2,7 +2,25 @@
 set selection-clipboard clipboard
 
 # Remap j,k to k,l as my vim keybindings
+# (in normal mode)
+unmap h
 unmap j
 unmap k
+unmap l
+map j scroll left
 map k scroll down
 map l scroll up
+map ; scroll right
+
+# (in index mode)
+unmap [index] h
+unmap [index] j
+unmap [index] k
+unmap [index] l
+map [index] j navigate_index collapse
+map [index] k navigate_index down
+map [index] l navigate_index up
+map [index] ; navigate_index expand
+
+# Set font
+set font "Open Sans Normal 11"
