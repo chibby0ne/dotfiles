@@ -1,5 +1,5 @@
 # Path to your oh-my-zsh installation.
-export ZSH=~/.oh-my-zsh
+ZSH=/usr/share/oh-my-zsh
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
@@ -44,19 +44,20 @@ CASE_SENSITIVE="true"
 
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
+ZSH_CUSTOM=/usr/share/zsh
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git ssh-agent exercism zsh-completions zsh-autosuggestions)
+plugins=(git ssh-agent zsh-autosuggestions)
 
 # User configuration
 
 # export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl"
 # export MANPATH="/usr/local/man:$MANPATH"
 
-fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
+#fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
 # DISABLE_MAGIC_FUNCTIONS=true
 source $ZSH/oh-my-zsh.sh
 
@@ -91,44 +92,6 @@ source $ZSH/oh-my-zsh.sh
 #
 ######################################
 
-eval `dircolors ~/Projects/dircolors-solarized/dircolors.ansi-dark`
-solarized_dark() {
-    eval `dircolors ~/Projects/dircolors-solarized/dircolors.ansi-dark`
-    sed -i 's/*background: #fdf6e3/*background: #002b36/g' ~/.Xresources
-    sed -i 's/set background=light/set background=dark/g' ~/.config/nvim/init.vim
-    xrdb ~/.Xresources
-    sed -i 's/^colors: \*gruvbox_light/colors: *gruvbox_dark/g' ~/.config/alacritty/alacritty.yml
-
-    # Uncomment dark and comment light if necessary
-    sed -i 's/^#\(.*solarized-dark.*\)/\1/g' ~/.taskrc
-    sed -i 's/^\([^#]\)\(.*solarized-light.*\)/#\1\2/g' ~/.taskrc
-
-    export BAT_THEME='Solarized (dark)'
-}
-
-solarized_light() {
-    eval `dircolors ~/Projects/dircolors-solarized/dircolors.ansi-light`
-    sed -i 's/*background: #002b36/*background: #fdf6e3/g' ~/.Xresources
-    sed -i 's/set background=dark/set background=light/g' ~/.config/nvim/init.vim
-    xrdb ~/.Xresources
-    # sed -i 's/^colors: \*gruvbox_dark/colors: *gruvbox_light/g' ~/.config/alacritty/alacritty.yml
-
-    # Uncomment light and comment dark if necessary
-    sed -i 's/^#\(.*solarized-light.*\)/\1/g' ~/.taskrc
-    sed -i 's/^\([^#]\)\(.*solarized-dark.*\)/#\1\2/g' ~/.taskrc
-
-    export BAT_THEME='Solarized (light)'
-}
-
-default_terminal() {
-    cp ~/.config/xfce4/terminal/terminalrc.bak ~/.config/xfce4/terminal/terminalrc
-}
-
-add_to_pythonpath() {
-    [[ ":$PYTHONPATH:" != *":${PWD}:"* ]] && PYTHONPATH="${PWD}:${PYTHONPATH}"
-    export PYTHONPATH
-}
-
 
 ######################################
 #
@@ -152,6 +115,16 @@ alias sudo="sudo -E"
 # Exports and Sourcing
 #
 ######################################
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '~/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '~/Downloads/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '~/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '~/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
+
+
+# Conda
+[ -f /opt/anaconda/etc/profile.d/conda.sh ] && source /opt/anaconda/etc/profile.d/conda.sh
 
 # Get color suport for 'less'
 export LESS="--RAW-CONTROL-CHARS"
@@ -250,15 +223,6 @@ to_dec() {
 # Enable go modules
 export GO111MODULE=on
 
-# for PIA
-export PATH=/opt/piavpn/bin:$PATH
-
-# bundle
-export PATH=/home/tesla/.gem/ruby/2.7.0/bin:$PATH
-
-# Needs to be Java 11 for correct behavior of vim's coc-metals
-export JAVA_HOME=/usr/lib/jvm/java-11-openjdk/
-
 export SYSTEMD_EDITOR=/bin/nvim
 
 zeal-docs-fix() {
@@ -266,7 +230,6 @@ zeal-docs-fix() {
     find . -iname 'react-main*.js' -exec rm '{}' \;
     popd >/dev/null || exit
 }
-
 
 for env in $(ls -1 ~/.oh-my-zsh/custom/completions/); do
     source ~/.oh-my-zsh/custom/completions/$env
@@ -277,17 +240,9 @@ done
 # Change highlight color for zsh-autosuggestions with solarized_dark theme
 export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=60'
 
-
-
 export PYENV_ROOT="$HOME/.pyenv"
 command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
-
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f ~/Downloads/google-cloud-sdk/path.zsh.inc ]; then . ~/Downloads/google-cloud-sdk/path.zsh.inc; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f ~/Downloads/google-cloud-sdk/completion.zsh.inc ]; then . ~/Downloads/google-cloud-sdk/completion.zsh.inc; fi
 
 
 # https://cloud.google.com/blog/products/containers-kubernetes/kubectl-auth-changes-in-gke
@@ -323,6 +278,16 @@ quotes=(
     "${bold}\"There is only one way to avoid criticism: Do nothing, say nothing and be nothing\"${normal} - Elbert Hubbard"
     "${bold}\"It is the the mark of an educated mind to be able to entertain a thought without accepting it\"${normal} - Aristotle"
     "${bold}\"Putting off things is the biggest waste of life: It snatches away each day as it comes and denies us the present by promising the future\"${normal} - Seneca"
+    "${bold}\"Learning is the only thing the mind never exhausts, never fears, and never regrets\"${normal} - Leonardo da Vinci"
+    "${bold}\"Everything can be taken from a man but on thing: the last of the human freedoms - to choose one's attitude in any given set of circumstances\"${normal} - Viktor Frankl"
+    "${bold}\"Only staying active will make you want to live a hundred years\"${normal} - Japanese proverb"
+    "${bold}\"Hard times create strong men. Strong men create good times. Good times create weak men. Weak men create hard times\"${normal} - G. Michael Hopf"
+    "${bold}\"Everyone buys books, few ever read them. Everyone wants growth, few accept pain. Everyone wants to be happier few ever change.\nIntention is nothing without action, but action is nothing without intention.\"${normal} - Steven Bartlett"
+    "${bold}\"No good thing is pleasant to possess, without friends to share it\"${normal} - Seneca"
+    "${bold}\"The man who does not read has no advantage over the man who cannot read\"${normal} - Mark Twain"
+    "${bold}\"The nearer a man comes to calm mind, the closer he is to strength\"${normal} - Marcus Aurelius"
+    "${bold}\"I don't want to be part of a world, where being kind is a weakness\"${normal} - Keanu Reeves"
+    "${bold}\"Stay close to anything that makes you glad you are alive\"${normal} - Hafez"
 )
 # Allow having the array[${i}] syntax
 setopt KSH_ARRAYS
