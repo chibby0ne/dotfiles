@@ -47,56 +47,55 @@ set incsearch
 filetype off
 
 " set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+call plug#begin()
 
 "required by vundle
-Plugin 'gmarik/Vundle.vim'
+Plug 'gmarik/Vundle.vim'
 
 " Ultisnip": snippet engine + snippets
-Plugin 'sirver/ultisnips'
-Plugin 'honza/vim-snippets'
+Plug 'sirver/ultisnips'
+Plug 'honza/vim-snippets'
 
 "Solarized": adds solarized colors
-Plugin 'altercation/vim-colors-solarized'
+Plug 'altercation/vim-colors-solarized'
 
 "Ctrl-p
-" Plugin 'kien/ctrlp.vim'
+" Plug 'kien/ctrlp.vim'
 "
 "Syntastic": syntax checking for many languages
-Plugin 'scrooloose/syntastic'
+Plug 'scrooloose/syntastic'
 
 "Tagbar": Adds a side buffer listing all the tags in the file (constants,
 "macros, functions, classes, methods)
-Plugin 'majutsushi/tagbar'
+Plug 'majutsushi/tagbar'
 
 "Vim-airline: adds a cool status line at the bottom of the buffer
-Plugin 'bling/vim-airline'
+Plug 'bling/vim-airline'
 
 " Vim-fugitive
-" Plugin 'tpope/vim-fugitive'
+" Plug 'tpope/vim-fugitive'
 
 " SuperTab": helps ultisnips work with youcompleteme
-Plugin 'ervandew/supertab'
+Plug 'ervandew/supertab'
 
 " Vim-commentary: provides shortcuts and keybindings for commenting
-Plugin 'tpope/vim-commentary'
+Plug 'tpope/vim-commentary'
 
 " YouCompleteMe": code completion engine for several languages
-Plugin 'Valloric/YouCompleteMe'
+Plug 'Valloric/YouCompleteMe'
 
 " YCM-Generator: generates a .ycm_extra_conf.py file needed for c-family
 " semantic completion for YCM
-Plugin 'rdnetto/YCM-Generator'
+Plug 'rdnetto/YCM-Generator'
 
-" vim-go: go development plugin
-Plugin 'fatih/vim-go'
+" vim-go: go development Plug
+Plug 'fatih/vim-go'
 
-" vim-javascript: javascript development plugin
-Plugin 'pangloss/vim-javascript'
+" vim-javascript: javascript development Plug
+Plug 'pangloss/vim-javascript'
 
-"All of your Plugins must be added before the following line
-call vundle#end()            " required
+"All of your Plugs must be added before the following line
+call plug#end()
 filetype plugin indent on    " required
 
 """""""
