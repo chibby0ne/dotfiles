@@ -288,6 +288,7 @@ quotes=(
     "${bold}\"The nearer a man comes to calm mind, the closer he is to strength\"${normal} - Marcus Aurelius"
     "${bold}\"I don't want to be part of a world, where being kind is a weakness\"${normal} - Keanu Reeves"
     "${bold}\"Stay close to anything that makes you glad you are alive\"${normal} - Hafez"
+    "${bold}\"Writing is nature's way of letting you know how sloppy your thinking is\"${normal} - Dick Guindon"
 )
 # Allow having the array[${i}] syntax
 setopt KSH_ARRAYS
