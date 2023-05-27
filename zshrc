@@ -282,13 +282,18 @@ quotes=(
     "${bold}\"Everything can be taken from a man but on thing: the last of the human freedoms - to choose one's attitude in any given set of circumstances\"${normal} - Viktor Frankl"
     "${bold}\"Only staying active will make you want to live a hundred years\"${normal} - Japanese proverb"
     "${bold}\"Hard times create strong men. Strong men create good times. Good times create weak men. Weak men create hard times\"${normal} - G. Michael Hopf"
-    "${bold}\"Everyone buys books, few ever read them. Everyone wants growth, few accept pain. Everyone wants to be happier few ever change.\nIntention is nothing without action, but action is nothing without intention.\"${normal} - Steven Bartlett"
+    "${bold}\"Everyone buys books, few ever read them. Everyone wants growth, few accept pain. Everyone wants to be happier few ever change.Intention is nothing without action, but action is nothing without intention.\"${normal} - Steven Bartlett"
     "${bold}\"No good thing is pleasant to possess, without friends to share it\"${normal} - Seneca"
     "${bold}\"The man who does not read has no advantage over the man who cannot read\"${normal} - Mark Twain"
     "${bold}\"The nearer a man comes to calm mind, the closer he is to strength\"${normal} - Marcus Aurelius"
     "${bold}\"I don't want to be part of a world, where being kind is a weakness\"${normal} - Keanu Reeves"
     "${bold}\"Stay close to anything that makes you glad you are alive\"${normal} - Hafez"
     "${bold}\"Writing is nature's way of letting you know how sloppy your thinking is\"${normal} - Dick Guindon"
+    "${bold}\"Reading 1 hour a day is only 4% of your day, but that 4% will put you at the top of your field in 10 years. Find the time\"${normal} - Patrick Bet-David"
+    "${bold}\"Change is hard at first, messy in the middle and gorgeous at the end\"${normal} - Robin Sharma"
+    "${bold}\"A fit body, a calm mind, a house full of love. These things cannot be bought - they must be earned\"${normal} - Naval Ravikant"
+    "${bold}\"Your life does not get better by chance, it gets better by change\"${normal} - Jim Rohn"
+    "${bold}\"The best revenge is to not be like your enemy\"${normal} - Marcus Aurelius"
 )
 # Allow having the array[${i}] syntax
 setopt KSH_ARRAYS
