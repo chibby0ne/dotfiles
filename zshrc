@@ -282,7 +282,7 @@ quotes=(
     "${bold}\"Everything can be taken from a man but on thing: the last of the human freedoms - to choose one's attitude in any given set of circumstances\"${normal} - Viktor Frankl"
     "${bold}\"Only staying active will make you want to live a hundred years\"${normal} - Japanese proverb"
     "${bold}\"Hard times create strong men. Strong men create good times. Good times create weak men. Weak men create hard times\"${normal} - G. Michael Hopf"
-    "${bold}\"Everyone buys books, few ever read them. Everyone wants growth, few accept pain. Everyone wants to be happier few ever change.Intention is nothing without action, but action is nothing without intention.\"${normal} - Steven Bartlett"
+    "${bold}\"Everyone buys books, few ever read them. Everyone wants growth, few accept pain. Everyone wants to be happier, few ever change. Intention is nothing without action, but action is nothing without intention.\"${normal} - Steven Bartlett"
     "${bold}\"No good thing is pleasant to possess, without friends to share it\"${normal} - Seneca"
     "${bold}\"The man who does not read has no advantage over the man who cannot read\"${normal} - Mark Twain"
     "${bold}\"The nearer a man comes to calm mind, the closer he is to strength\"${normal} - Marcus Aurelius"
