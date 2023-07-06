@@ -232,3 +232,8 @@ exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DE
 # https://bugs.launchpad.net/ubuntu/+source/xdg-desktop-portal-gnome/+bug/2008428
 # Thus commenting it for the time being.
 # exec dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK
+
+# Remap caps to esc
+input type:keyboard {
+    xkb_options caps:escape
+}
