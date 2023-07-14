@@ -190,11 +190,9 @@ require('lazy').setup({
   -- Theme
   {
     "folke/tokyonight.nvim",
+    lazy = false,
     priority = 1000,
     opts = {},
-    config = function()
-      vim.cmd.colorscheme 'tokyonight-night'
-    end,
   },
 
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
@@ -286,6 +284,14 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   group = highlight_group,
   pattern = '*',
 })
+
+-- [[ Configure tokyonight ]] --
+require("tokyonight").setup({
+  style = "night",
+  light_style = "night",
+})
+
+vim.cmd[[colorscheme tokyonight-night]]
 
 
 -- [[ Configure TreeSitter Playground ]] --
@@ -473,6 +479,11 @@ local servers = {
   pyright = {},
   rust_analyzer = {},
   tsserver = {},
+  bashls = {},
+  texlab = {},
+  yamlls = {},
+  cmake = {},
+  jsonls = {},
 
   lua_ls = {
     Lua = {
