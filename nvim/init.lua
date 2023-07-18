@@ -484,6 +484,7 @@ local servers = {
   yamlls = {},
   cmake = {},
   jsonls = {},
+  jdtls = {},
 
   lua_ls = {
     Lua = {
