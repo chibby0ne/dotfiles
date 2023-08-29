@@ -65,6 +65,9 @@ vim.opt.rtp:prepend(lazypath)
 require('lazy').setup({
   -- NOTE: First, some plugins that don't require any configuration
 
+  -- Schemastore (useful for mason-registry contributions)
+  'b0o/schemastore.nvim',
+
   -- Git related plugins
   'tpope/vim-fugitive',
   'tpope/vim-rhubarb',
@@ -136,7 +139,7 @@ require('lazy').setup({
     opts = {
       options = {
         icons_enabled = false,
-        theme = 'tokyonight',
+        theme = 'gruvbox_dark',
         component_separators = '|',
         section_separators = '',
       },
@@ -188,11 +191,8 @@ require('lazy').setup({
   },
 
   -- Theme
-  {
-    "folke/tokyonight.nvim",
-    lazy = false,
-    priority = 1000,
-    opts = {},
+  { "ellisonleao/gruvbox.nvim",
+    priority = 1000
   },
 
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
@@ -285,13 +285,66 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   pattern = '*',
 })
 
--- [[ Configure tokyonight ]] --
-require("tokyonight").setup({
-  style = "night",
-  light_style = "night",
+
+require'lspconfig'.sourcekit.setup{
+  cmd = {'/usr/bin/sourcekit-lsp'}
+}
+
+vim.api.nvim_create_autocmd('LspAttach', {
+  group = vim.api.nvim_create_augroup('UserLspConfig', {}),
+  callback = function(ev)
+    --enable omnifunc completion
+    vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
+
+    -- buffer local mappings
+    local opts = { buffer = ev.buf }
+    -- go to definition
+    vim.keymap.set('n','gd',vim.lsp.buf.definition,opts)
+    --puts doc header info into a float page
+    vim.keymap.set('n','K',vim.lsp.buf.hover,opts)
+
+    -- workspace management. Necessary for multi-module projects
+    vim.keymap.set('n','<space>wa',vim.lsp.buf.add_workspace_folder, opts)
+    vim.keymap.set('n','<space>wr',vim.lsp.buf.remove_workspace_folder, opts)
+    vim.keymap.set('n','<space>wl',function()
+            print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+    end,opts)
+
+    -- add LSP code actions
+    vim.keymap.set({'n','v'},'<space>ca',vim.lsp.buf.code_action,opts)
+
+    -- find references of a type
+    vim.keymap.set('n','gr',vim.lsp.buf.references,opts)
+  end,
 })
 
-vim.cmd[[colorscheme tokyonight-night]]
+-- [[ Configure neosolarized theme ]] --
+-- setup must be called before loading the colorscheme
+-- Default options:
+require("gruvbox").setup({
+  undercurl = true,
+  underline = true,
+  bold = true,
+  italic = {
+    strings = true,
+    comments = true,
+    operators = false,
+    folds = true,
+  },
+  strikethrough = true,
+  invert_selection = false,
+  invert_signs = false,
+  invert_tabline = false,
+  invert_intend_guides = false,
+  inverse = true, -- invert background for search, diffs, statuslines and errors
+  contrast = "", -- can be "hard", "soft" or empty string
+  palette_overrides = {},
+  overrides = {},
+  dim_inactive = false,
+  transparent_mode = false,
+})
+vim.cmd("colorscheme gruvbox")
+vim.o.background = "dark" -- or "light" for light mode
 
 
 -- [[ Configure TreeSitter Playground ]] --
@@ -490,6 +543,22 @@ local servers = {
     Lua = {
       workspace = { checkThirdParty = false },
       telemetry = { enable = false },
+    },
+  },
+}
+
+-- For schemastore configuration with yamlls
+require('lspconfig').yamlls.setup {
+  settings = {
+    yaml = {
+      schemaStore = {
+        -- You must disable built-in schemaStore support if you want to use
+        -- this plugin and its advanced options like `ignore`.
+        enable = false,
+        -- Avoid TypeError: Cannot read properties of undefined (reading 'length')
+        url = "",
+      },
+      schemas = require('schemastore').yaml.schemas(),
     },
   },
 }
