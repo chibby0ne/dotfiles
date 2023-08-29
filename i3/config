@@ -185,8 +185,8 @@ bindsym Control+Mod1+l exec i3lock -i ~/Pictures/marscolonization.png
 for_window [class="^.*"] border pixel 0
 
 # Gaps sizes
-gaps inner 8
-gaps outer 8
+gaps inner 3
+gaps outer 0
 
 # Activate smart gaps
 smart_gaps on
