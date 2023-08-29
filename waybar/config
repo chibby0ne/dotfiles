@@ -1,6 +1,6 @@
 {
     "layer": "top", // Waybar at top layer
-    "position": "top", // Waybar at the bottom of your screen
+    "position": "bottom", // Waybar at the bottom of your screen
     "height": 18, // Waybar height
     // "width": 1366, // Waybar width
     // Choose the order of the modules
