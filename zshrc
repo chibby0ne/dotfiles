@@ -221,7 +221,7 @@ to_dec() {
 }
 
 # Enable go modules
-export GO111MODULE=on
+export GO111MODULE=auto
 
 export SYSTEMD_EDITOR=/bin/nvim
 
