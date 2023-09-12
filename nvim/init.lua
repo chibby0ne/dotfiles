@@ -65,6 +65,23 @@ vim.opt.rtp:prepend(lazypath)
 require('lazy').setup({
   -- NOTE: First, some plugins that don't require any configuration
 
+  -- dap  (Debugger Adapter Protocol)
+  'mfussenegger/nvim-dap',
+
+  -- dap-ui (Make the UI for DAP better)
+  {
+  "rcarriga/nvim-dap-ui",
+    dependencies = {
+      "mfussenegger/nvim-dap",
+    }
+  },
+
+  -- dap-go (Configures the DAP for Delve (go debugger))
+  'leoluz/nvim-dap-go',
+
+  -- dap-python
+  'mfussenegger/nvim-dap-python',
+
   -- Schemastore (useful for mason-registry contributions)
   'b0o/schemastore.nvim',
 
@@ -213,6 +230,9 @@ require('lazy').setup({
 -- See `:help vim.o`
 -- NOTE: You can change these options as you wish!
 
+-- relative number
+vim.o.relativenumber = true
+
 -- Set highlight on search
 vim.o.hlsearch = false
 
@@ -274,6 +294,31 @@ vim.keymap.set('n', '<c-w>k', '<c-w>j', { silent = true })
 vim.keymap.set('n', '<c-w>l', '<c-w>k', { silent = true })
 vim.keymap.set('n', '<c-w>;', '<c-w>l', { silent = true })
 
+-- dap keymaps
+vim.keymap.set('n', '<F5>', function() require('dap').continue() end)
+vim.keymap.set('n', '<F10>', function() require('dap').step_over() end)
+vim.keymap.set('n', '<F11>', function() require('dap').step_into() end)
+vim.keymap.set('n', '<F12>', function() require('dap').step_out() end)
+vim.keymap.set('n', '<Leader>b', function() require('dap').toggle_breakpoint() end)
+vim.keymap.set('n', '<Leader>B', function() require('dap').set_breakpoint() end)
+vim.keymap.set('n', '<Leader>lp', function() require('dap').set_breakpoint(nil, nil, vim.fn.input('Log point message: ')) end)
+vim.keymap.set('n', '<Leader>dr', function() require('dap').repl.open() end)
+vim.keymap.set('n', '<Leader>dl', function() require('dap').run_last() end)
+vim.keymap.set({'n', 'v'}, '<Leader>dh', function()
+  require('dap.ui.widgets').hover()
+end)
+vim.keymap.set({'n', 'v'}, '<Leader>dp', function()
+  require('dap.ui.widgets').preview()
+end)
+vim.keymap.set('n', '<Leader>df', function()
+  local widgets = require('dap.ui.widgets')
+  widgets.centered_float(widgets.frames)
+end)
+vim.keymap.set('n', '<Leader>ds', function()
+  local widgets = require('dap.ui.widgets')
+  widgets.centered_float(widgets.scopes)
+end)
+
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
 local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
@@ -285,6 +330,25 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   pattern = '*',
 })
 
+
+require('dap-go').setup()
+
+require('dap-python').setup('/usr/bin/python')
+
+require("dapui").setup()
+
+
+-- Open DAP-UI automatically every time I start a debug session
+local dap, dapui =require("dap"),require("dapui")
+dap.listeners.after.event_initialized["dapui_config"]=function()
+  dapui.open()
+end
+dap.listeners.before.event_terminated["dapui_config"]=function()
+  dapui.close()
+end
+dap.listeners.before.event_exited["dapui_config"]=function()
+  dapui.close()
+end
 
 require'lspconfig'.sourcekit.setup{
   cmd = {'/usr/bin/sourcekit-lsp'}
