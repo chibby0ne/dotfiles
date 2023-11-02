@@ -314,3 +314,5 @@ else
 fi
 unset __mamba_setup
 # <<< mamba initialize <<<
+export PATH="$HOME/.jenv/bin:$PATH"
+eval "$(jenv init -)"
