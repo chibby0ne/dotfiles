@@ -65,12 +65,23 @@ vim.opt.rtp:prepend(lazypath)
 require('lazy').setup({
   -- NOTE: First, some plugins that don't require any configuration
 
+  -- aerial (code outline window for skimming and quick navigation)
+  {
+    'stevearc/aerial.nvim',
+    opts = {},
+    -- Optional dependencies
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter",
+      "nvim-tree/nvim-web-devicons"
+    },
+  },
+
   -- dap  (Debugger Adapter Protocol)
   'mfussenegger/nvim-dap',
 
   -- dap-ui (Make the UI for DAP better)
   {
-  "rcarriga/nvim-dap-ui",
+    "rcarriga/nvim-dap-ui",
     dependencies = {
       "mfussenegger/nvim-dap",
     }
@@ -330,6 +341,16 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   pattern = '*',
 })
 
+require('aerial').setup({
+  -- optionally use on_attach to set keymaps when aerial has attached to a buffer
+  on_attach = function(bufnr)
+    -- Jump forwards/backwards with '{' and '}'
+    vim.keymap.set('n', '{', '<cmd>AerialPrev<CR>', {buffer = bufnr})
+    vim.keymap.set('n', '}', '<cmd>AerialNext<CR>', {buffer = bufnr})
+  end
+})
+-- You probably also want to set a keymap to toggle aerial
+vim.keymap.set('n', '<leader>ae', '<cmd>AerialToggle!<CR>')
 
 require('dap-go').setup()
 
@@ -349,10 +370,6 @@ end
 dap.listeners.before.event_exited["dapui_config"]=function()
   dapui.close()
 end
-
-require'lspconfig'.sourcekit.setup{
-  cmd = {'/usr/bin/sourcekit-lsp'}
-}
 
 vim.api.nvim_create_autocmd('LspAttach', {
   group = vim.api.nvim_create_augroup('UserLspConfig', {}),
@@ -467,6 +484,7 @@ vim.keymap.set('n', '<leader>sh', require('telescope.builtin').help_tags, { desc
 vim.keymap.set('n', '<leader>sw', require('telescope.builtin').grep_string, { desc = '[S]earch current [W]ord' })
 vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc = '[S]earch by [G]rep' })
 vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
+vim.keymap.set('n', '<leader>st', require('telescope.builtin').tags, { desc = '[S]earch [T]ags' })
 
 -- [[ Configure Treesitter ]]
 -- See `:help nvim-treesitter`
