@@ -72,6 +72,7 @@
     acpi
     alacritty
     bat
+    rocmPackages.llvm.clang-unwrapped
     bemenu
     docker
     firefox-devedition-unwrapped
@@ -81,9 +82,11 @@
     go
     jq
     jupyter-all
+    libgcc
     mpv
     neovim
     networkmanager
+    nodejs
     obsidian
     oh-my-zsh
     ranger
@@ -93,6 +96,7 @@
     sudo
     tmux
     tree
+    unzip
     vim
     virtualbox
     waybar
@@ -162,6 +166,12 @@
   fonts.packages = with pkgs; [
     nerdfonts
   ];
+
+
+  # Zsh
+  programs.zsh.enable = true;
+  # Change default shell to zsh for all users
+  users.defaultUserShell = pkgs.zsh;
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
