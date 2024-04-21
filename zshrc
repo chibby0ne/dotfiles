@@ -316,4 +316,3 @@ unset __mamba_setup
 # <<< mamba initialize <<<
 export PATH="$HOME/.jenv/bin:$PATH"
 eval "$(jenv init -)"
-export PATH=/home/tesla/.jenv/shims:/home/tesla/.jenv/bin:/home/tesla/.pyenv/shims:/home/tesla/Projects/go_workspace/bin:/home/tesla/.jenv/shims:/home/tesla/.jenv/bin:/home/tesla/micromamba/condabin:/home/tesla/Projects/go_workspace/bin:/home/tesla/.nvm/versions/node/v18.16.0/bin:/usr/local/bin:/usr/bin:/home/tesla/.local/bin:/home/tesla/.cargo/bin:/home/tesla/.bin:/usr/local/sbin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/usr/lib/rustup/bin:/home/tesla/.local/bin:/home/tesla/.cargo/bin:/home/tesla/.bin:/opt/purevpn-cli/bin
