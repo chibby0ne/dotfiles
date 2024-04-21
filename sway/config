@@ -43,7 +43,7 @@ bindsym $mod+Return exec alacritty
 bindsym $mod+Shift+q kill
 
 # start bemnu (a program launcher)
-bindsym $mod+d exec bemenu-run --fn IosevkaTerm Nerd Font Mono 13
+bindsym $mod+d exec bemenu-run --fn 'IosevkaTerm Nerd Font Mono 8' 
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
@@ -165,21 +165,14 @@ bar {
         tray_output primary
 }
 
-# Screen brightness controls
-bindsym XF86MonBrightnessUp exec brightnessctl set +1%
-bindsym XF86MonBrightnessDown exec brightnessctl set 1%-
+# Brightness
+bindsym XF86MonBrightnessDown exec light -U 10
+bindsym XF86MonBrightnessUp exec light -A 10
 
-# Keyboard backlight control
-bindsym XF86KbdBrightnessUp exec --no-startup-id "~/.config/i3/kb-light.py +"
-bindsym XF86KbdBrightnessDown exec --no-startup-id "~/.config/i3/kb-light.py -"
-
-# Volume Control
-bindsym XF86AudioRaiseVolume exec --no-startup-id amixer set Master 5%+
-bindsym XF86AudioLowerVolume exec --no-startup-id amixer set Master 5%-
-bindsym XF86AudioMute exec --no-startup-id amixer set Master toggle
-
-# Touchpad control
-bindsym XF86TouchpadToggle exec --no-startup-id "~/.config/i3/toggletouchpad.sh"
+# Volume
+bindsym XF86AudioRaiseVolume exec 'pactl set-sink-volume @DEFAULT_SINK@ +1%'
+bindsym XF86AudioLowerVolume exec 'pactl set-sink-volume @DEFAULT_SINK@ -1%'
+bindsym XF86AudioMute exec 'pactl set-sink-mute @DEFAULT_SINK@ toggle'
 
 # Lock screen
 bindsym Control+Mod1+l exec swaylock -i ~/.config/sway/space_compilation_2560_1440.png
@@ -188,9 +181,7 @@ bindsym Control+Mod1+l exec swaylock -i ~/.config/sway/space_compilation_2560_14
 default_border pixel 1
 default_floating_border pixel 1
 
-# Input configuration
-#
-input "1267:12328:ELAN1300:00_04F3:3028_Touchpad" {
+input "2362:628:PIXA3854:00_093A:0274_Touchpad" {
     dwt enabled
     tap enabled
     natural_scroll enabled
@@ -199,7 +190,6 @@ input "1267:12328:ELAN1300:00_04F3:3028_Touchpad" {
     tap_button_map lrm
 }
 
-
 # Disable caplocks
 input type:keyboard {
     xkb_options ctrl:nocaps
@@ -207,7 +197,7 @@ input type:keyboard {
 
 # Output configuration
 #
-output eDP-1 position 0 1080
+output eDP-1 position 0 0
 output HDMI-A-1 mode 2560x1440
 
 bindsym $mod+p exec grim -g "$(slurp -d)" - | wl-copy
@@ -236,3 +226,10 @@ exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DE
 input type:keyboard {
     xkb_options caps:escape
 }
+
+
+# Mouse not working on Wine Application in Sway: https://wiki.archlinux.org/title/sway#Mouse_not_working_in_WINE_applications
+exec_always xrandr --output XWAYLAND0 --primary
+
+# Open obsidian at startup
+#exec obsidian
