@@ -43,7 +43,7 @@ bindsym $mod+Return exec alacritty
 bindsym $mod+Shift+q kill
 
 # start bemnu (a program launcher)
-bindsym $mod+d exec bemenu-run --fn 'IosevkaTerm Nerd Font Mono 8' 
+bindsym $mod+d exec bemenu-run --fn 'IosevkaTerm Nerd Font Mono 12'
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
@@ -198,7 +198,8 @@ input type:keyboard {
 # Output configuration
 #
 output eDP-1 position 0 0
-output HDMI-A-1 mode 2560x1440
+output * scale 1
+# output HDMI-A-1 mode 2560x1440
 
 bindsym $mod+p exec grim -g "$(slurp -d)" - | wl-copy
 

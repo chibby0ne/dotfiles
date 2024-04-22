@@ -51,6 +51,9 @@
   sound.enable = true;
   hardware.pulseaudio.enable = true;
 
+  # BIOS updates through LVFS
+  services.fwupd.enable = true;
+
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
@@ -80,8 +83,10 @@
     fzf
     git
     go
+    home-manager
     jq
     jupyter-all
+    keepassxc
     libgcc
     mpv
     neovim
@@ -89,12 +94,15 @@
     nodejs
     obsidian
     oh-my-zsh
+    power-profiles-daemon
     ranger
     ripgrep
     rustup
     sway
+    swaylock
     sudo
     tmux
+    telegram-desktop
     tree
     unzip
     vim

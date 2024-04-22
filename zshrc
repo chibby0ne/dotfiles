@@ -1,5 +1,5 @@
 # Path to your oh-my-zsh installation.
-ZSH=/usr/share/oh-my-zsh
+ZSH=/run/current-system/sw/share/oh-my-zsh
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
@@ -43,8 +43,7 @@ CASE_SENSITIVE="true"
 # HIST_STAMPS="mm/dd/yyyy"
 
 # Would you like to use another custom folder than $ZSH/custom?
-# ZSH_CUSTOM=/path/to/new-custom-folder
-ZSH_CUSTOM=/usr/share/zsh
+ZSH_CUSTOM=~/.oh-my-zsh/custom
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
@@ -53,11 +52,9 @@ ZSH_CUSTOM=/usr/share/zsh
 plugins=(git ssh-agent zsh-autosuggestions)
 
 # User configuration
+# Needed for zsh-completions
+fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
 
-# export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl"
-# export MANPATH="/usr/local/man:$MANPATH"
-
-#fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
 # DISABLE_MAGIC_FUNCTIONS=true
 source $ZSH/oh-my-zsh.sh
 
@@ -92,6 +89,13 @@ source $ZSH/oh-my-zsh.sh
 #
 ######################################
 
+to_hex() {
+    echo "obase=16; $1" | bc
+}
+
+to_dec() {
+    echo "ibase=16; $1" | bc
+}
 
 ######################################
 #
@@ -102,7 +106,6 @@ source $ZSH/oh-my-zsh.sh
 alias l="ls -lh"
 alias ll="ls -lha"
 alias cl="clear"
-alias hackerrank="cd ~/Projects/HackerRank/Algorithms/"
 alias vi='nvim'
 alias vim='nvim'
 alias netstat='ss'
@@ -121,10 +124,6 @@ if [ -f '~/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '~/Downloads/googl
 
 # The next line enables shell command completion for gcloud.
 if [ -f '~/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '~/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
-
-
-# Conda
-[ -f /opt/miniconda3/etc/profile.d/conda.sh ] && source /opt/miniconda3/etc/profile.d/conda.sh
 
 # Get color suport for 'less'
 export LESS="--RAW-CONTROL-CHARS"
@@ -145,11 +144,6 @@ fi
 export STARDICT_DATA_DIR=$XDG_DATA_HOME
 
 export GPG_TTY=$(tty)
-
-# Added after installing nvm (node version manager)
-if [ -f /usr/share/nvm/init-nvm.sh ]; then
-    source /usr/share/nvm/init-nvm.sh
-fi
 
 # Miniconda
 if [[ -f  /opt/miniconda3/etc/profile.d/conda.sh ]]; then
@@ -179,71 +173,24 @@ export PATH=$PATH:~/.cargo/bin
 # Home installed binaries
 export PATH=$PATH:~/.bin
 
-# For cuda installed in /opt/cuda (pacman does this too)
-if [[ -x /opt/cuda/bin/nvcc ]]; then
-    export PATH=$PATH:/opt/cuda/bin
-    export LD_LIBRARY_PATH=/opt/cuda/lib64
-fi
+# fzf
+source /run/current-system/sw/share/fzf/key-bindings.zsh
+source /run/current-system/sw/share/fzf/completion.zsh
 
-# On-demand rehash
-# Needs also the pacman hook. See here:
-# https://wiki.archlinux.org/index.php/Zsh#On-demand_rehash
+# nvim editor of systemd units
+export SYSTEMD_EDITOR=/run/current-system/sw/bin/nvim
 
-zshcache_time="$(date +%s%N)"
+# Jenv
+export PATH="$HOME/.jenv/bin:$PATH"
+eval "$(jenv init -)"
 
-autoload -Uz add-zsh-hook
-
-rehash_precmd() (
-    if [[ -a /var/cache/zsh/pacman ]]; then
-        local paccache_time="$(date -r /var/cache/zsh/pacman +%s%N)"
-        if (( $zshcache_time < $paccache_time )); then
-            rehash
-            zshcache_time="$paccache_time"
-        fi
-    fi
-)
-
-add-zsh-hook -Uz precmd rehash_precmd
-
-if [[ -f ~/.ghcup/env ]]; then
-    source ~/.ghcup/env
-fi
-
-source /usr/share/fzf/key-bindings.zsh
-source /usr/share/fzf/completion.zsh
-
-to_hex() {
-    echo "obase=16; $1" | bc
-}
-
-to_dec() {
-    echo "ibase=16; $1" | bc
-}
-
-# Enable go modules
-export GO111MODULE=auto
-
-export SYSTEMD_EDITOR=/bin/nvim
-
-zeal-docs-fix() {
-    pushd "$HOME/.local/share/Zeal/Zeal/docsets" >/dev/null || return
-    find . -iname 'react-main*.js' -exec rm '{}' \;
-    popd >/dev/null || exit
-}
-
-for env in $(ls -1 ~/.oh-my-zsh/custom/completions/); do
-    source ~/.oh-my-zsh/custom/completions/$env
-done
-
-# source /usr/share/zsh/site-functions/_gcloud
-
-# Change highlight color for zsh-autosuggestions with solarized_dark theme
-export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=60'
-
+# pyenv
 export PYENV_ROOT="$HOME/.pyenv"
 command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
 
+# Change highlight color for zsh-autosuggestions with solarized_dark theme
+export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=60'
 
 # https://cloud.google.com/blog/products/containers-kubernetes/kubectl-auth-changes-in-gke
 export USE_GKE_GCLOUD_AUTH_PLUGIN=True
@@ -314,5 +261,3 @@ else
 fi
 unset __mamba_setup
 # <<< mamba initialize <<<
-export PATH="$HOME/.jenv/bin:$PATH"
-eval "$(jenv init -)"
