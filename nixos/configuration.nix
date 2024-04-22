@@ -7,6 +7,8 @@
 {
   imports =
     [ # Include the results of the hardware scan.
+      # From https://github.com/nixos/nixos-hardware
+      <nixos-hardware/framework/13-inch/7040-amd>
       ./hardware-configuration.nix
       "${builtins.fetchTarball "https://github.com/nix-community/disko/archive/master.tar.gz"}/module.nix"
       ./disk-config.nix
@@ -15,6 +17,9 @@
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+
+  # Use the latest kernel
+  boot.kernelPackages = pkgs.linuxPackages_latest;
 
   networking.hostName = "earth"; # Define your hostname.
   # Pick only one of the below networking options.
@@ -88,6 +93,7 @@
     jupyter-all
     keepassxc
     libgcc
+    linuxKernel.packages.linux_zen.cpupower
     mpv
     neovim
     networkmanager
@@ -111,6 +117,7 @@
     wget
     zathura
     zsh
+
 
     grim 
     slurp 
