@@ -43,7 +43,7 @@ CASE_SENSITIVE="true"
 # HIST_STAMPS="mm/dd/yyyy"
 
 # Would you like to use another custom folder than $ZSH/custom?
-ZSH_CUSTOM=~/.oh-my-zsh/custom
+ZSH_CUSTOM=/home/chibby0ne/.oh-my-zsh/custom
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
@@ -53,7 +53,7 @@ plugins=(git ssh-agent zsh-autosuggestions)
 
 # User configuration
 # Needed for zsh-completions
-fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
+fpath+=${ZSH_CUSTOM:-${ZSH:-/home/chibby0ne/.oh-my-zsh}/custom}/plugins/zsh-completions/src
 
 # DISABLE_MAGIC_FUNCTIONS=true
 source $ZSH/oh-my-zsh.sh
@@ -120,16 +120,16 @@ alias sudo="sudo -E"
 ######################################
 
 # The next line updates PATH for the Google Cloud SDK.
-if [ -f '~/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '~/Downloads/google-cloud-sdk/path.zsh.inc'; fi
+if [ -f '/home/chibby0ne/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/home/chibby0ne/Downloads/google-cloud-sdk/path.zsh.inc'; fi
 
 # The next line enables shell command completion for gcloud.
-if [ -f '~/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '~/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
+if [ -f '/home/chibby0ne/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/home/chibby0ne/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
 
 # Get color suport for 'less'
 export LESS="--RAW-CONTROL-CHARS"
 
 # Use colors for less, man, etc...
-[[ -f ~/.LESS_TERMCAP ]] && source ~/.LESS_TERMCAP
+[[ -f /home/chibby0ne/.LESS_TERMCAP ]] && source /home/chibby0ne/.LESS_TERMCAP
 
 # For Jupyter Notebooks 'Failed to launch GPU process' (https://github.com/jupyter/notebook/issues/2836)
 export BROWSER=firefox-developer-edition
@@ -158,20 +158,20 @@ export MANWIDTH=80
 export VISUAL="nvim"
 
 # Go related
-export GOPATH=~/Projects/go_workspace
+export GOPATH=/home/chibby0ne/Projects/go_workspace
 export GOBIN=$GOPATH/bin
 
 # Binaries from GOPATH
 export PATH=$GOBIN:$PATH
 
 # Other binaries
-export PATH=$PATH:~/.local/bin
+export PATH=$PATH:/home/chibby0ne/.local/bin
 
 # Binaries installed with cargo, assuming cargo is installed using rustup
-export PATH=$PATH:~/.cargo/bin
+export PATH=$PATH:/home/chibby0ne/.cargo/bin
 
 # Home installed binaries
-export PATH=$PATH:~/.bin
+export PATH=$PATH:/home/chibby0ne/.bin
 
 # fzf
 source /run/current-system/sw/share/fzf/key-bindings.zsh

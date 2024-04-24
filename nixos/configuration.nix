@@ -80,10 +80,11 @@
     acpi
     alacritty
     bat
-    rocmPackages.llvm.clang-unwrapped
     bemenu
     docker
-    firefox-devedition-unwrapped
+    ffmpeg
+    file
+    firefox-devedition
     fwupd
     fzf
     git
@@ -103,7 +104,10 @@
     power-profiles-daemon
     ranger
     ripgrep
+    rocmPackages.llvm.clang
+    rocmPackages.llvm.clang-tools-extra
     rustup
+    steam
     sway
     swaylock
     sudo
@@ -131,7 +135,7 @@
     "electron-25.9.0"
   ];
 
-  # Obsidian is unfree
+  # Obsidian and Steam are unfree
   nixpkgs.config.allowUnfree = true;
 
 
