@@ -53,8 +53,46 @@
   # services.printing.enable = true;
 
   # Enable sound.
-  sound.enable = true;
-  hardware.pulseaudio.enable = true;
+  # https://nixos.wiki/wiki/PipeWire
+  # sound.enable = true;
+  hardware.pulseaudio.enable = false;
+
+  security.rtkit.enable = true;
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+  # If you want to use JACK applications, uncomment this
+  #jack.enable = true;
+  };
+  hardware.bluetooth.enable = true;
+
+  
+  # Configure bluetooth for pipewire 
+  # Wireplumber (services.pipewire.wireplumber) is the default modular session / policy manager for PipeWire
+  services.pipewire.wireplumber.configPackages = [
+    (pkgs.writeTextDir "share/wireplumber/bluetooth.lua.d/51-bluez-config.lua" ''
+     bluez_monitor.properties = {
+     ["bluez5.enable-sbc-xq"] = true,
+     ["bluez5.enable-msbc"] = true,
+     ["bluez5.enable-hw-volume"] = true,
+     ["bluez5.headset-roles"] = "[ hsp_hs hsp_ag hfp_hf hfp_ag ]"
+     }
+     '')
+  ];
+
+  # Enable A2DP sink
+  hardware.bluetooth.settings = {
+    General = {
+      Enable = "Source,Sink,Media,Socket";
+    };
+  };
+
+  hardware.pulseaudio.extraConfig = "
+    load-module module-switch-on-connect
+  ";
+
 
   # BIOS updates through LVFS
   services.fwupd.enable = true;
@@ -81,33 +119,42 @@
     alacritty
     bat
     bemenu
+    direnv
     docker
     ffmpeg
+    fd
     file
     firefox-devedition
     fwupd
     fzf
+    gammastep
+    gh
     git
+    gnome.eog
     go
     home-manager
+    jetbrains.idea-community
     jq
     jupyter-all
     keepassxc
     libgcc
     linuxKernel.packages.linux_zen.cpupower
+    maven
     mpv
     neovim
     networkmanager
     nodejs
     obsidian
     oh-my-zsh
+    pavucontrol
     power-profiles-daemon
+    powertop
+    pulseaudio
     ranger
     ripgrep
     rocmPackages.llvm.clang
     rocmPackages.llvm.clang-tools-extra
     rustup
-    steam
     sway
     swaylock
     sudo
@@ -115,12 +162,13 @@
     telegram-desktop
     tree
     unzip
-    vim
     virtualbox
     waybar
     wget
     zathura
     zsh
+    zulu8
+    zulu17
 
 
     grim 
@@ -129,6 +177,10 @@
     mako
   ];
 
+  # Install and enable steam
+  programs.steam = {
+    enable = true;
+  };
 
   # Something requires electron25 but it is EOL
   nixpkgs.config.permittedInsecurePackages = [
@@ -164,11 +216,11 @@
   environment.gnome.excludePackages = (with pkgs; [
   gnome-photos
   gnome-tour
+  gedit # text editor
 ]) ++ (with pkgs.gnome; [
   cheese # webcam tool
   gnome-music
   gnome-terminal
-  gedit # text editor
   epiphany # web browser
   geary # email reader
   evince # document viewer
