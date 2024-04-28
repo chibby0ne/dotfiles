@@ -23,7 +23,8 @@ font pango:DejaVu Sans Mono 9
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
 # output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
-output * bg mount_fuji_1920_1080.jpg fill
+# output * bg mount_fuji_1920_1080.jpg fill
+output * bg mount_fuji_autumn.jpg fill
 
 
 # Before i3 v4.8, we used to recommend this one as the default:
@@ -43,7 +44,7 @@ bindsym $mod+Return exec alacritty
 bindsym $mod+Shift+q kill
 
 # start bemnu (a program launcher)
-bindsym $mod+d exec bemenu-run --fn 'IosevkaTerm Nerd Font Mono 12'
+bindsym $mod+d exec bemenu-run --fn 'IosevkaTerm Nerd Font Mono 16'
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
@@ -196,13 +197,14 @@ input type:keyboard {
 }
 
 # Output configuration
-#
 output eDP-1 position 0 0
 output * scale 1
-# output HDMI-A-1 mode 2560x1440
+output DP-4 mode 2560x1440
 
+# Taking screenshots
 bindsym $mod+p exec grim -g "$(slurp -d)" - | wl-copy
 
+# Go to sleep and lock screen
 exec swayidle -w \
     timeout 300 'swaylock -f -i ~/.config/sway/sierra_nevada_5472_3648.jpg' \
     timeout 300 'swaymsg "output * power off"' \

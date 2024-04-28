@@ -2,7 +2,7 @@
     border: none;
     border-radius: 0;
     font-family: "Open Sans";
-    font-size: 12px;
+    font-size: 17px;
     min-height: 0;
     color: white;
 }
@@ -16,11 +16,6 @@ window#waybar {
     font-weight: bold;
     font-family: "Open Sans";
 }
-/*
-#workspaces {
-    padding: 0 5px;
-}
-*/
 
 #workspaces button {
     padding: 0 5px;
