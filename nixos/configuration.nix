@@ -89,10 +89,16 @@
     };
   };
 
+  # Have bluetooth headsets take over audio output after connecting
   hardware.pulseaudio.extraConfig = "
     load-module module-switch-on-connect
   ";
 
+  # Avoid writing --extra-experimental-features 'nix-command flakes' for certain nix commands
+  # https://discourse.nixos.org/t/error-experimental-nix-feature-nix-command-is-disabled/18089/7
+  nix.extraOptions = ''
+   experimental-features = nix-command flakes
+  '';
 
   # BIOS updates through LVFS
   services.fwupd.enable = true;
@@ -133,6 +139,7 @@
     gnome.eog
     go
     home-manager
+    htop
     jetbrains.idea-community
     jq
     jupyter-all
