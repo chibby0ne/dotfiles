@@ -146,7 +146,6 @@
     jupyter-all
     keepassxc
     libgcc
-    linuxKernel.packages.linux_zen.cpupower
     mako
     maven
     mpv
