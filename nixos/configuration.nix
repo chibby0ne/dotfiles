@@ -136,6 +136,7 @@
     gammastep
     gh
     git
+    grim
     gnome.eog
     go
     home-manager
@@ -146,6 +147,7 @@
     keepassxc
     libgcc
     linuxKernel.packages.linux_zen.cpupower
+    mako
     maven
     mpv
     neovim
@@ -162,26 +164,23 @@
     rocmPackages.llvm.clang
     rocmPackages.llvm.clang-tools-extra
     rustup
+    slurp
+    sudo
     sway
     swaylock
-    sudo
     tmux
     telegram-desktop
     tree
     unzip
     virtualbox
     waybar
+    wireguard-tools
+    wl-clipboard
     wget
     zathura
     zsh
     zulu8
     zulu17
-
-
-    grim 
-    slurp 
-    wl-clipboard 
-    mako
   ];
 
   # Install and enable steam
