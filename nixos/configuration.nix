@@ -125,6 +125,7 @@
     alacritty
     bat
     bemenu
+    blender
     direnv
     docker
     ffmpeg
@@ -154,6 +155,7 @@
     nodejs
     obsidian
     oh-my-zsh
+    openssl
     pavucontrol
     power-profiles-daemon
     powertop
@@ -165,21 +167,18 @@
     rustup
     slurp
     sudo
-    sway
     swaylock
     tmux
     telegram-desktop
     tree
     unzip
-    virtualbox
+    vagrant
     waybar
     wireguard-tools
     wl-clipboard
     wget
     zathura
     zsh
-    zulu8
-    zulu17
   ];
 
   # Install and enable steam
