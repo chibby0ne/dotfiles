@@ -127,6 +127,7 @@
     bemenu
     blender
     direnv
+    discord
     docker
     ffmpeg
     fd
@@ -140,6 +141,7 @@
     grim
     gnome.eog
     go
+    google-chrome
     home-manager
     htop
     jetbrains.idea-community
@@ -164,7 +166,25 @@
     ripgrep
     rocmPackages.llvm.clang
     rocmPackages.llvm.clang-tools-extra
-    rustup
+
+    # bash ls
+    nodePackages_latest.bash-language-server
+
+    # lua ls
+    lua-language-server
+
+    # Rust ls (it requires all 3 of them, since we are not installing using rustup, due to the difficulty of it in nixos)
+    rustc
+    cargo
+    rust-analyzer
+
+    # go ls
+    gopls
+    # python ls
+    pyright
+    # javascript/typescript ls
+    deno
+
     slurp
     sudo
     swaylock
@@ -191,7 +211,7 @@
     "electron-25.9.0"
   ];
 
-  # Obsidian and Steam are unfree
+  # Obsidian, Steam and Discord are unfree
   nixpkgs.config.allowUnfree = true;
 
 
