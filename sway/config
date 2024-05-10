@@ -206,9 +206,10 @@ bindsym $mod+p exec grim -g "$(slurp -d)" - | wl-copy
 
 # Go to sleep and lock screen
 exec swayidle -w \
-    timeout 300 'swaylock -f -i ~/.config/sway/sierra_nevada_5472_3648.jpg' \
+    timeout 240 'swaylock -f -i ~/.config/sway/sierra_nevada_5472_3648.jpg' \
     timeout 300 'swaymsg "output * power off"' \
     resume 'swaymsg "output * power on"' \
+    timeout 360 'systemctl suspend' \
     before-sleep 'swaylock -f -i ~/.config/sway/sierra_nevada_5472_3648.jpg'
 
 
