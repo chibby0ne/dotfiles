@@ -199,7 +199,12 @@ input type:keyboard {
 # Output configuration
 output eDP-1 position 0 0
 output * scale 1
-output DP-4 mode 2560x1440
+output DP-4 mode 3840x2160
+
+bindswitch lid:on output eDP-1 disable
+bindswitch lid:off output eDP-1 enable
+
+bindsym $mod+backspace output eDP-1 toggle
 
 # Taking screenshots
 bindsym $mod+p exec grim -g "$(slurp -d)" - | wl-copy
