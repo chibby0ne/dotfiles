@@ -68,7 +68,12 @@
   };
   hardware.bluetooth.enable = true;
 
-  
+
+  # Enabling OpenGL: https://nixos.wiki/wiki/OpenGL
+  # This is needed to fix the issue in Python
+  # ImportError: libGL.so.1: cannot open shared object file
+  hardware.opengl.enable = true;
+
   # Configure bluetooth for pipewire 
   # Wireplumber (services.pipewire.wireplumber) is the default modular session / policy manager for PipeWire
   services.pipewire.wireplumber.configPackages = [
@@ -118,6 +123,13 @@
     ]; 
   };
 
+
+  # Enable automatically regenerate immutable man page index cache
+  documentation.man.generateCaches = true;
+
+  # Enable development (libraries and utilities) man pages
+  documentation.dev.enable = true;
+
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
@@ -137,6 +149,7 @@
     fzf
     gammastep
     gh
+    gimp
     git
     grim
     gnome.eog
@@ -148,17 +161,37 @@
     jq
     jupyter-all
     keepassxc
+
+    kubernetes-helm
+
     libgcc
+
+    libglvnd
+
+    lsof
     mako
+
+    man-pages
+    man-pages-posix
+
     maven
+
+    minikube
+
     mpv
     neovim
     networkmanager
     nodejs
+
+    nmap
+
     obsidian
     oh-my-zsh
     openssl
     pavucontrol
+
+    poetry
+
     power-profiles-daemon
     powertop
     pulseaudio
@@ -185,14 +218,24 @@
     # javascript/typescript ls
     deno
 
+    taskwarrior3
+
+    libreoffice-qt-fresh
+    hunspell
+    hunspellDicts.en-us-large
+
     slurp
     sudo
     swaylock
     tmux
     telegram-desktop
     tree
+    xfce.thunar
     unzip
     vagrant
+
+    vscode-fhs
+
     waybar
     wireguard-tools
     wl-clipboard
@@ -200,6 +243,10 @@
     zathura
     zsh
   ];
+
+
+  # Enable tailscale
+  services.tailscale.enable = true;
 
   # Install and enable steam
   programs.steam = {
@@ -214,7 +261,6 @@
   # Obsidian, Steam and Discord are unfree
   nixpkgs.config.allowUnfree = true;
 
-
   # Enables docker
   virtualisation.docker.enable = true;
   virtualisation.docker.storageDriver = "btrfs";  # Might be needed for btrfs
@@ -228,14 +274,14 @@
   programs.light.enable = true;
 
   # For Virtualbox
-  virtualisation.virtualbox.host.enable = true;
-  users.extraGroups.vboxusers.members = [ "chibby0ne" ];
+  # virtualisation.virtualbox.host.enable = true;
+  # users.extraGroups.vboxusers.members = [ "chibby0ne" ];
 
   # For Gnome
   services.xserver.enable = true;
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
-  
+
   # Do not install these packages
   environment.gnome.excludePackages = (with pkgs; [
   gnome-photos
