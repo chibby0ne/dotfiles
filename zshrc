@@ -49,11 +49,12 @@ ZSH_CUSTOM=/home/chibby0ne/.oh-my-zsh/custom
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git ssh-agent zsh-autosuggestions)
+plugins=(git ssh-agent zsh-autosuggestions zsh-completions)
 
 # User configuration
 # Needed for zsh-completions
 fpath+=${ZSH_CUSTOM:-${ZSH:-/home/chibby0ne/.oh-my-zsh}/custom}/plugins/zsh-completions/src
+fpath+=${ZSH_CUSTOM}/completions
 
 # DISABLE_MAGIC_FUNCTIONS=true
 source $ZSH/oh-my-zsh.sh
