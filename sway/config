@@ -201,8 +201,8 @@ output eDP-1 position 0 0
 output * scale 1
 output DP-4 mode 3840x2160
 
-bindswitch lid:on output eDP-1 disable
-bindswitch lid:off output eDP-1 enable
+bindswitch --reload --locked lid:on exec systemctl suspend
+# bindswitch lid:off output eDP-1 enable
 
 bindsym $mod+backspace output eDP-1 toggle
 
@@ -241,4 +241,4 @@ input type:keyboard {
 exec_always xrandr --output XWAYLAND0 --primary
 
 # Open obsidian at startup
-#exec obsidian
+exec obsidian
