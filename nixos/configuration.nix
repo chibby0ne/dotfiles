@@ -21,6 +21,9 @@
   # Use the latest kernel
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
+  # enable power saving settings from powertop
+  powerManagement.powertop.enable = true;
+
   networking.hostName = "earth"; # Define your hostname.
   # Pick only one of the below networking options.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -240,6 +243,7 @@
     wireguard-tools
     wl-clipboard
     wget
+    yt-dlp
     zathura
     zsh
   ];
@@ -261,6 +265,7 @@
   # Obsidian, Steam and Discord are unfree
   nixpkgs.config.allowUnfree = true;
 
+
   # Enables docker
   virtualisation.docker.enable = true;
   virtualisation.docker.storageDriver = "btrfs";  # Might be needed for btrfs
@@ -274,8 +279,8 @@
   programs.light.enable = true;
 
   # For Virtualbox
-  # virtualisation.virtualbox.host.enable = true;
-  # users.extraGroups.vboxusers.members = [ "chibby0ne" ];
+  virtualisation.virtualbox.host.enable = true;
+  users.extraGroups.vboxusers.members = [ "chibby0ne" ];
 
   # For Gnome
   services.xserver.enable = true;
