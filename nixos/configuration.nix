@@ -21,6 +21,11 @@
   # Use the latest kernel
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
+  # This might get rid of the weird fraction-of-a-second artifacts that appear when in wayland and an external HDMI monitor is connected and watching video/youtube
+  # https://community.frame.work/t/responded-blocky-artifacts-on-amd-framework-laptop-13/44321/29
+  # https://wiki.archlinux.org/title/Framework_Laptop_13#(AMD)_Flickering,_artifacts_and_a_white_screen_when_a_second_monitor_is_connected
+  boot.kernelParams = [ "amdgpu.sg_display=0" ];
+
   # enable power saving settings from powertop
   powerManagement.powertop.enable = true;
 
@@ -246,7 +251,29 @@
     yt-dlp
     zathura
     zsh
+
+
+
+    flyctl
+    typescript
+
+    # Userspace debugging and diagnostic tool for AMD GPUs
+    umr
+
+    obs-studio
+
+    fprintd
+
+    usbutils
+
+
+    zeal
   ];
+
+  # Fingerprint support
+  services.fprintd.enable = true;
+  services.fprintd.tod.enable = true;
+  services.fprintd.tod.driver = pkgs.libfprint-2-tod1-goodix;
 
 
   # Enable tailscale
