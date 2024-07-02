@@ -208,9 +208,6 @@
     rocmPackages.llvm.clang
     rocmPackages.llvm.clang-tools-extra
 
-    # bash ls
-    nodePackages_latest.bash-language-server
-
     # lua ls
     lua-language-server
 
@@ -268,6 +265,8 @@
 
 
     zeal
+
+    vlc
   ];
 
   # Fingerprint support
