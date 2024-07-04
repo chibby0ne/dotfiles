@@ -80,7 +80,7 @@
   # Enabling OpenGL: https://nixos.wiki/wiki/OpenGL
   # This is needed to fix the issue in Python
   # ImportError: libGL.so.1: cannot open shared object file
-  hardware.opengl.enable = true;
+  hardware.graphics.enable = true;
 
   # Configure bluetooth for pipewire 
   # Wireplumber (services.pipewire.wireplumber) is the default modular session / policy manager for PipeWire
