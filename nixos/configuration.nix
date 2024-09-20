@@ -4,65 +4,172 @@
 
 { config, lib, pkgs, ... }:
 
+# Language servers
+# Language
+# Devops tools
+# IDEs
+let developersPackages = with pkgs; [
+  # LSP
+  # go
+  gopls
+  # python
+  pyright
+  # javascript/typescript
+  deno
+  # lua
+  lua-language-server
+  # Rust ls (it requires all 3 of them, since we are not installing using rustup, due to the difficulty of it in nixos)
+  rustc
+  cargo
+  rust-analyzer
+
+  #  Languages
+  rocmPackages.llvm.clang
+  rocmPackages.llvm.clang-tools-extra
+  typescript
+  go
+  protobuf
+  zulu8
+  zulu11
+  zulu21
+
+  # Libs
+  libgcc
+  libglvnd
+
+  # IDEs
+  android-studio
+  vscode-fhs
+  jetbrains.idea-community
+  jupyter-all
+  neovim
+
+  # Regular ones
+  gnumake
+
+  # Language Build tools
+  maven
+  nodejs
+  poetry
+  virtualenv
+
+  # Python
+  python312
+  ruff
+  postgresql
+
+  # Containerization/Devops
+  docker
+  vagrant
+  minikube
+  kubernetes-helm
+  eksctl
+  google-cloud-sdk
+  heroku
+
+
+  # Source version control
+  git
+  gh
+];
+
+shellToolsPackages = with pkgs; [
+  alacritty
+  bat
+  direnv
+  fd
+  file
+  fzf
+  htop
+  jq
+  lsof
+  oh-my-zsh
+  ripgrep
+  slurp
+  unzip
+  tmux
+  tokei
+  tree
+  wget
+  zsh
+];
+
+
+videoPackages = with pkgs; [
+  blender-hip
+  obs-studio
+  mpv
+  vlc
+];
+
+in
+
 {
   imports =
     [ # Include the results of the hardware scan.
-      # From https://github.com/nixos/nixos-hardware
-      <nixos-hardware/framework/13-inch/7040-amd>
+# From https://github.com/nixos/nixos-hardware
+    <nixos-hardware/framework/13-inch/7040-amd>
       ./hardware-configuration.nix
       "${builtins.fetchTarball "https://github.com/nix-community/disko/archive/master.tar.gz"}/module.nix"
       ./disk-config.nix
     ];
 
-  # Use the systemd-boot EFI boot loader.
+# Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  # Use the latest kernel
+# Use the latest kernel
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
-  # This might get rid of the weird fraction-of-a-second artifacts that appear when in wayland and an external HDMI monitor is connected and watching video/youtube
-  # https://community.frame.work/t/responded-blocky-artifacts-on-amd-framework-laptop-13/44321/29
-  # https://wiki.archlinux.org/title/Framework_Laptop_13#(AMD)_Flickering,_artifacts_and_a_white_screen_when_a_second_monitor_is_connected
+# This might get rid of the weird fraction-of-a-second artifacts that appear when in wayland and an external HDMI monitor is connected and watching video/youtube
+# https://community.frame.work/t/responded-blocky-artifacts-on-amd-framework-laptop-13/44321/29
+# https://wiki.archlinux.org/title/Framework_Laptop_13#(AMD)_Flickering,_artifacts_and_a_white_screen_when_a_second_monitor_is_connected
   boot.kernelParams = [ "amdgpu.sg_display=0" ];
 
-  # enable power saving settings from powertop
+
+# Enable printing
+
+  services.printing.enable = true;
+  services.printing.drivers = with pkgs; [ samsung-unified-linux-driver ];
+
+# enable power saving settings from powertop
   powerManagement.powertop.enable = true;
 
   networking.hostName = "earth"; # Define your hostname.
-  # Pick only one of the below networking options.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-  networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
 
-  # Set your time zone.
-  time.timeZone = "Europe/Berlin";
+# Pick only one of the below networking options.
+# networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+    networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
 
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
+# Set your time zone.
+    time.timeZone = "Europe/Berlin";
 
-  # Select internationalisation properties.
+# Configure network proxy if necessary
+# networking.proxy.default = "http://user:password@proxy:port/";
+# networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
+
+# Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
   console = {
     font = "Lat2-Terminus16";
-    # keyMap = "us";
+# keyMap = "us";
     useXkbConfig = true; # use xkb.options in tty.
   };
 
-  # Enable the X11 windowing system.
-  # services.xserver.enable = true;
+# Enable the X11 windowing system.
+# services.xserver.enable = true;
 
-  # Configure keymap in X11
+# Configure keymap in X11
   services.xserver.xkb.layout = "us";
-  # services.xserver.xkb.options = "eurosign:e,caps:escape";
+# services.xserver.xkb.options = "eurosign:e,caps:escape";
   services.xserver.xkb.options = "ctrl:nocaps";
 
-  # Enable CUPS to print documents.
-  # services.printing.enable = true;
+# Enable CUPS to print documents.
+# services.printing.enable = true;
 
-  # Enable sound.
-  # https://nixos.wiki/wiki/PipeWire
-  # sound.enable = true;
+# Enable sound.
+# https://nixos.wiki/wiki/PipeWire
+# sound.enable = true;
   hardware.pulseaudio.enable = false;
 
   security.rtkit.enable = true;
@@ -142,132 +249,58 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     acpi
-    alacritty
-    bat
     bemenu
-    blender
-    direnv
     discord
-    docker
     ffmpeg
-    fd
-    file
     firefox-devedition
     fwupd
-    fzf
     gammastep
-    gh
     gimp
-    git
     grim
-    gnome.eog
-    go
     google-chrome
     home-manager
-    htop
-    jetbrains.idea-community
-    jq
-    jupyter-all
     keepassxc
-
-    kubernetes-helm
-
-    libgcc
-
-    libglvnd
-
-    lsof
     mako
-
     man-pages
     man-pages-posix
-
-    maven
-
-    minikube
-
-    mpv
-    neovim
     networkmanager
-    nodejs
-
     nmap
-
+    ntfs3g
     obsidian
-    oh-my-zsh
     openssl
     pavucontrol
-
-    poetry
-
     power-profiles-daemon
     powertop
     pulseaudio
     ranger
-    ripgrep
-    rocmPackages.llvm.clang
-    rocmPackages.llvm.clang-tools-extra
-
-    # lua ls
-    lua-language-server
-
-    # Rust ls (it requires all 3 of them, since we are not installing using rustup, due to the difficulty of it in nixos)
-    rustc
-    cargo
-    rust-analyzer
-
-    # go ls
-    gopls
-    # python ls
-    pyright
-    # javascript/typescript ls
-    deno
-
-    taskwarrior3
-
+    # taskwarrior3
     libreoffice-qt-fresh
     hunspell
     hunspellDicts.en-us-large
-
-    slurp
     sudo
     swaylock
-    tmux
     telegram-desktop
-    tree
     xfce.thunar
-    unzip
-    vagrant
-
-    vscode-fhs
-
     waybar
     wireguard-tools
     wl-clipboard
-    wget
     yt-dlp
     zathura
-    zsh
 
+    subdl
 
-
+    # TODO: catalog these better
     flyctl
-    typescript
-
     # Userspace debugging and diagnostic tool for AMD GPUs
     umr
-
-    obs-studio
-
-    fprintd
 
     usbutils
 
 
-    zeal
-
-    vlc
-  ];
+    qbittorrent
+  ] ++ developersPackages
+  ++ shellToolsPackages
+  ++ videoPackages;
 
   # Fingerprint support
   services.fprintd.enable = true;
@@ -318,15 +351,16 @@
   gnome-photos
   gnome-tour
   gedit # text editor
-]) ++ (with pkgs.gnome; [
   cheese # webcam tool
-  gnome-music
   gnome-terminal
   epiphany # web browser
   geary # email reader
   evince # document viewer
-  gnome-characters
   totem # video player
+  eog
+]) ++ (with pkgs.gnome; [
+  gnome-music
+  gnome-characters
   tali # poker game
   iagno # go game
   hitori # sudoku game
