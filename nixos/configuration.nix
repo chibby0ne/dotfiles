@@ -76,7 +76,6 @@ let developersPackages = with pkgs; [
 shellToolsPackages = with pkgs; [
   alacritty
   bat
-  direnv
   fd
   file
   fzf
@@ -328,6 +327,9 @@ in
   # Enables docker
   virtualisation.docker.enable = true;
   virtualisation.docker.storageDriver = "btrfs";  # Might be needed for btrfs
+
+  # Enables direnv
+  programs.direnv.enable = true;
 
   # Enables sway
   programs.sway = {
