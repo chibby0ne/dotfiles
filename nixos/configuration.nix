@@ -82,7 +82,6 @@ shellToolsPackages = with pkgs; [
   htop
   jq
   lsof
-  oh-my-zsh
   ripgrep
   slurp
   unzip
@@ -295,17 +294,12 @@ in
 
     usbutils
 
+    eog
 
     qbittorrent
   ] ++ developersPackages
   ++ shellToolsPackages
   ++ videoPackages;
-
-  # Fingerprint support
-  services.fprintd.enable = true;
-  services.fprintd.tod.enable = true;
-  services.fprintd.tod.driver = pkgs.libfprint-2-tod1-goodix;
-
 
   # Enable tailscale
   services.tailscale.enable = true;
@@ -350,25 +344,22 @@ in
 
   # Do not install these packages
   environment.gnome.excludePackages = (with pkgs; [
-  gnome-photos
-  gnome-tour
-  gedit # text editor
-  cheese # webcam tool
-  gnome-terminal
-  epiphany # web browser
-  geary # email reader
-  evince # document viewer
-  totem # video player
-  eog
-]) ++ (with pkgs.gnome; [
-  gnome-music
-  gnome-characters
-  tali # poker game
-  iagno # go game
-  hitori # sudoku game
-  atomix # puzzle game
-]);
-
+    gnome-photos
+    gnome-tour
+    gedit # text editor
+    cheese # webcam tool
+    gnome-terminal
+    epiphany # web browser
+    geary # email reader
+    evince # document viewer
+    totem # video player
+    gnome-music
+    gnome-characters
+    tali # poker game
+    iagno # go game
+    hitori # sudoku game
+    atomix # puzzle game
+  ]);
 
   # Fonts
   fonts.packages = with pkgs; [
