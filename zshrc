@@ -1,5 +1,5 @@
-# Path to your oh-my-zsh installation.
-ZSH=/run/current-system/sw/share/oh-my-zsh
+# Path to your Oh My Zsh installation.
+export ZSH="$HOME/.oh-my-zsh"
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
@@ -43,7 +43,7 @@ CASE_SENSITIVE="true"
 # HIST_STAMPS="mm/dd/yyyy"
 
 # Would you like to use another custom folder than $ZSH/custom?
-ZSH_CUSTOM=/home/chibby0ne/.oh-my-zsh/custom
+# ZSH_CUSTOM=${ZSH}/custom
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
@@ -53,8 +53,8 @@ plugins=(git ssh-agent zsh-autosuggestions zsh-completions)
 
 # User configuration
 # Needed for zsh-completions
-fpath+=${ZSH_CUSTOM:-${ZSH:-/home/chibby0ne/.oh-my-zsh}/custom}/plugins/zsh-completions/src
-fpath+=${ZSH_CUSTOM}/completions
+# fpath+=${ZSH_CUSTOM}/plugins/zsh-completions/src
+# fpath+=${ZSH_CUSTOM}/completions
 
 # DISABLE_MAGIC_FUNCTIONS=true
 source $ZSH/oh-my-zsh.sh
