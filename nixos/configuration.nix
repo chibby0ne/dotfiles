@@ -22,6 +22,8 @@ let developersPackages = with pkgs; [
   rustc
   cargo
   rust-analyzer
+  # Kotlin
+  kotlin-language-server
 
   #  Languages
   rocmPackages.llvm.clang
@@ -32,6 +34,8 @@ let developersPackages = with pkgs; [
   zulu8
   zulu11
   zulu21
+  kotlin
+
 
   # Libs
   libgcc
@@ -66,7 +70,7 @@ let developersPackages = with pkgs; [
   eksctl
   google-cloud-sdk
   heroku
-
+  flyctl
 
   # Source version control
   git
@@ -98,6 +102,39 @@ videoPackages = with pkgs; [
   obs-studio
   mpv
   vlc
+  subdl
+  yt-dlp
+];
+
+
+imagePackages = with pkgs; [
+  feh
+  gimp
+  eog
+];
+
+socialMediaPackages = with pkgs; [
+  telegram-desktop
+  tuir
+  discord
+];
+
+desktopEnvironmentPackages = with pkgs; [
+  swaylock
+  mako
+  bemenu
+  waybar
+  # For taking screenshots and copy plasting
+  grim
+  wl-clipboard
+];
+
+browsersPackages = with pkgs; [
+# Browsers
+  firefox-devedition
+  google-chrome
+  lynx
+  tor-browser
 ];
 
 in
@@ -247,18 +284,11 @@ in
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     acpi
-    bemenu
-    discord
     ffmpeg
-    firefox-devedition
     fwupd
     gammastep
-    gimp
-    grim
-    google-chrome
-    home-manager
+
     keepassxc
-    mako
     man-pages
     man-pages-posix
     networkmanager
@@ -271,35 +301,26 @@ in
     powertop
     pulseaudio
     ranger
-    # taskwarrior3
     libreoffice-qt-fresh
     hunspell
     hunspellDicts.en-us-large
     sudo
-    swaylock
-    telegram-desktop
     xfce.thunar
-    waybar
     wireguard-tools
-    wl-clipboard
-    yt-dlp
     zathura
 
-    subdl
-
-    # TODO: catalog these better
-    flyctl
     # Userspace debugging and diagnostic tool for AMD GPUs
     umr
-
     usbutils
-
-    eog
 
     qbittorrent
   ] ++ developersPackages
   ++ shellToolsPackages
-  ++ videoPackages;
+  ++ videoPackages
+  ++ imagePackages
+  ++ socialMediaPackages
+  ++ desktopEnvironmentPackages
+  ++ browsersPackages;
 
   # Enable tailscale
   services.tailscale.enable = true;
