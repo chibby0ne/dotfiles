@@ -262,3 +262,7 @@ else
 fi
 unset __mamba_setup
 # <<< mamba initialize <<<
+
+
+# Required by tuir
+export MAILCAPS=~/.config/tuir/mailcap
