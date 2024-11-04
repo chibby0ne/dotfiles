@@ -212,10 +212,10 @@ bindsym $mod+p exec grim -g "$(slurp -d)" - | wl-copy
 
 # Go to sleep and lock screen
 exec swayidle -w \
-    timeout 240 'swaylock -f -i ~/.config/sway/sierra_nevada_5472_3648.jpg' \
-    timeout 300 'swaymsg "output * power off"' \
+    timeout 2400 'swaylock -f -i ~/.config/sway/sierra_nevada_5472_3648.jpg' \
+    timeout 3000 'swaymsg "output * power off"' \
     resume 'swaymsg "output * power on"' \
-    timeout 360 'systemctl suspend' \
+    timeout 3600 'systemctl suspend' \
     before-sleep 'swaylock -f -i ~/.config/sway/sierra_nevada_5472_3648.jpg'
 
 
@@ -243,6 +243,9 @@ exec_always xrandr --output XWAYLAND0 --primary
 
 # Open obsidian at startup
 exec obsidian
+
+# Open discord at startup
+exec discord
 
 # Don't swayidle if we have these apps in fullscreen
 for_window [app_id="firefox"] inhibit_idle fullscreen
