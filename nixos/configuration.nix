@@ -31,9 +31,7 @@ let developersPackages = with pkgs; [
   typescript
   go
   protobuf
-  zulu8
-  zulu11
-  zulu21
+  zulu
   kotlin
 
 
@@ -58,7 +56,6 @@ let developersPackages = with pkgs; [
   virtualenv
 
   # Python
-  python312
   ruff
   postgresql
 
@@ -270,8 +267,16 @@ in
       "docker"			# For using docker without sudo
       "networkmanager"		# Enable configuration of network using network manager
       "video"			# Required by sway?
+      "adbusers"                # adb
     ]; 
   };
+
+
+  # adb
+  programs.adb.enable = true;
+
+  # Accept android sdk license (neccessary for android-studio)
+  nixpkgs.config.android_sdk.accept_license = true;
 
 
   # Enable automatically regenerate immutable man page index cache
