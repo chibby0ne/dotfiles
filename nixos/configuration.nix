@@ -63,6 +63,7 @@ let developersPackages = with pkgs; [
   docker
   vagrant
   minikube
+  k3s
   kubernetes-helm
   eksctl
   google-cloud-sdk
@@ -105,7 +106,6 @@ videoPackages = with pkgs; [
 
 
 imagePackages = with pkgs; [
-  feh
   gimp
   eog
 ];
@@ -162,7 +162,22 @@ in
 # Enable printing
 
   services.printing.enable = true;
-  services.printing.drivers = with pkgs; [ samsung-unified-linux-driver ];
+  services.printing.drivers = with pkgs; [ splix ];
+
+  hardware.printers = {
+    ensurePrinters = [
+    {
+      name = "ML-2165";
+      location = "Earth";
+      deviceUri = "usb://Samsung/ML-2160%20Series?serial=Z7CYB8GC3B00LLY";
+      model = "ml2165.ppd";
+      ppdOptions = {
+        PageSize = "A4";
+      };
+    }
+    ];
+    ensureDefaultPrinter = "ML-2165";
+  };
 
 # enable power saving settings from powertop
   powerManagement.powertop.enable = true;
@@ -292,6 +307,7 @@ in
     ffmpeg
     fwupd
     gammastep
+    gedit
 
     keepassxc
     man-pages
@@ -307,12 +323,19 @@ in
     pulseaudio
     ranger
     libreoffice-qt-fresh
+    tectonic
+
     hunspell
     hunspellDicts.en-us-large
     sudo
     xfce.thunar
     wireguard-tools
     zathura
+
+    dmidecode
+
+    # samsung cups drivers
+    splix
 
     # Userspace debugging and diagnostic tool for AMD GPUs
     umr
