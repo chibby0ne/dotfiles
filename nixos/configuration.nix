@@ -61,7 +61,6 @@ let developersPackages = with pkgs; [
 
   # Containerization/Devops
   docker
-  vagrant
   minikube
   k3s
   kubernetes-helm
