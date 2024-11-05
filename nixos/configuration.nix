@@ -126,6 +126,8 @@ desktopEnvironmentPackages = with pkgs; [
   bemenu
   xfce.thunar
   waybar
+  libnotify
+  batsignal
   # For taking screenshots and copy plasting
   grim
   wl-clipboard
