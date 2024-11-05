@@ -96,7 +96,6 @@ shellToolsPackages = with pkgs; [
 
 
 videoPackages = with pkgs; [
-  blender-hip
   obs-studio
   ffmpeg
   mpv
