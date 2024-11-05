@@ -98,12 +98,17 @@ shellToolsPackages = with pkgs; [
 videoPackages = with pkgs; [
   blender-hip
   obs-studio
+  ffmpeg
   mpv
   vlc
   subdl
   yt-dlp
 ];
 
+audioPackages = with pkgs; [
+  pavucontrol
+  pulseaudio
+];
 
 imagePackages = with pkgs; [
   gimp
@@ -117,9 +122,11 @@ socialMediaPackages = with pkgs; [
 ];
 
 desktopEnvironmentPackages = with pkgs; [
+  gammastep
   swaylock
   mako
   bemenu
+  xfce.thunar
   waybar
   # For taking screenshots and copy plasting
   grim
@@ -127,11 +134,49 @@ desktopEnvironmentPackages = with pkgs; [
 ];
 
 browsersPackages = with pkgs; [
-# Browsers
   firefox-devedition
   google-chrome
   lynx
   tor-browser
+];
+
+specialFileViewersPackages = with pkgs; [
+  zathura
+  libreoffice-qt-fresh
+  tectonic
+  obsidian
+  keepassxc
+  gedit
+  man-pages
+  man-pages-posix
+  # Spell checkers
+  hunspell
+  hunspellDicts.en-us-large
+];
+
+
+networkingPackages = with pkgs; [
+  nmap
+  openssl
+  networkmanager
+  wireguard-tools
+  qbittorrent
+];
+
+hardwareAndDebuggingPackages = with pkgs; [
+  acpi
+  fwupd
+  dmidecode
+  # Userspace debugging and diagnostic tool for AMD GPUs
+  umr
+  usbutils
+  power-profiles-daemon
+  # samsung cups drivers
+  splix
+];
+
+fileSystemsPackages = with pkgs; [
+  ntfs3g
 ];
 
 in
@@ -293,7 +338,6 @@ in
   # Accept android sdk license (neccessary for android-studio)
   nixpkgs.config.android_sdk.accept_license = true;
 
-
   # Enable automatically regenerate immutable man page index cache
   documentation.man.generateCaches = true;
 
@@ -302,53 +346,18 @@ in
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  environment.systemPackages = with pkgs; [
-    acpi
-    ffmpeg
-    fwupd
-    gammastep
-    gedit
-
-    keepassxc
-    man-pages
-    man-pages-posix
-    networkmanager
-    nmap
-    ntfs3g
-    obsidian
-    openssl
-    pavucontrol
-    power-profiles-daemon
-    powertop
-    pulseaudio
-    ranger
-    libreoffice-qt-fresh
-    tectonic
-
-    hunspell
-    hunspellDicts.en-us-large
-    sudo
-    xfce.thunar
-    wireguard-tools
-    zathura
-
-    dmidecode
-
-    # samsung cups drivers
-    splix
-
-    # Userspace debugging and diagnostic tool for AMD GPUs
-    umr
-    usbutils
-
-    qbittorrent
-  ] ++ developersPackages
+  environment.systemPackages = developersPackages
   ++ shellToolsPackages
   ++ videoPackages
+  ++ audioPackages
   ++ imagePackages
   ++ socialMediaPackages
   ++ desktopEnvironmentPackages
-  ++ browsersPackages;
+  ++ browsersPackages
+  ++ specialFileViewersPackages
+  ++ networkingPackages
+  ++ hardwareAndDebuggingPackages
+  ++ fileSystemsPackages;
 
   # Enable tailscale
   services.tailscale.enable = true;
