@@ -197,7 +197,9 @@ input type:keyboard {
 }
 
 # Output configuration
-output eDP-1 position 0 0
+# The laptop monitor/screen is located below the external monitor screen (4k res)
+output DP-4 position 0 0
+output eDP-1 position 0 2160
 output * scale 1
 output DP-4 mode 3840x2160
 
