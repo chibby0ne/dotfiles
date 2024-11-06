@@ -184,27 +184,28 @@ in
 {
   imports =
     [ # Include the results of the hardware scan.
-    # From https://github.com/nixos/nixos-hardware
+# From https://github.com/nixos/nixos-hardware
     <nixos-hardware/framework/13-inch/7040-amd>
       ./hardware-configuration.nix
       "${builtins.fetchTarball "https://github.com/nix-community/disko/archive/master.tar.gz"}/module.nix"
       ./disk-config.nix
     ];
 
-  # Use the systemd-boot EFI boot loader.
+# Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  # Use the latest kernel
+# Use the latest kernel
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
-  # This might get rid of the weird fraction-of-a-second artifacts that appear when in wayland and an external HDMI monitor is connected and watching video/youtube
-  # https://community.frame.work/t/responded-blocky-artifacts-on-amd-framework-laptop-13/44321/29
-  # https://wiki.archlinux.org/title/Framework_Laptop_13#(AMD)_Flickering,_artifacts_and_a_white_screen_when_a_second_monitor_is_connected
+# This might get rid of the weird fraction-of-a-second artifacts that appear when in wayland and an external HDMI monitor is connected and watching video/youtube
+# https://community.frame.work/t/responded-blocky-artifacts-on-amd-framework-laptop-13/44321/29
+# https://wiki.archlinux.org/title/Framework_Laptop_13#(AMD)_Flickering,_artifacts_and_a_white_screen_when_a_second_monitor_is_connected
   boot.kernelParams = [ "amdgpu.sg_display=0" ];
 
 
-  # Enable printing
+# Enable printing
+
   services.printing.enable = true;
   services.printing.drivers = with pkgs; [ splix ];
 
@@ -223,44 +224,44 @@ in
     ensureDefaultPrinter = "ML-2165";
   };
 
-  # enable power saving settings from powertop
+# enable power saving settings from powertop
   powerManagement.powertop.enable = true;
 
   networking.hostName = "earth"; # Define your hostname.
 
-  # Pick only one of the below networking options.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-  networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
+# Pick only one of the below networking options.
+# networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+    networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
 
-  # Set your time zone.
-  time.timeZone = "Europe/Berlin";
+# Set your time zone.
+    time.timeZone = "Europe/Berlin";
 
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
+# Configure network proxy if necessary
+# networking.proxy.default = "http://user:password@proxy:port/";
+# networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
-  # Select internationalisation properties.
+# Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
   console = {
     font = "Lat2-Terminus16";
-  # keyMap = "us";
+# keyMap = "us";
     useXkbConfig = true; # use xkb.options in tty.
   };
 
-  # Enable the X11 windowing system.
-  # services.xserver.enable = true;
+# Enable the X11 windowing system.
+# services.xserver.enable = true;
 
-  # Configure keymap in X11
+# Configure keymap in X11
   services.xserver.xkb.layout = "us";
-  # services.xserver.xkb.options = "eurosign:e,caps:escape";
+# services.xserver.xkb.options = "eurosign:e,caps:escape";
   services.xserver.xkb.options = "ctrl:nocaps";
 
-  # Enable CUPS to print documents.
-  # services.printing.enable = true;
+# Enable CUPS to print documents.
+# services.printing.enable = true;
 
-  # Enable sound.
-  # https://nixos.wiki/wiki/PipeWire
-  # sound.enable = true;
+# Enable sound.
+# https://nixos.wiki/wiki/PipeWire
+# sound.enable = true;
   hardware.pulseaudio.enable = false;
 
   security.rtkit.enable = true;
