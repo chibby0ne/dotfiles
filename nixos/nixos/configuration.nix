@@ -2,266 +2,273 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 # Language servers
 # Language
 # Devops tools
 # IDEs
-let developersPackages = with pkgs; [
-  # LSP
-  # go
-  gopls
-  # python
-  pyright
-  # javascript/typescript
-  deno
-  # lua
-  lua-language-server
-  # Rust ls (it requires all 3 of them, since we are not installing using rustup, due to the difficulty of it in nixos)
-  rustc
-  cargo
-  rust-analyzer
-  # Kotlin
-  kotlin-language-server
+let
+  developersPackages = with pkgs; [
+    # LSP
+    # go
+    gopls
+    # python
+    pyright
+    # javascript/typescript
+    deno
+    # lua
+    lua-language-server
+    # Rust ls (it requires all 3 of them, since we are not installing using rustup, due to the difficulty of it in nixos)
+    rustc
+    cargo
+    rust-analyzer
+    # Kotlin
+    kotlin-language-server
+    # Nix
+    nixd
 
-  #  Languages
-  rocmPackages.llvm.clang
-  rocmPackages.llvm.clang-tools-extra
-  typescript
-  go
-  protobuf
-  zulu
-  kotlin
+    #  Languages
+    rocmPackages.llvm.clang
+    rocmPackages.llvm.clang-tools-extra
+    typescript
+    go
+    protobuf
+    zulu
+    kotlin
 
+    # Libs
+    libgcc
+    libglvnd
 
-  # Libs
-  libgcc
-  libglvnd
+    # IDEs
+    android-studio
+    vscode-fhs
+    jetbrains.idea-community
+    jupyter-all
+    neovim
 
-  # IDEs
-  android-studio
-  vscode-fhs
-  jetbrains.idea-community
-  jupyter-all
-  neovim
+    # nix
+    nixfmt-rfc-style
 
-  # Regular ones
-  gnumake
+    # Regular ones
+    gnumake
 
-  # Language Build tools
-  maven
-  nodejs
-  poetry
-  virtualenv
+    # Language Build tools
+    maven
+    nodejs
+    poetry
+    virtualenv
 
-  # Python
-  ruff
-  postgresql
+    # Python
+    ruff
+    postgresql
 
-  # Containerization/Devops
-  docker
-  minikube
-  k3s
-  kubernetes-helm
-  eksctl
-  google-cloud-sdk
-  heroku
-  flyctl
+    # Containerization/Devops
+    docker
+    minikube
+    k3s
+    kubernetes-helm
+    eksctl
+    google-cloud-sdk
+    heroku
+    flyctl
 
-  # Source version control
-  git
-  gh
-];
+    # Source version control
+    git
+    gh
+  ];
 
-shellToolsPackages = with pkgs; [
-  alacritty
-  bat
-  fd
-  file
-  fzf
-  htop
-  jq
-  lsof
-  ripgrep
-  slurp
-  unzip
-  tmux
-  tokei
-  tree
-  wget
-  zsh
-];
+  shellToolsPackages = with pkgs; [
+    alacritty
+    bat
+    fd
+    file
+    fzf
+    htop
+    jq
+    lsof
+    ripgrep
+    slurp
+    unzip
+    tmux
+    tokei
+    tree
+    wget
+    zsh
+  ];
 
+  videoPackages = with pkgs; [
+    obs-studio
+    ffmpeg
+    mpv
+    vlc
+    subdl
+    yt-dlp
+  ];
 
-videoPackages = with pkgs; [
-  obs-studio
-  ffmpeg
-  mpv
-  vlc
-  subdl
-  yt-dlp
-];
+  audioPackages = with pkgs; [
+    pavucontrol
+    pulseaudio
+  ];
 
-audioPackages = with pkgs; [
-  pavucontrol
-  pulseaudio
-];
+  imagePackages = with pkgs; [
+    gimp
+    eog
+  ];
 
-imagePackages = with pkgs; [
-  gimp
-  eog
-];
+  socialMediaPackages = with pkgs; [
+    telegram-desktop
+    tuir
+    discord
+  ];
 
-socialMediaPackages = with pkgs; [
-  telegram-desktop
-  tuir
-  discord
-];
+  desktopEnvironmentPackages = with pkgs; [
+    gammastep
+    swaylock
+    mako
+    bemenu
+    xfce.thunar
+    waybar
+    libnotify
+    batsignal
+    # For taking screenshots and copy plasting
+    grim
+    wl-clipboard
+  ];
 
-desktopEnvironmentPackages = with pkgs; [
-  gammastep
-  swaylock
-  mako
-  bemenu
-  xfce.thunar
-  waybar
-  libnotify
-  batsignal
-  # For taking screenshots and copy plasting
-  grim
-  wl-clipboard
-];
+  browsersPackages = with pkgs; [
+    firefox-devedition
+    google-chrome
+    lynx
+    tor-browser
+  ];
 
-browsersPackages = with pkgs; [
-  firefox-devedition
-  google-chrome
-  lynx
-  tor-browser
-];
+  specialFileViewersPackages = with pkgs; [
+    zathura
+    libreoffice-qt-fresh
+    tectonic
+    obsidian
+    keepassxc
+    gedit
+    man-pages
+    man-pages-posix
+    # Spell checkers
+    hunspell
+    hunspellDicts.en-us-large
+  ];
 
-specialFileViewersPackages = with pkgs; [
-  zathura
-  libreoffice-qt-fresh
-  tectonic
-  obsidian
-  keepassxc
-  gedit
-  man-pages
-  man-pages-posix
-  # Spell checkers
-  hunspell
-  hunspellDicts.en-us-large
-];
+  networkingPackages = with pkgs; [
+    nmap
+    openssl
+    networkmanager
+    wireguard-tools
+    qbittorrent
+  ];
 
+  hardwareAndDebuggingPackages = with pkgs; [
+    acpi
+    fwupd
+    dmidecode
+    # Userspace debugging and diagnostic tool for AMD GPUs
+    umr
+    usbutils
+    power-profiles-daemon
+    # samsung cups drivers
+    splix
+  ];
 
-networkingPackages = with pkgs; [
-  nmap
-  openssl
-  networkmanager
-  wireguard-tools
-  qbittorrent
-];
-
-hardwareAndDebuggingPackages = with pkgs; [
-  acpi
-  fwupd
-  dmidecode
-  # Userspace debugging and diagnostic tool for AMD GPUs
-  umr
-  usbutils
-  power-profiles-daemon
-  # samsung cups drivers
-  splix
-];
-
-fileSystemsPackages = with pkgs; [
-  ntfs3g
-];
+  fileSystemsPackages = with pkgs; [
+    ntfs3g
+  ];
 
 in
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-# From https://github.com/nixos/nixos-hardware
+  imports = [
+    # Include the results of the hardware scan.
+    # From https://github.com/nixos/nixos-hardware
     <nixos-hardware/framework/13-inch/7040-amd>
-      ./hardware-configuration.nix
-      "${builtins.fetchTarball "https://github.com/nix-community/disko/archive/master.tar.gz"}/module.nix"
-      ./disk-config.nix
-    ];
+    ./hardware-configuration.nix
+    "${builtins.fetchTarball "https://github.com/nix-community/disko/archive/master.tar.gz"}/module.nix"
+    ./disk-config.nix
+  ];
 
-# Use the systemd-boot EFI boot loader.
+  # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-# Use the latest kernel
+  # Use the latest kernel
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
-# This might get rid of the weird fraction-of-a-second artifacts that appear when in wayland and an external HDMI monitor is connected and watching video/youtube
-# https://community.frame.work/t/responded-blocky-artifacts-on-amd-framework-laptop-13/44321/29
-# https://wiki.archlinux.org/title/Framework_Laptop_13#(AMD)_Flickering,_artifacts_and_a_white_screen_when_a_second_monitor_is_connected
+  # This might get rid of the weird fraction-of-a-second artifacts that appear when in wayland and an external HDMI monitor is connected and watching video/youtube
+  # https://community.frame.work/t/responded-blocky-artifacts-on-amd-framework-laptop-13/44321/29
+  # https://wiki.archlinux.org/title/Framework_Laptop_13#(AMD)_Flickering,_artifacts_and_a_white_screen_when_a_second_monitor_is_connected
   boot.kernelParams = [ "amdgpu.sg_display=0" ];
 
-
-# Enable printing
+  # Enable printing
 
   services.printing.enable = true;
   services.printing.drivers = with pkgs; [ splix ];
 
   hardware.printers = {
     ensurePrinters = [
-    {
-      name = "ML-2165";
-      location = "Earth";
-      deviceUri = "usb://Samsung/ML-2160%20Series?serial=Z7CYB8GC3B00LLY";
-      model = "ml2165.ppd";
-      ppdOptions = {
-        PageSize = "A4";
-      };
-    }
+      {
+        name = "ML-2165";
+        location = "Earth";
+        deviceUri = "usb://Samsung/ML-2160%20Series?serial=Z7CYB8GC3B00LLY";
+        model = "ml2165.ppd";
+        ppdOptions = {
+          PageSize = "A4";
+        };
+      }
     ];
     ensureDefaultPrinter = "ML-2165";
   };
 
-# enable power saving settings from powertop
+  # enable power saving settings from powertop
   powerManagement.powertop.enable = true;
 
   networking.hostName = "earth"; # Define your hostname.
 
-# Pick only one of the below networking options.
-# networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-    networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
+  # Pick only one of the below networking options.
+  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+  networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
 
-# Set your time zone.
-    time.timeZone = "Europe/Berlin";
+  # Set your time zone.
+  time.timeZone = "Europe/Berlin";
 
-# Configure network proxy if necessary
-# networking.proxy.default = "http://user:password@proxy:port/";
-# networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
+  # Configure network proxy if necessary
+  # networking.proxy.default = "http://user:password@proxy:port/";
+  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
-# Select internationalisation properties.
+  # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
   console = {
     font = "Lat2-Terminus16";
-# keyMap = "us";
+    # keyMap = "us";
     useXkbConfig = true; # use xkb.options in tty.
   };
 
-# Enable the X11 windowing system.
-# services.xserver.enable = true;
+  # Enable the X11 windowing system.
+  # services.xserver.enable = true;
 
-# Configure keymap in X11
+  # Configure keymap in X11
   services.xserver.xkb.layout = "us";
-# services.xserver.xkb.options = "eurosign:e,caps:escape";
+  # services.xserver.xkb.options = "eurosign:e,caps:escape";
   services.xserver.xkb.options = "ctrl:nocaps";
 
-# Enable CUPS to print documents.
-# services.printing.enable = true;
+  # Enable CUPS to print documents.
+  # services.printing.enable = true;
 
-# Enable sound.
-# https://nixos.wiki/wiki/PipeWire
-# sound.enable = true;
+  # Enable sound.
+  # https://nixos.wiki/wiki/PipeWire
+  # sound.enable = true;
   hardware.pulseaudio.enable = false;
 
   security.rtkit.enable = true;
@@ -270,11 +277,10 @@ in
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
-  # If you want to use JACK applications, uncomment this
-  #jack.enable = true;
+    # If you want to use JACK applications, uncomment this
+    #jack.enable = true;
   };
   hardware.bluetooth.enable = true;
-
 
   # Enabling OpenGL: https://nixos.wiki/wiki/OpenGL
   # This is needed to fix the issue in Python
@@ -285,13 +291,13 @@ in
   # Wireplumber (services.pipewire.wireplumber) is the default modular session / policy manager for PipeWire
   services.pipewire.wireplumber.configPackages = [
     (pkgs.writeTextDir "share/wireplumber/bluetooth.lua.d/51-bluez-config.lua" ''
-     bluez_monitor.properties = {
-     ["bluez5.enable-sbc-xq"] = true,
-     ["bluez5.enable-msbc"] = true,
-     ["bluez5.enable-hw-volume"] = true,
-     ["bluez5.headset-roles"] = "[ hsp_hs hsp_ag hfp_hf hfp_ag ]"
-     }
-     '')
+      bluez_monitor.properties = {
+      ["bluez5.enable-sbc-xq"] = true,
+      ["bluez5.enable-msbc"] = true,
+      ["bluez5.enable-hw-volume"] = true,
+      ["bluez5.headset-roles"] = "[ hsp_hs hsp_ag hfp_hf hfp_ag ]"
+      }
+    '')
   ];
 
   # Enable A2DP sink
@@ -309,7 +315,7 @@ in
   # Avoid writing --extra-experimental-features 'nix-command flakes' for certain nix commands
   # https://discourse.nixos.org/t/error-experimental-nix-feature-nix-command-is-disabled/18089/7
   nix.extraOptions = ''
-   experimental-features = nix-command flakes
+    experimental-features = nix-command flakes
   '';
 
   # BIOS updates through LVFS
@@ -323,14 +329,13 @@ in
     isNormalUser = true;
     home = "/home/chibby0ne";
     extraGroups = [
-      "wheel" 			# Enable ‘sudo’ for the user.
-      "docker"			# For using docker without sudo
-      "networkmanager"		# Enable configuration of network using network manager
-      "video"			# Required by sway?
-      "adbusers"                # adb
-    ]; 
+      "wheel" # Enable ‘sudo’ for the user.
+      "docker" # For using docker without sudo
+      "networkmanager" # Enable configuration of network using network manager
+      "video" # Required by sway?
+      "adbusers" # adb
+    ];
   };
-
 
   # adb
   programs.adb.enable = true;
@@ -346,18 +351,19 @@ in
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  environment.systemPackages = developersPackages
-  ++ shellToolsPackages
-  ++ videoPackages
-  ++ audioPackages
-  ++ imagePackages
-  ++ socialMediaPackages
-  ++ desktopEnvironmentPackages
-  ++ browsersPackages
-  ++ specialFileViewersPackages
-  ++ networkingPackages
-  ++ hardwareAndDebuggingPackages
-  ++ fileSystemsPackages;
+  environment.systemPackages =
+    developersPackages
+    ++ shellToolsPackages
+    ++ videoPackages
+    ++ audioPackages
+    ++ imagePackages
+    ++ socialMediaPackages
+    ++ desktopEnvironmentPackages
+    ++ browsersPackages
+    ++ specialFileViewersPackages
+    ++ networkingPackages
+    ++ hardwareAndDebuggingPackages
+    ++ fileSystemsPackages;
 
   # Enable tailscale
   services.tailscale.enable = true;
@@ -375,10 +381,9 @@ in
   # Obsidian, Steam and Discord are unfree
   nixpkgs.config.allowUnfree = true;
 
-
   # Enables docker
   virtualisation.docker.enable = true;
-  virtualisation.docker.storageDriver = "btrfs";  # Might be needed for btrfs
+  virtualisation.docker.storageDriver = "btrfs"; # Might be needed for btrfs
 
   # Enables direnv
   programs.direnv.enable = true;
@@ -401,29 +406,31 @@ in
   services.xserver.desktopManager.gnome.enable = true;
 
   # Do not install these packages
-  environment.gnome.excludePackages = (with pkgs; [
-    gnome-photos
-    gnome-tour
-    gedit # text editor
-    cheese # webcam tool
-    gnome-terminal
-    epiphany # web browser
-    geary # email reader
-    evince # document viewer
-    totem # video player
-    gnome-music
-    gnome-characters
-    tali # poker game
-    iagno # go game
-    hitori # sudoku game
-    atomix # puzzle game
-  ]);
+  environment.gnome.excludePackages = (
+    with pkgs;
+    [
+      gnome-photos
+      gnome-tour
+      gedit # text editor
+      cheese # webcam tool
+      gnome-terminal
+      epiphany # web browser
+      geary # email reader
+      evince # document viewer
+      totem # video player
+      gnome-music
+      gnome-characters
+      tali # poker game
+      iagno # go game
+      hitori # sudoku game
+      atomix # puzzle game
+    ]
+  );
 
   # Fonts
   fonts.packages = with pkgs; [
     nerdfonts
   ];
-
 
   # Zsh
   programs.zsh.enable = true;
@@ -473,4 +480,3 @@ in
   system.stateVersion = "23.11"; # Did you read the comment?
 
 }
-
