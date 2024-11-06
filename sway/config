@@ -209,6 +209,8 @@ bindsym $mod+backspace output eDP-1 toggle
 # Taking screenshots
 bindsym $mod+p exec grim -g "$(slurp -d)" - | wl-copy
 
+# Toggle gtk color-scheme (light/dark)
+bindsym $mod+Shift+t exec ~/.config/sway/toggle_gtk_color_scheme.sh
 
 # Go to sleep and lock screen
 exec swayidle -w \
