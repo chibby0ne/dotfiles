@@ -32,6 +32,8 @@ let
     kotlin-language-server
     # Nix
     nixd
+    # Tree-sitter
+    tree-sitter
 
     #  Languages
     rocmPackages.llvm.clang
@@ -94,6 +96,7 @@ let
     jq
     lsof
     ripgrep
+    ranger
     slurp
     unzip
     tmux
