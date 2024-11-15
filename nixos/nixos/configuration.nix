@@ -30,6 +30,9 @@ let
     rust-analyzer
     # Kotlin
     kotlin-language-server
+    #ts
+    typescript
+    typescript-language-server
     # Nix
     nixd
     # Tree-sitter
@@ -218,21 +221,6 @@ in
 
   services.printing.enable = true;
   services.printing.drivers = with pkgs; [ splix ];
-
-  hardware.printers = {
-    ensurePrinters = [
-      {
-        name = "ML-2165";
-        location = "Earth";
-        deviceUri = "usb://Samsung/ML-2160%20Series?serial=Z7CYB8GC3B00LLY";
-        model = "ml2165.ppd";
-        ppdOptions = {
-          PageSize = "A4";
-        };
-      }
-    ];
-    ensureDefaultPrinter = "ML-2165";
-  };
 
   # enable power saving settings from powertop
   powerManagement.powertop.enable = true;
