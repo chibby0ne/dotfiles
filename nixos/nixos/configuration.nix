@@ -107,6 +107,7 @@ let
     tree
     wget
     zsh
+    nix-index
   ];
 
   videoPackages = with pkgs; [
