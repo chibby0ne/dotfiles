@@ -49,7 +49,7 @@ CASE_SENSITIVE="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git ssh-agent zsh-autosuggestions zsh-completions colored-man-pages)
+plugins=(git ssh-agent zsh-autosuggestions zsh-completions colored-man-pages direnv)
 
 # User configuration
 # Needed for zsh-completions
