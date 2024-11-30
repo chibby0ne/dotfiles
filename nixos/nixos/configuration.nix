@@ -34,7 +34,7 @@ let
     typescript
     typescript-language-server
     # Nix
-    nixd
+    nil
     # Tree-sitter
     tree-sitter
 
