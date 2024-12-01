@@ -175,8 +175,13 @@ export PATH=$PATH:/home/chibby0ne/.cargo/bin
 export PATH=$PATH:/home/chibby0ne/.bin
 
 # fzf
-source /run/current-system/sw/share/fzf/key-bindings.zsh
-source /run/current-system/sw/share/fzf/completion.zsh
+if [[ $(uname -v | awk '{ print $1 }') =~ NixOS ]]; then
+    source /run/current-system/sw/share/fzf/key-bindings.zsh
+    source /run/current-system/sw/share/fzf/completion.zsh
+elif [[ $(uname) == "Linux" ]]; then
+    source /usr/share/fzf/key-bindings.zsh
+    source /usr/share/fzf/completion.zsh
+fi
 
 # nvim editor of systemd units
 export SYSTEMD_EDITOR=/run/current-system/sw/bin/nvim
