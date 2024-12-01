@@ -248,9 +248,6 @@ exec_always xrandr --output XWAYLAND0 --primary
 # Open obsidian at startup
 exec obsidian
 
-# Open discord at startup
-exec discord
-
 # Don't swayidle if we have these apps in fullscreen
 for_window [app_id="firefox"] inhibit_idle fullscreen
 for_window [app_id="mpv"] inhibit_idle fullscreen
