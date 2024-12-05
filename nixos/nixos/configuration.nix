@@ -77,6 +77,13 @@ let
     # Containerization/Devops
     docker
     minikube
+    # If we delete the one downloaded by minikube and
+    # add this one then minikube will use this one
+    # when selecting --driver=kvm2
+    # This is due nixos not being able to run dynamically linked executables
+    # as the linker path doesn't exist in NixOS
+    # https://github.com/kubernetes/minikube/issues/6023#issuecomment-2103782263
+    docker-machine-kvm2
     k3s
     kubernetes-helm
     eksctl
@@ -316,6 +323,8 @@ in
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
+  virtualisation.libvirtd.enable = true;
+
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.chibby0ne = {
     isNormalUser = true;
@@ -326,6 +335,7 @@ in
       "networkmanager" # Enable configuration of network using network manager
       "video" # Required by sway?
       "adbusers" # adb
+      "libvirtd" # libvirt / kvm2 driver (minikube)
     ];
   };
 
