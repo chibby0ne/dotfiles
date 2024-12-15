@@ -35,6 +35,7 @@ let
     typescript-language-server
     # Nix
     nil
+    nixd
     # Tree-sitter
     tree-sitter
 
@@ -217,8 +218,8 @@ in
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  # Use the latest kernel
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  # Use the 6.11 kernel which seems to be not laggy or choppy
+  boot.kernelPackages = pkgs.linuxKernel.packages.linux_6_11;
 
   # This might get rid of the weird fraction-of-a-second artifacts that appear when in wayland and an external HDMI monitor is connected and watching video/youtube
   # https://community.frame.work/t/responded-blocky-artifacts-on-amd-framework-laptop-13/44321/29
