@@ -431,8 +431,14 @@ in
   );
 
   # Fonts
-  fonts.packages = with pkgs; [
-    nerdfonts
+  fonts.packages = with pkgs; with nerd-fonts; [
+    iosevka
+    iosevka-term
+    dejavu-sans-mono
+
+    fira-mono
+    fira-code
+    zed-mono
     office-code-pro
   ];
 
