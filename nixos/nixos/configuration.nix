@@ -40,8 +40,8 @@ let
     tree-sitter
 
     #  Languages
-    rocmPackages.llvm.clang
-    rocmPackages.llvm.clang-tools-extra
+    libclang
+    clang-tools
     typescript
     go
     protobuf
