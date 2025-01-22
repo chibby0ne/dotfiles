@@ -162,6 +162,7 @@ let
     google-chrome
     lynx
     tor-browser
+    spotify
   ];
 
   specialFileViewersPackages = with pkgs; [
@@ -269,7 +270,7 @@ in
   # Enable sound.
   # https://nixos.wiki/wiki/PipeWire
   # sound.enable = true;
-  hardware.pulseaudio.enable = false;
+  services.pulseaudio.enable = false;
 
   security.rtkit.enable = true;
   services.pipewire = {
