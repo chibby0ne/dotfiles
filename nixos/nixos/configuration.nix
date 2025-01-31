@@ -38,6 +38,8 @@ let
     nixd
     # Tree-sitter
     tree-sitter
+    # latex
+    texlab
 
     #  Languages
     libclang
@@ -141,6 +143,7 @@ let
     telegram-desktop
     tuir
     discord
+    slack
   ];
 
   desktopEnvironmentPackages = with pkgs; [
