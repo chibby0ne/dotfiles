@@ -40,6 +40,8 @@ let
     tree-sitter
     # latex
     texlab
+    # yaml
+    yaml-language-server
 
     #  Languages
     libclang
