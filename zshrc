@@ -121,16 +121,16 @@ alias sudo="sudo -E"
 ######################################
 
 # The next line updates PATH for the Google Cloud SDK.
-if [ -f '/home/chibby0ne/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/home/chibby0ne/Downloads/google-cloud-sdk/path.zsh.inc'; fi
+if [ -f "$HOME/Downloads/google-cloud-sdk/path.zsh.inc" ]; then . "$HOME/Downloads/google-cloud-sdk/path.zsh.inc"; fi
 
 # The next line enables shell command completion for gcloud.
-if [ -f '/home/chibby0ne/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/home/chibby0ne/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
+if [ -f "$HOME/Downloads/google-cloud-sdk/completion.zsh.inc" ]; then . "$HOME/Downloads/google-cloud-sdk/completion.zsh.inc"; fi
 
 # Get color suport for 'less'
 export LESS="--RAW-CONTROL-CHARS"
 
 # Use colors for less, man, etc...
-[[ -f /home/chibby0ne/.LESS_TERMCAP ]] && source /home/chibby0ne/.LESS_TERMCAP
+[[ -f $HOME/.LESS_TERMCAP ]] && source $HOME/.LESS_TERMCAP
 
 # For Jupyter Notebooks 'Failed to launch GPU process' (https://github.com/jupyter/notebook/issues/2836)
 export BROWSER=firefox-developer-edition
@@ -159,20 +159,20 @@ export MANWIDTH=80
 export VISUAL="nvim"
 
 # Go related
-export GOPATH=/home/chibby0ne/Projects/go_workspace
+export GOPATH=$HOME/Projects/go_workspace
 export GOBIN=$GOPATH/bin
 
 # Binaries from GOPATH
 export PATH=$GOBIN:$PATH
 
 # Other binaries
-export PATH=$PATH:/home/chibby0ne/.local/bin
+export PATH=$PATH:$HOME/.local/bin
 
 # Binaries installed with cargo, assuming cargo is installed using rustup
-export PATH=$PATH:/home/chibby0ne/.cargo/bin
+export PATH=$PATH:$HOME/.cargo/bin
 
 # Home installed binaries
-export PATH=$PATH:/home/chibby0ne/.bin
+export PATH=$PATH:$HOME/.bin
 
 # fzf
 if [[ $(uname -v | awk '{ print $1 }') =~ NixOS ]]; then
