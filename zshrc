@@ -190,11 +190,6 @@ export SYSTEMD_EDITOR=/run/current-system/sw/bin/nvim
 export PATH="$HOME/.jenv/bin:$PATH"
 eval "$(jenv init -)"
 
-# pyenv
-export PYENV_ROOT="$HOME/.pyenv"
-command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
-
 # Change highlight color for zsh-autosuggestions with solarized_dark theme
 export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=60'
 
