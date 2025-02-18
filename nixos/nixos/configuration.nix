@@ -20,6 +20,7 @@ let
     gopls
     # python
     pyright
+    uv
     # javascript/typescript
     deno
     # lua
@@ -182,6 +183,8 @@ let
     # Spell checkers
     hunspell
     hunspellDicts.en-us-large
+    calibre
+    imhex
   ];
 
   networkingPackages = with pkgs; [
@@ -190,6 +193,7 @@ let
     networkmanager
     wireguard-tools
     qbittorrent
+    metasploit
   ];
 
   hardwareAndDebuggingPackages = with pkgs; [
