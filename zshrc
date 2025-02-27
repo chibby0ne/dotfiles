@@ -56,6 +56,8 @@ plugins=(git ssh-agent zsh-autosuggestions zsh-completions colored-man-pages dir
 # fpath+=${ZSH_CUSTOM}/plugins/zsh-completions/src
 # fpath+=${ZSH_CUSTOM}/completions
 
+fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
+
 # DISABLE_MAGIC_FUNCTIONS=true
 source $ZSH/oh-my-zsh.sh
 
