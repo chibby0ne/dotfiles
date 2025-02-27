@@ -185,6 +185,7 @@ let
     hunspellDicts.en-us-large
     calibre
     imhex
+    _1password-gui
   ];
 
   networkingPackages = with pkgs; [
