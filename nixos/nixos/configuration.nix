@@ -97,6 +97,10 @@ let
     heroku
     flyctl
 
+    # Editors
+    code-cursor
+
+
     # Source version control
     git
     gh
