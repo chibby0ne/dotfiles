@@ -100,7 +100,6 @@ let
     # Editors
     code-cursor
 
-
     # Source version control
     git
     gh
@@ -302,7 +301,7 @@ in
   # ImportError: libGL.so.1: cannot open shared object file
   hardware.graphics.enable = true;
 
-  # Configure bluetooth for pipewire 
+  # Configure bluetooth for pipewire
   # Wireplumber (services.pipewire.wireplumber) is the default modular session / policy manager for PipeWire
   services.pipewire.wireplumber.configPackages = [
     (pkgs.writeTextDir "share/wireplumber/bluetooth.lua.d/51-bluez-config.lua" ''
@@ -446,16 +445,19 @@ in
   );
 
   # Fonts
-  fonts.packages = with pkgs; with nerd-fonts; [
-    iosevka
-    iosevka-term
-    dejavu-sans-mono
+  fonts.packages =
+    with pkgs;
+    with nerd-fonts;
+    [
+      iosevka
+      iosevka-term
+      dejavu-sans-mono
 
-    fira-mono
-    fira-code
-    zed-mono
-    office-code-pro
-  ];
+      fira-mono
+      fira-code
+      zed-mono
+      office-code-pro
+    ];
 
   # Zsh
   programs.zsh.enable = true;
