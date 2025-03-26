@@ -54,7 +54,7 @@ let
     kotlin
 
     # Libs
-    libgcc
+    gcc
     libglvnd
 
     # IDEs
@@ -96,6 +96,10 @@ let
     google-cloud-sdk
     heroku
     flyctl
+
+    # dbs
+    sqlite
+    dbeaver-bin
 
     # Editors
     code-cursor
@@ -383,7 +387,7 @@ in
     ++ fileSystemsPackages;
 
   # Enable tailscale
-  services.tailscale.enable = true;
+  # services.tailscale.enable = true;
 
   # Install and enable steam
   programs.steam = {
