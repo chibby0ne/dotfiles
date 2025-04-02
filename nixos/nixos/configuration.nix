@@ -96,6 +96,7 @@ let
     google-cloud-sdk
     heroku
     flyctl
+    skopeo
 
     # dbs
     sqlite
@@ -137,6 +138,7 @@ let
     vlc
     subdl
     yt-dlp
+    rustdesk
   ];
 
   audioPackages = with pkgs; [
@@ -193,6 +195,7 @@ let
     calibre
     imhex
     _1password-gui
+    cherrytree
   ];
 
   networkingPackages = with pkgs; [
@@ -202,6 +205,7 @@ let
     wireguard-tools
     qbittorrent
     metasploit
+    tor-browser
   ];
 
   hardwareAndDebuggingPackages = with pkgs; [
