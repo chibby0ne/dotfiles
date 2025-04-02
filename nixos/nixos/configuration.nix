@@ -9,13 +9,8 @@
   ...
 }:
 
-# Language servers
-# Language
-# Devops tools
-# IDEs
 let
-  developersPackages = with pkgs; [
-    # LSP
+  languageServerPackages = with pkgs; [
     # go
     gopls
     # python
@@ -25,7 +20,9 @@ let
     deno
     # lua
     lua-language-server
-    # Rust ls (it requires all 3 of them, since we are not installing using rustup, due to the difficulty of it in nixos)
+    luajitPackages.luarocks
+    # Rust ls (it requires all 3 of them, since we are not installing using
+    # rustup, due to the difficulty of it in nixos)
     rustc
     cargo
     rust-analyzer
@@ -37,49 +34,39 @@ let
     # Nix
     nil
     nixd
-    # Tree-sitter
     tree-sitter
     # latex
     texlab
-    # yaml
     yaml-language-server
-
-    #  Languages
-    libclang
+    # c/c++
     clang-tools
+  ];
+
+  languagePackages = with pkgs; [
+    lua
+    gcc
+    clang
     typescript
     go
     protobuf
     zulu
     kotlin
+  ];
 
-    # Libs
-    gcc
+  libraryPackages = with pkgs; [
     libglvnd
+  ];
 
-    # IDEs
+  idePackages = with pkgs; [
     android-studio
     vscode-fhs
     jetbrains.idea-community
     jupyter-all
     neovim
+    code-cursor
+  ];
 
-    # nix
-    nixfmt-rfc-style
-
-    # Regular ones
-    gnumake
-
-    # Language Build tools
-    maven
-    nodejs
-    poetry
-    virtualenv
-
-    # Python
-    ruff
-    postgresql
-
+  kubernetesPackages = with pkgs; [
     # Containerization/Devops
     docker
     minikube
@@ -93,21 +80,42 @@ let
     k3s
     kubernetes-helm
     eksctl
-    google-cloud-sdk
     heroku
     flyctl
     skopeo
+    podman
+    kubebuilder
+    kafkactl
+    awscli2
+  ];
 
-    # dbs
+  gdk =
+    with pkgs;
+    google-cloud-sdk.withExtraComponents (with google-cloud-sdk.components; [ gke-cloud-auth-plugin ]);
+
+  formattersAndBuildToolsPackages = with pkgs; [
+    nixfmt-rfc-style
+    ruff
+    gnumake
+    maven
+    nodejs
+    poetry
+  ];
+
+  databasePackages = with pkgs; [
     sqlite
     dbeaver-bin
+    postgresql
+  ];
 
-    # Editors
-    code-cursor
+  documentationPackages = with pkgs; [
+    man-pages
+    man-pages-posix
+  ];
 
-    # Source version control
-    git
-    gh
+  passwordManagersPackages = with pkgs; [
+    keepassxc
+    _1password-gui
   ];
 
   shellToolsPackages = with pkgs; [
@@ -129,6 +137,14 @@ let
     wget
     zsh
     nix-index
+    yq
+    gh
+    # Source version control
+    git
+    gh
+    # For taking screenshots and copy pasting
+    grim
+    wl-clipboard
   ];
 
   videoPackages = with pkgs; [
@@ -138,12 +154,12 @@ let
     vlc
     subdl
     yt-dlp
-    rustdesk
   ];
 
   audioPackages = with pkgs; [
     pavucontrol
     pulseaudio
+    spotify
   ];
 
   imagePackages = with pkgs; [
@@ -167,9 +183,6 @@ let
     waybar
     libnotify
     batsignal
-    # For taking screenshots and copy plasting
-    grim
-    wl-clipboard
   ];
 
   browsersPackages = with pkgs; [
@@ -177,7 +190,6 @@ let
     google-chrome
     lynx
     tor-browser
-    spotify
   ];
 
   specialFileViewersPackages = with pkgs; [
@@ -185,16 +197,12 @@ let
     libreoffice-qt-fresh
     tectonic
     obsidian
-    keepassxc
     gedit
-    man-pages
-    man-pages-posix
     # Spell checkers
     hunspell
     hunspellDicts.en-us-large
     calibre
     imhex
-    _1password-gui
     cherrytree
   ];
 
@@ -206,6 +214,8 @@ let
     qbittorrent
     metasploit
     tor-browser
+    rustdesk
+    httpie
   ];
 
   hardwareAndDebuggingPackages = with pkgs; [
@@ -377,7 +387,16 @@ in
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages =
-    developersPackages
+    languageServerPackages
+    ++ languagePackages
+    ++ libraryPackages
+    ++ idePackages
+    ++ kubernetesPackages
+    ++ gdk
+    ++ formattersAndBuildToolsPackages
+    ++ databasePackages
+    ++ documentationPackages
+    ++ passwordManagersPackages
     ++ shellToolsPackages
     ++ videoPackages
     ++ audioPackages
