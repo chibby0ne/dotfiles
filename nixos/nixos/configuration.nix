@@ -91,7 +91,7 @@ let
 
   gdk =
     with pkgs;
-    google-cloud-sdk.withExtraComponents (with google-cloud-sdk.components; [ gke-cloud-auth-plugin ]);
+    google-cloud-sdk.withExtraComponents (with google-cloud-sdk.components; [ gke-gcloud-auth-plugin ]);
 
   formattersAndBuildToolsPackages = with pkgs; [
     nixfmt-rfc-style
@@ -232,6 +232,10 @@ let
 
   fileSystemsPackages = with pkgs; [
     ntfs3g
+  ];
+
+  emulatorsPackages = with pkgs; [
+    higan
   ];
 
 in
@@ -392,7 +396,7 @@ in
     ++ libraryPackages
     ++ idePackages
     ++ kubernetesPackages
-    ++ gdk
+    ++ [ gdk ]
     ++ formattersAndBuildToolsPackages
     ++ databasePackages
     ++ documentationPackages
@@ -407,7 +411,8 @@ in
     ++ specialFileViewersPackages
     ++ networkingPackages
     ++ hardwareAndDebuggingPackages
-    ++ fileSystemsPackages;
+    ++ fileSystemsPackages
+    ++ emulatorsPackages;
 
   # Enable tailscale
   # services.tailscale.enable = true;
