@@ -6,6 +6,7 @@
   config,
   lib,
   pkgs,
+  oldpkgs,
   ...
 }:
 
@@ -51,6 +52,7 @@ let
     protobuf
     zulu
     kotlin
+    zulu
   ];
 
   libraryPackages = with pkgs; [
@@ -100,6 +102,7 @@ let
     maven
     nodejs
     poetry
+    python312Packages.pip
   ];
 
   databasePackages = with pkgs; [
@@ -214,7 +217,7 @@ let
     qbittorrent
     metasploit
     tor-browser
-    rustdesk
+    oldpkgs.rustdesk
     httpie
   ];
 
@@ -228,6 +231,7 @@ let
     power-profiles-daemon
     # samsung cups drivers
     splix
+    lshw
   ];
 
   fileSystemsPackages = with pkgs; [
@@ -254,16 +258,7 @@ in
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  # Use the 6.11 kernel which seems to be not laggy or choppy
-  boot.kernelPackages = pkgs.linuxKernel.packages.linux_6_11;
-
-  # This might get rid of the weird fraction-of-a-second artifacts that appear when in wayland and an external HDMI monitor is connected and watching video/youtube
-  # https://community.frame.work/t/responded-blocky-artifacts-on-amd-framework-laptop-13/44321/29
-  # https://wiki.archlinux.org/title/Framework_Laptop_13#(AMD)_Flickering,_artifacts_and_a_white_screen_when_a_second_monitor_is_connected
-  boot.kernelParams = [ "amdgpu.sg_display=0" ];
-
   # Enable printing
-
   services.printing.enable = true;
   services.printing.drivers = with pkgs; [ splix ];
 
