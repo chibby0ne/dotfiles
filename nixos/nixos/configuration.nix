@@ -64,7 +64,6 @@ let
     vscode-fhs
     jetbrains.idea-community
     jupyter-all
-    neovim
     code-cursor
   ];
 
@@ -148,6 +147,8 @@ let
     # For taking screenshots and copy pasting
     grim
     wl-clipboard
+    neovim
+    xxd
   ];
 
   videoPackages = with pkgs; [
