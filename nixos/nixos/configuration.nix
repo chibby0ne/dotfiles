@@ -241,6 +241,8 @@ let
 
   emulatorsPackages = with pkgs; [
     higan
+    mupen64plus
+    ares
   ];
 
 in
