@@ -164,6 +164,7 @@ let
     pavucontrol
     pulseaudio
     spotify
+    spotube
   ];
 
   imagePackages = with pkgs; [
@@ -176,6 +177,7 @@ let
     tuir
     discord
     slack
+    signal-desktop
   ];
 
   desktopEnvironmentPackages = with pkgs; [
@@ -198,6 +200,7 @@ let
 
   specialFileViewersPackages = with pkgs; [
     zathura
+    kdePackages.okular
     libreoffice-qt-fresh
     tectonic
     obsidian
@@ -241,7 +244,6 @@ let
 
   emulatorsPackages = with pkgs; [
     higan
-    mupen64plus
     ares
   ];
 
@@ -342,7 +344,7 @@ in
   };
 
   # Have bluetooth headsets take over audio output after connecting
-  hardware.pulseaudio.extraConfig = "
+  services.pulseaudio.extraConfig = "
     load-module module-switch-on-connect
   ";
 
