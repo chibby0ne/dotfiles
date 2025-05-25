@@ -227,7 +227,7 @@ let
     qbittorrent
     metasploit
     tor-browser
-    oldpkgs.rustdesk
+    rustdesk
     httpie
     protonvpn-gui
   ];
