@@ -16,6 +16,7 @@ let
     gopls
     # python
     pyright
+    basedpyright
     uv
     # javascript/typescript
     deno
@@ -65,6 +66,7 @@ let
     jetbrains.idea-community
     jupyter-all
     code-cursor
+    lmstudio
   ];
 
   kubernetesPackages = with pkgs; [
@@ -149,6 +151,10 @@ let
     wl-clipboard
     neovim
     xxd
+    killall
+    fish
+    nushell
+    atuin
   ];
 
   videoPackages = with pkgs; [
@@ -223,6 +229,7 @@ let
     tor-browser
     oldpkgs.rustdesk
     httpie
+    protonvpn-gui
   ];
 
   hardwareAndDebuggingPackages = with pkgs; [
