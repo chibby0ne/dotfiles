@@ -155,6 +155,11 @@ let
     fish
     nushell
     atuin
+    neofetch
+    kitty
+    wezterm
+    ghostty
+    android-tools
   ];
 
   videoPackages = with pkgs; [
