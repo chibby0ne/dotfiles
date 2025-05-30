@@ -177,10 +177,7 @@ export PATH=$PATH:$HOME/.cargo/bin
 export PATH=$PATH:$HOME/.bin
 
 # fzf
-if [[ $(uname -v | awk '{ print $1 }') =~ NixOS ]]; then
-    source /run/current-system/sw/share/fzf/key-bindings.zsh
-    source /run/current-system/sw/share/fzf/completion.zsh
-elif [[ $(uname) == "Linux" ]]; then
+if [[ $(uname) == "Linux" && ! $(uname -v | awk '{ print $1 }') =~ NixOS ]]; then
     source /usr/share/fzf/key-bindings.zsh
     source /usr/share/fzf/completion.zsh
 fi

@@ -127,7 +127,6 @@ let
     bat
     fd
     file
-    fzf
     htop
     jq
     lsof
@@ -466,6 +465,11 @@ in
         user = "greeter";
       };
     };
+  };
+
+  programs.fzf = {
+    keybindings = true;
+    fuzzyCompletion = true;
   };
 
   # Required for brightness and volume in laptop in sway
