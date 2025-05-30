@@ -155,7 +155,7 @@ let
     fish
     nushell
     atuin
-    neofetch
+    fastfetch
     kitty
     wezterm
     ghostty
@@ -454,40 +454,26 @@ in
   programs.sway = {
     enable = true;
     wrapperFeatures.gtk = true;
+    xwayland.enable = true;
   };
+
+  # Greeter for sway (starts sway)
+  services.greetd = {
+    enable = true;
+    settings = {
+      default_session = {
+        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd sway";
+        user = "greeter";
+      };
+    };
+  };
+
   # Required for brightness and volume in laptop in sway
   programs.light.enable = true;
 
   # For Virtualbox
   virtualisation.virtualbox.host.enable = true;
   users.extraGroups.vboxusers.members = [ "chibby0ne" ];
-
-  # For Gnome
-  services.xserver.enable = true;
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.gnome.enable = true;
-
-  # Do not install these packages
-  environment.gnome.excludePackages = (
-    with pkgs;
-    [
-      gnome-photos
-      gnome-tour
-      gedit # text editor
-      cheese # webcam tool
-      gnome-terminal
-      epiphany # web browser
-      geary # email reader
-      evince # document viewer
-      totem # video player
-      gnome-music
-      gnome-characters
-      tali # poker game
-      iagno # go game
-      hitori # sudoku game
-      atomix # puzzle game
-    ]
-  );
 
   # Fonts
   fonts.packages =
