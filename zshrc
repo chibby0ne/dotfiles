@@ -177,13 +177,13 @@ export PATH=$PATH:$HOME/.cargo/bin
 export PATH=$PATH:$HOME/.bin
 
 # fzf
-if [[ $(uname) == "Linux" && ! $(uname -v | awk '{ print $1 }') =~ NixOS ]]; then
-    source /usr/share/fzf/key-bindings.zsh
-    source /usr/share/fzf/completion.zsh
+if [ -n "${commands[fzf-share]}" ]; then
+  source "$(fzf-share)/key-bindings.zsh"
+  source "$(fzf-share)/completion.zsh"
 fi
 
 # nvim editor of systemd units
-export SYSTEMD_EDITOR=/run/current-system/sw/bin/nvim
+export SYSTEMD_EDITOR=$(which nvim)
 
 # Jenv
 export PATH="$HOME/.jenv/bin:$PATH"
