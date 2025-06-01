@@ -151,7 +151,6 @@ let
     neovim
     xxd
     killall
-    fish
     nushell
     atuin
     fastfetch
@@ -494,10 +493,10 @@ in
       office-code-pro
     ];
 
-  # Zsh
-  programs.zsh.enable = true;
+  # Fish
+  programs.fish.enable = true;
   # Change default shell to zsh for all users
-  users.defaultUserShell = pkgs.zsh;
+  users.defaultUserShell = pkgs.fish;
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
