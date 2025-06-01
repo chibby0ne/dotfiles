@@ -158,6 +158,7 @@ let
     wezterm
     ghostty
     android-tools
+    most
   ];
 
   videoPackages = with pkgs; [
