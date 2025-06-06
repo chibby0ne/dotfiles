@@ -61,7 +61,7 @@ let
   ];
 
   idePackages = with pkgs; [
-    android-studio
+    # android-studio
     vscode-fhs
     jetbrains.idea-community
     jupyter-all
@@ -199,6 +199,7 @@ let
     waybar
     libnotify
     batsignal
+    darkman
   ];
 
   browsersPackages = with pkgs; [
