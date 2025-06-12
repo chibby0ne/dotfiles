@@ -468,6 +468,15 @@ in
     };
   };
 
+  systemd.services.greetd = {
+    unitConfig = {
+      After = lib.mkOverride 0 [ "multi-user.target" ];
+    };
+    serviceConfig = {
+      Type = "idle";
+    };
+  };
+
   programs.fzf = {
     keybindings = true;
     fuzzyCompletion = true;
