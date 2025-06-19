@@ -245,6 +245,7 @@ let
     umr
     usbutils
     power-profiles-daemon
+    powertop
     # samsung cups drivers
     splix
     lshw
