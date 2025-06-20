@@ -42,6 +42,8 @@ let
     yaml-language-server
     # c/c++
     clang-tools
+    # fish
+    fish-lsp
   ];
 
   languagePackages = with pkgs; [
@@ -145,6 +147,7 @@ let
     # Source version control
     git
     gh
+    lazygit
     # For taking screenshots and copy pasting
     grim
     wl-clipboard
