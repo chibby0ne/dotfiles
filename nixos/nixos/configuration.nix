@@ -279,6 +279,7 @@ in
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.timeout = 0;
+  boot.kernelParams = [ "console=tty1" ];
 
   # Enable printing
   services.printing.enable = true;
@@ -464,20 +465,12 @@ in
   # Greeter for sway (starts sway)
   services.greetd = {
     enable = true;
+    vt = 2;
     settings = {
       default_session = {
         command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd sway";
         user = "greeter";
       };
-    };
-  };
-
-  systemd.services.greetd = {
-    unitConfig = {
-      After = lib.mkOverride 0 [ "multi-user.target" ];
-    };
-    serviceConfig = {
-      Type = "idle";
     };
   };
 
