@@ -309,8 +309,12 @@ in
     useXkbConfig = true; # use xkb.options in tty.
   };
 
-  # Enable the X11 windowing system.
-  # services.xserver.enable = true;
+  # Enable Gnome Keyring
+  services.gnome.gnome-keyring.enable = true;
+  # Attempt unlock keyring upon login
+  security.pam.services.gnome.enableGnomeKeyring = true;
+  # Enable Seahorse (GUI for Gnome Keyring)
+  programs.seahorse.enable = true;
 
   # Configure keymap in X11
   services.xserver.xkb.layout = "us";
@@ -435,10 +439,10 @@ in
   # Enable tailscale
   # services.tailscale.enable = true;
 
+  programs.nix-ld.enable = true;
+
   # Install and enable steam
-  programs.steam = {
-    enable = true;
-  };
+  programs.steam.enable = true;
 
   # Something requires electron25 but it is EOL
   nixpkgs.config.permittedInsecurePackages = [
