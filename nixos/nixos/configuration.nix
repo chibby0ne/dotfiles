@@ -162,6 +162,7 @@ let
     ghostty
     android-tools
     most
+    neovim-remote
   ];
 
   videoPackages = with pkgs; [
@@ -315,6 +316,11 @@ in
   security.pam.services.gnome.enableGnomeKeyring = true;
   # Enable Seahorse (GUI for Gnome Keyring)
   programs.seahorse.enable = true;
+
+  # XDG Portal
+  xdg.portal.enable = true;
+  xdg.portal.wlr.enable = true;
+  xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
 
   # Configure keymap in X11
   services.xserver.xkb.layout = "us";
