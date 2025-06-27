@@ -56,6 +56,7 @@ let
     zulu
     kotlin
     zulu
+    glib
   ];
 
   libraryPackages = with pkgs; [
@@ -326,6 +327,10 @@ in
   services.xserver.xkb.layout = "us";
   # services.xserver.xkb.options = "eurosign:e,caps:escape";
   services.xserver.xkb.options = "ctrl:nocaps";
+
+  services.xserver.displayManager.sessionCommands = ''
+    ${pkgs.darkman}/bin/darkman &
+  '';
 
   # Enable CUPS to print documents.
   # services.printing.enable = true;
