@@ -177,7 +177,6 @@ let
 
   audioPackages = with pkgs; [
     pavucontrol
-    pulseaudio
     spotify
     spotube
   ];
@@ -232,7 +231,6 @@ let
   networkingPackages = with pkgs; [
     nmap
     openssl
-    networkmanager
     wireguard-tools
     qbittorrent
     metasploit
@@ -244,15 +242,11 @@ let
 
   hardwareAndDebuggingPackages = with pkgs; [
     acpi
-    fwupd
     dmidecode
     # Userspace debugging and diagnostic tool for AMD GPUs
     umr
     usbutils
     power-profiles-daemon
-    powertop
-    # samsung cups drivers
-    splix
     lshw
   ];
 
@@ -278,14 +272,21 @@ in
   ];
 
   # Use the systemd-boot EFI boot loader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.timeout = 0;
-  boot.kernelParams = [ "console=tty1" ];
+  boot = {
+    loader = {
+      systemd-boot.enable = true;
+      efi.canTouchEfiVariables = true;
+      timeout = 0;
+    };
+    kernelParams = [ "console=tty1" ];
+  };
 
-  # Enable printing
-  services.printing.enable = true;
-  services.printing.drivers = with pkgs; [ splix ];
+  # Enable CUPS for printing
+  services.printing = {
+    enable = true;
+    # samsung drivers
+    drivers = [ pkgs.splix ];
+  };
 
   # enable power saving settings from powertop
   powerManagement.powertop.enable = true;
@@ -319,26 +320,28 @@ in
   programs.seahorse.enable = true;
 
   # XDG Portal
-  xdg.portal.enable = true;
-  xdg.portal.wlr.enable = true;
-  xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+  xdg.portal = {
+    enable = true;
+    wlr.enable = true;
+    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+  };
 
   # Configure keymap in X11
-  services.xserver.xkb.layout = "us";
-  # services.xserver.xkb.options = "eurosign:e,caps:escape";
-  services.xserver.xkb.options = "ctrl:nocaps";
-
-  services.xserver.displayManager.sessionCommands = ''
-    ${pkgs.darkman}/bin/darkman &
-  '';
-
-  # Enable CUPS to print documents.
-  # services.printing.enable = true;
+  services.xserver.xkb = {
+    layout = "us";
+    options = "ctrl:nocaps";
+  };
 
   # Enable sound.
   # https://nixos.wiki/wiki/PipeWire
   # sound.enable = true;
-  services.pulseaudio.enable = false;
+  services.pulseaudio = {
+    enable = false;
+    # Have bluetooth headsets take over audio output after connecting
+    extraConfig = "
+      load-module module-switch-on-connect
+    ";
+  };
 
   security.rtkit.enable = true;
   services.pipewire = {
@@ -349,7 +352,15 @@ in
     # If you want to use JACK applications, uncomment this
     #jack.enable = true;
   };
-  hardware.bluetooth.enable = true;
+  hardware.bluetooth = {
+    enable = true;
+    # Enable A2DP sink
+    settings = {
+      General = {
+        Enable = "Source,Sink,Media,Socket";
+      };
+    };
+  };
 
   # Enabling OpenGL: https://nixos.wiki/wiki/OpenGL
   # This is needed to fix the issue in Python
@@ -368,18 +379,6 @@ in
       }
     '')
   ];
-
-  # Enable A2DP sink
-  hardware.bluetooth.settings = {
-    General = {
-      Enable = "Source,Sink,Media,Socket";
-    };
-  };
-
-  # Have bluetooth headsets take over audio output after connecting
-  services.pulseaudio.extraConfig = "
-    load-module module-switch-on-connect
-  ";
 
   # Avoid writing --extra-experimental-features 'nix-command flakes' for certain nix commands
   # https://discourse.nixos.org/t/error-experimental-nix-feature-nix-command-is-disabled/18089/7
