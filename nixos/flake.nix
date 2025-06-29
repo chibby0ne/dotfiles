@@ -27,7 +27,6 @@
           };
           modules = [
             ./nixos/configuration.nix
-            ./nixos/darkman.nix
           ];
         };
       };
