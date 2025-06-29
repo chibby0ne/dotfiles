@@ -248,6 +248,9 @@ exec_always xrandr --output XWAYLAND0 --primary
 # Open obsidian at startup
 exec obsidian
 
+# Run darkman as daemon
+exec darkman run &
+
 # Don't swayidle if we have these apps in fullscreen
 for_window [app_id="firefox"] inhibit_idle fullscreen
 for_window [app_id="mpv"] inhibit_idle fullscreen
