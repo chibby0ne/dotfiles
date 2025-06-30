@@ -210,6 +210,7 @@ let
     google-chrome
     lynx
     tor-browser
+    brave
   ];
 
   specialFileViewersPackages = with pkgs; [
