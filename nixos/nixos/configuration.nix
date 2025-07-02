@@ -259,6 +259,14 @@ let
     ares
   ];
 
+  ebpfPackages = with pkgs; [
+    bpfmon
+    bpftop
+    bpftools
+    bpftrace
+    linuxHeaders
+  ];
+
 in
 
 {
@@ -452,7 +460,8 @@ in
     ++ networkingPackages
     ++ hardwareAndDebuggingPackages
     ++ fileSystemsPackages
-    ++ emulatorsPackages;
+    ++ emulatorsPackages
+    ++ ebpfPackages;
 
   # Enable tailscale
   # services.tailscale.enable = true;
