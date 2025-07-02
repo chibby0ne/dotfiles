@@ -271,6 +271,14 @@ in
     ./disk-config.nix
   ];
 
+  nixpkgs.overlays = [
+    (self: super: {
+      brave = super.brave.override {
+        commandLineArgs = "--password-store=gnome-libsecret";
+      };
+    })
+  ];
+
   # Use the systemd-boot EFI boot loader.
   boot = {
     loader = {
