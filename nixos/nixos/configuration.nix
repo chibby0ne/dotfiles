@@ -65,7 +65,6 @@ let
   idePackages = with pkgs; [
     # android-studio
     vscode-fhs
-    jetbrains.idea-community
     jupyter-all
     code-cursor
     lmstudio
@@ -342,15 +341,6 @@ in
     extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
   };
 
-  # Configure keymap in X11
-  services.xserver.xkb = {
-    layout = "us";
-    options = "ctrl:nocaps";
-  };
-
-  # Enable sound.
-  # https://nixos.wiki/wiki/PipeWire
-  # sound.enable = true;
   services.pulseaudio = {
     enable = false;
     # Have bluetooth headsets take over audio output after connecting
@@ -359,6 +349,8 @@ in
     ";
   };
 
+  # Enable sound.
+  # https://nixos.wiki/wiki/PipeWire
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
@@ -405,9 +397,7 @@ in
   # BIOS updates through LVFS
   services.fwupd.enable = true;
 
-  # Enable touchpad support (enabled default in most desktopManager).
-  # services.xserver.libinput.enable = true;
-
+  # Enables libvirtd / kvm2 / qemu virtualization
   virtualisation.libvirtd.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
@@ -462,9 +452,6 @@ in
     ++ fileSystemsPackages
     ++ emulatorsPackages
     ++ ebpfPackages;
-
-  # Enable tailscale
-  # services.tailscale.enable = true;
 
   programs.nix-ld.enable = true;
 
