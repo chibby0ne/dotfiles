@@ -341,14 +341,6 @@ in
     extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
   };
 
-  services.pulseaudio = {
-    enable = false;
-    # Have bluetooth headsets take over audio output after connecting
-    extraConfig = "
-      load-module module-switch-on-connect
-    ";
-  };
-
   # Enable sound.
   # https://nixos.wiki/wiki/PipeWire
   security.rtkit.enable = true;
