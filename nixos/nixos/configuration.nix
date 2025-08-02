@@ -205,6 +205,7 @@ let
   ];
 
   browsersPackages = with pkgs; [
+    ladybird
     firefox-devedition
     google-chrome
     lynx
@@ -475,7 +476,6 @@ in
   # Greeter for sway (starts sway)
   services.greetd = {
     enable = true;
-    vt = 2;
     settings = {
       default_session = {
         command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd sway";
