@@ -218,6 +218,7 @@ let
     kdePackages.okular
     libreoffice-qt-fresh
     tectonic
+    typst
     obsidian
     gedit
     # Spell checkers
