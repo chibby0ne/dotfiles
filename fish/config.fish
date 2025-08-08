@@ -4,6 +4,7 @@ if status is-interactive
 
     fish_add_path ~/.cargo/bin
 
+    # LS_COLORS is needed to have tree output colorized
     eval (dircolors -c ~/.config/dircolors)
 
 end
