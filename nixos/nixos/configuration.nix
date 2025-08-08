@@ -17,6 +17,7 @@ let
     pyright
     basedpyright
     uv
+    maturin
     # javascript/typescript
     deno
     # lua
