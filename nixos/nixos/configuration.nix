@@ -198,7 +198,7 @@ let
     swaylock
     mako
     bemenu
-    rofi
+    wofi
     xfce.thunar
     waybar
     libnotify
