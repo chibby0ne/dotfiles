@@ -2,7 +2,6 @@ window {
 margin: 0px;
 border: 1px solid #928374;
 background-color: #282828;
-font-size: 1.3rem;
 }
 
 #input {
@@ -30,9 +29,10 @@ border: none;
 }
 
 #text {
-margin: 5px;
+margin: 3px;
 border: none;
 color: #ebdbb2;
+font-size: 1rem;
 }
 
 #entry:selected {
