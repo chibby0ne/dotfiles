@@ -122,6 +122,7 @@ let
   passwordManagersPackages = with pkgs; [
     keepassxc
     _1password-gui
+    bitwarden-desktop
   ];
 
   shellToolsPackages = with pkgs; [
@@ -481,10 +482,15 @@ in
     enable = true;
     settings = {
       default_session = {
-        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd sway";
+        command = "${pkgs.tuigreet}/bin/tuigreet --time --cmd sway";
         user = "greeter";
       };
     };
+  };
+
+  # Enable cron
+  services.cron = {
+    enable = true;
   };
 
   programs.fzf = {
