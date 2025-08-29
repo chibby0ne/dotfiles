@@ -220,7 +220,6 @@ let
     zathura
     kdePackages.okular
     libreoffice-qt-fresh
-    tectonic
     typst
     obsidian
     gedit
@@ -242,6 +241,7 @@ let
     rustdesk
     httpie
     protonvpn-gui
+    networkmanagerapplet
   ];
 
   hardwareAndDebuggingPackages = with pkgs; [
