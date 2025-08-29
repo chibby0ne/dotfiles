@@ -182,7 +182,7 @@ let
   ];
 
   imagePackages = with pkgs; [
-    gimp
+    gimp3
     eog
   ];
 
