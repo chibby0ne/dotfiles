@@ -229,6 +229,7 @@ let
     calibre
     imhex
     cherrytree
+    taskwarrior3
   ];
 
   networkingPackages = with pkgs; [
