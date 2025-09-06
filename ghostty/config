@@ -50,4 +50,7 @@ keybind = ctrl+shift+%=new_split:right
 keybind = ctrl+shift+n=goto_split:next
 keybind = ctrl+shift+p=goto_split:previous
 
+keybind = ctrl+shift+up=scroll_page_up
+keybind = ctrl+shift+down=scroll_page_down
+
 keybind = ctrl+shift+w=close_surface
