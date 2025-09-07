@@ -1,0 +1,37 @@
+[Default Applications]
+x-scheme-handler/http=firefox-devedition.desktop
+x-scheme-handler/https=firefox-devedition.desktop
+x-scheme-handler/chrome=firefox-devedition.desktop
+text/html=firefox-devedition.desktop
+application/x-extension-htm=firefox-devedition.desktop
+application/x-extension-html=firefox-devedition.desktop
+application/x-extension-shtml=firefox-devedition.desktop
+application/xhtml+xml=firefox-devedition.desktop
+application/x-extension-xhtml=firefox-devedition.desktop
+application/x-extension-xht=firefox-devedition.desktop
+x-scheme-handler/tg=userapp-Telegram Desktop-K0GQ52.desktop
+x-scheme-handler/tonsite=userapp-Telegram Desktop-HZPP52.desktop
+x-scheme-handler/sgnl=signal.desktop
+x-scheme-handler/signalcaptcha=signal.desktop
+image/png=org.gnome.eog.desktop
+application/pdf=zathura.desktop
+application/djvu=zathura.desktop
+text/*=org.gnome.gedit.desktop
+image/*=org.gnome.eog.desktop
+text/plain=org.gnome.gedit.desktop
+text/x-markdown=org.gnome.gedit.desktop
+text/rtf=org.gnome.gedit.desktop
+
+[Added Associations]
+x-scheme-handler/http=userapp-Firefox Developer Edition-I4WDM2.desktop;firefox.desktop;firefox-devedition.desktop;
+x-scheme-handler/https=userapp-Firefox Developer Edition-I4WDM2.desktop;firefox.desktop;firefox-devedition.desktop;
+x-scheme-handler/chrome=userapp-Firefox Developer Edition-I4WDM2.desktop;firefox.desktop;firefox-devedition.desktop;
+text/html=userapp-Firefox Developer Edition-I4WDM2.desktop;firefox.desktop;firefox-devedition.desktop;
+application/x-extension-htm=userapp-Firefox Developer Edition-I4WDM2.desktop;firefox.desktop;firefox-devedition.desktop;
+application/x-extension-html=userapp-Firefox Developer Edition-I4WDM2.desktop;firefox.desktop;firefox-devedition.desktop;
+application/x-extension-shtml=userapp-Firefox Developer Edition-I4WDM2.desktop;firefox.desktop;firefox-devedition.desktop;
+application/xhtml+xml=userapp-Firefox Developer Edition-I4WDM2.desktop;firefox.desktop;firefox-devedition.desktop;
+application/x-extension-xhtml=userapp-Firefox Developer Edition-I4WDM2.desktop;firefox.desktop;firefox-devedition.desktop;
+application/x-extension-xht=userapp-Firefox Developer Edition-I4WDM2.desktop;firefox.desktop;firefox-devedition.desktop;
+x-scheme-handler/tg=org.telegram.desktop.desktop;userapp-Telegram Desktop-K0GQ52.desktop;
+x-scheme-handler/tonsite=org.telegram.desktop.desktop;userapp-Telegram Desktop-HZPP52.desktop;
