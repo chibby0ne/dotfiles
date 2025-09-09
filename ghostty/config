@@ -44,13 +44,17 @@
 
 theme = dark:catppuccin-frappe,light:catppuccin-latte
 
+# Create splits
 keybind = ctrl+shift+"=new_split:down
 keybind = ctrl+shift+%=new_split:right
 
+# Move between splits
 keybind = ctrl+shift+n=goto_split:next
 keybind = ctrl+shift+p=goto_split:previous
 
+# Scroll up/down in splits
 keybind = ctrl+shift+up=scroll_page_up
 keybind = ctrl+shift+down=scroll_page_down
 
+# Close split
 keybind = ctrl+shift+w=close_surface
