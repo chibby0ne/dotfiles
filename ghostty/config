@@ -53,8 +53,8 @@ keybind = ctrl+shift+n=goto_split:next
 keybind = ctrl+shift+p=goto_split:previous
 
 # Scroll up/down in splits
-keybind = ctrl+shift+up=scroll_page_up
-keybind = ctrl+shift+down=scroll_page_down
+keybind = ctrl+shift+up=scroll_page_fractional:-0.5
+keybind = ctrl+shift+down=scroll_page_fractional:0.5
 
 # Close split
 keybind = ctrl+shift+w=close_surface
