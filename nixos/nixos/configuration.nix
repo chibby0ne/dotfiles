@@ -126,7 +126,6 @@ let
   ];
 
   shellToolsPackages = with pkgs; [
-    alacritty
     bat
     fd
     file
@@ -162,7 +161,6 @@ let
     wezterm
     ghostty
     android-tools
-    most
     neovim-remote
   ];
 
