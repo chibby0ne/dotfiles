@@ -257,6 +257,7 @@ let
 
   fileSystemsPackages = with pkgs; [
     ntfs3g
+    exfat
   ];
 
   emulatorsPackages = with pkgs; [
