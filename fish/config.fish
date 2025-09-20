@@ -9,4 +9,6 @@ if status is-interactive
     # LS_COLORS is needed to have tree output colorized
     eval (dircolors -c ~/.config/dircolors)
 
+    set PAGER "bat -p -l man"
+
 end
