@@ -248,6 +248,9 @@ exec_always xrandr --output XWAYLAND0 --primary
 # Open obsidian at startup
 exec obsidian
 
+# Run gammastep at startup
+exec gammastep
+
 # Run darkman as daemon
 exec darkman run &
 
