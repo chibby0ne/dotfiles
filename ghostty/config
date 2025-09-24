@@ -42,7 +42,7 @@
 # # Just for example:
 # resize-overlay-duration = 4s 200ms
 
-theme = dark:Catppuccin Frappe,light:Catppuccin Frappe
+theme = dark:Catppuccin Frappe,light:Catppuccin Latte
 
 # Create splits
 keybind = ctrl+shift+"=new_split:down
