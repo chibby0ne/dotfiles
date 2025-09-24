@@ -131,6 +131,7 @@ let
     file
     htop
     jq
+    gnupg
     lsof
     ripgrep
     ranger
