@@ -1,3 +1,3 @@
 #!/usr/bin/env fish
 
-gammastep
+setsid gammastep
