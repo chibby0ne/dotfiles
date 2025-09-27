@@ -23,4 +23,4 @@ map [index] l navigate_index up
 map [index] ; navigate_index expand
 
 # Set font
-set font "Open Sans Normal 11"
+set font "Open Sans Normal 13"
