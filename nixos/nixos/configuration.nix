@@ -302,6 +302,19 @@ in
     kernelParams = [ "console=tty1" ];
   };
 
+  systemd.services.fprintd = {
+    wantedBy = [ "multi-user.target" ];
+    serviceConfig.Type = "simple";
+  };
+
+  services.fprintd = {
+    enable = true;
+    # tod = {
+    #   enable = true;
+    #   driver = pkgs.libfprint-2-tod1-goodix;
+    # };
+  };
+
   # Enable CUPS for printing
   services.printing = {
     enable = true;
@@ -312,11 +325,13 @@ in
   # enable power saving settings from powertop
   powerManagement.powertop.enable = true;
 
-  networking.hostName = "earth"; # Define your hostname.
-
-  # Pick only one of the below networking options.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-  networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
+  # Networking
+  networking = {
+    hostName = "earth"; # Define your hostname.
+    # Pick only one of the below networking options.
+    # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+    networkmanager.enable = true; # Easiest to use and most distros use this by default.
+  };
 
   # Set your time zone.
   time.timeZone = "Europe/Berlin";
@@ -328,7 +343,10 @@ in
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
   console = {
-    font = "Lat2-Terminus16";
+    packages = [
+      pkgs.terminus_font
+    ];
+    font = "ter-124n";
     # keyMap = "us";
     useXkbConfig = true; # use xkb.options in tty.
   };
