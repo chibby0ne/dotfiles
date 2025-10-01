@@ -49,12 +49,13 @@ CASE_SENSITIVE="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git ssh-agent zsh-autosuggestions zsh-completions colored-man-pages direnv)
+plugins=(git ssh-agent zsh-autosuggestions zsh-completions colored-man-pages direnv fzf nvm)
 
 # User configuration
 # Needed for zsh-completions
 # fpath+=${ZSH_CUSTOM}/plugins/zsh-completions/src
 # fpath+=${ZSH_CUSTOM}/completions
+fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
 
 # DISABLE_MAGIC_FUNCTIONS=true
 source $ZSH/oh-my-zsh.sh
@@ -109,9 +110,9 @@ alias ll="ls -lha"
 alias cl="clear"
 alias vi='nvim'
 alias vim='nvim'
-alias netstat='ss'
+# alias netstat='ss'
 alias def="sdcv"
-alias sudo="sudo -E"
+# alias sudo="sudo -E"
 
 
 ######################################
@@ -121,19 +122,19 @@ alias sudo="sudo -E"
 ######################################
 
 # The next line updates PATH for the Google Cloud SDK.
-if [ -f '/home/chibby0ne/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/home/chibby0ne/Downloads/google-cloud-sdk/path.zsh.inc'; fi
+if [ -f "$HOME/Downloads/google-cloud-sdk/path.zsh.inc" ]; then . "$HOME/Downloads/google-cloud-sdk/path.zsh.inc"; fi
 
 # The next line enables shell command completion for gcloud.
-if [ -f '/home/chibby0ne/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/home/chibby0ne/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
+if [ -f "$HOME/Downloads/google-cloud-sdk/completion.zsh.inc" ]; then . "$HOME/Downloads/google-cloud-sdk/completion.zsh.inc"; fi
 
 # Get color suport for 'less'
 export LESS="--RAW-CONTROL-CHARS"
 
 # Use colors for less, man, etc...
-[[ -f /home/chibby0ne/.LESS_TERMCAP ]] && source /home/chibby0ne/.LESS_TERMCAP
+[[ -f $HOME/.LESS_TERMCAP ]] && source $HOME/.LESS_TERMCAP
 
 # For Jupyter Notebooks 'Failed to launch GPU process' (https://github.com/jupyter/notebook/issues/2836)
-export BROWSER=firefox-developer-edition
+export BROWSER=firefox
 
 # Set XDG_DATA_HOME
 if [[ -z "$XDG_DATA_HOME" ]]; then
@@ -159,20 +160,20 @@ export MANWIDTH=80
 export VISUAL="nvim"
 
 # Go related
-export GOPATH=/home/chibby0ne/Projects/go_workspace
+export GOPATH=${HOME}/Projects/go_workspace
 export GOBIN=$GOPATH/bin
 
 # Binaries from GOPATH
 export PATH=$GOBIN:$PATH
 
 # Other binaries
-export PATH=$PATH:/home/chibby0ne/.local/bin
+export PATH=$PATH:${HOME}/.local/bin
 
 # Binaries installed with cargo, assuming cargo is installed using rustup
-export PATH=$PATH:/home/chibby0ne/.cargo/bin
+export PATH=$PATH:${HOME}/.cargo/bin
 
 # Home installed binaries
-export PATH=$PATH:/home/chibby0ne/.bin
+export PATH=$PATH:${HOME}/.bin
 
 # fzf
 if [[ $(uname -v | awk '{ print $1 }') =~ NixOS ]]; then
@@ -189,11 +190,6 @@ export SYSTEMD_EDITOR=/run/current-system/sw/bin/nvim
 # Jenv
 export PATH="$HOME/.jenv/bin:$PATH"
 eval "$(jenv init -)"
-
-# pyenv
-export PYENV_ROOT="$HOME/.pyenv"
-command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
 
 # Change highlight color for zsh-autosuggestions with solarized_dark theme
 export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=60'
@@ -255,19 +251,32 @@ echo ${quotes[${index}]}
 # Remove it for the rest of the scripts
 unsetopt KSH_ARRAYS
 
-# >>> mamba initialize >>>
-# !! Contents within this block are managed by 'mamba init' !!
-export MAMBA_EXE='/usr/bin/micromamba';
-export MAMBA_ROOT_PREFIX='/home/tesla/micromamba';
-__mamba_setup="$("$MAMBA_EXE" shell hook --shell zsh --root-prefix "$MAMBA_ROOT_PREFIX" 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__mamba_setup"
-else
-    alias micromamba="$MAMBA_EXE"  # Fallback on help from mamba activate
-fi
-unset __mamba_setup
-# <<< mamba initialize <<<
-
-
 # Required by tuir
 export MAILCAPS=~/.config/tuir/mailcap
+
+# export LIMA_HOME="$HOME/Library/Application Support/rancher-desktop/lima"
+# export PATH=$PATH:"/Applications/Rancher Desktop.app/Contents/Resources/resources/darwin/lima/bin"
+
+# Source custom bash functions
+for f in ~/.custom_functions/*.sh; do source "$f"; done
+
+export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
+
+# export PATH=$PATH:$HOME/Library/Python/3.9/bin/
+
+export PATH=/run/current-system/sw/bin:$PATH
+export LIMA_HOME=$HOME/lima_home
+export EDITOR=nvim
+
+
+autoload bashcompinit && bashcompinit
+source $(brew --prefix)/etc/bash_completion.d/az
+
+# krew path
+export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
+
+
+export BAT_THEME='gruvbox-dark'
+
+export PATH=${PATH}:${JAVA_HOME}/bin

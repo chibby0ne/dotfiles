@@ -2,7 +2,7 @@
 live_config_reload = true
 
 import = [
-   "${PWD}/themes/themes/gruvbox_dark.toml"
+   "~/.config/alacritty/themes/themes/gruvbox_dark.toml"
 ]
 
 [env]
@@ -29,3 +29,15 @@ style = "Regular"
 
 [scrolling]
 history = 10000
+
+[keyboard]
+bindings = [
+   # These are all the bash shortcuts that use alt but because this is a mac we need to use super and pass create this binding to pass them to the shell
+   # The bash shortcuts that use ctrl seem to work fine
+   { key = "B", mods = "Super", chars = "\u001bb" },
+   { key = "F", mods = "Super", chars = "\u001bf" },
+   { key = "D", mods = "Super", chars = "\u001bd" },
+   { key = "=", mods = "Control", action = "IncreaseFontSize" },
+   { key = "-", mods = "Control", action = "DecreaseFontSize" },
+   { key = "0", mods = "Control", action = "ResetFontSize" },
+]
