@@ -113,7 +113,7 @@ alias vi='nvim'
 alias vim='nvim'
 alias netstat='ss'
 alias def="sdcv"
-alias sudo="sudo -E"
+# alias sudo="sudo -E"
 
 
 ######################################
