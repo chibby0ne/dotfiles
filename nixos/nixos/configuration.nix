@@ -74,7 +74,6 @@ let
 
   kubernetesPackages = with pkgs; [
     # Containerization/Devops
-    docker
     minikube
     # If we delete the one downloaded by minikube and
     # add this one then minikube will use this one
@@ -306,18 +305,10 @@ in
     ];
   };
 
-  # systemd.services.fprintd = {
-  #   wantedBy = [ "multi-user.target" ];
-  #   serviceConfig.Type = "simple";
-  # };
-
-  # services.fprintd = {
-  #   enable = true;
-  # tod = {
-  #   enable = true;
-  #   driver = pkgs.libfprint-2-tod1-goodix;
-  #   # };
-  # };
+  # Let's see if this gets rid of the systemd unit?
+  services.fprintd = {
+    enable = false;
+  };
 
   # Enable CUPS for printing
   services.printing = {
@@ -417,8 +408,15 @@ in
   # BIOS updates through LVFS
   services.fwupd.enable = true;
 
-  # Enables libvirtd / kvm2 / qemu virtualization
-  virtualisation.libvirtd.enable = true;
+  virtualisation = {
+    # Enables libvirtd / kvm2 / qemu virtualization
+    libvirtd.enable = true;
+    # Enables docker
+    docker = {
+      enable = true;
+      storageDriver = "btrfs"; # Might be needed for btrfs
+    };
+  };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.chibby0ne = {
@@ -478,17 +476,8 @@ in
   # Install and enable steam
   programs.steam.enable = true;
 
-  # Something requires electron25 but it is EOL
-  # nixpkgs.config.permittedInsecurePackages = [
-  #   "electron-25.9.0"
-  # ];
-
   # Obsidian, Steam and Discord are unfree
   nixpkgs.config.allowUnfree = true;
-
-  # Enables docker
-  virtualisation.docker.enable = true;
-  virtualisation.docker.storageDriver = "btrfs"; # Might be needed for btrfs
 
   # Enables direnv
   programs.direnv.enable = true;
