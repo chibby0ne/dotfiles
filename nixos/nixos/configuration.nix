@@ -28,6 +28,7 @@ let
     rustc
     cargo
     rust-analyzer
+    clippy
     # Kotlin
     kotlin-language-server
     #ts
@@ -91,7 +92,7 @@ let
     podman
     kubebuilder
     kafkactl
-    awscli2
+    # awscli2
   ];
 
   gdk =
@@ -226,7 +227,7 @@ let
     hunspell
     hunspellDicts.en-us-large
     calibre
-    imhex
+    # imhex
     cherrytree
     taskwarrior3
   ];
@@ -268,7 +269,7 @@ let
     bpfmon
     bpftop
     bpftools
-    bpftrace
+    # bpftrace
     linuxHeaders
   ];
 
@@ -299,21 +300,24 @@ in
       efi.canTouchEfiVariables = true;
       timeout = 0;
     };
-    kernelParams = [ "console=tty1" ];
+    kernelParams = [
+      "console=tty1"
+      "amdgpu.dcdebugmask=0x10"
+    ];
   };
 
-  systemd.services.fprintd = {
-    wantedBy = [ "multi-user.target" ];
-    serviceConfig.Type = "simple";
-  };
+  # systemd.services.fprintd = {
+  #   wantedBy = [ "multi-user.target" ];
+  #   serviceConfig.Type = "simple";
+  # };
 
-  services.fprintd = {
-    enable = true;
-    # tod = {
-    #   enable = true;
-    #   driver = pkgs.libfprint-2-tod1-goodix;
-    # };
-  };
+  # services.fprintd = {
+  #   enable = true;
+  # tod = {
+  #   enable = true;
+  #   driver = pkgs.libfprint-2-tod1-goodix;
+  #   # };
+  # };
 
   # Enable CUPS for printing
   services.printing = {
@@ -475,9 +479,9 @@ in
   programs.steam.enable = true;
 
   # Something requires electron25 but it is EOL
-  nixpkgs.config.permittedInsecurePackages = [
-    "electron-25.9.0"
-  ];
+  # nixpkgs.config.permittedInsecurePackages = [
+  #   "electron-25.9.0"
+  # ];
 
   # Obsidian, Steam and Discord are unfree
   nixpkgs.config.allowUnfree = true;
@@ -521,8 +525,8 @@ in
   programs.light.enable = true;
 
   # For Virtualbox
-  virtualisation.virtualbox.host.enable = true;
-  users.extraGroups.vboxusers.members = [ "chibby0ne" ];
+  # virtualisation.virtualbox.host.enable = true;
+  # users.extraGroups.vboxusers.members = [ "chibby0ne" ];
 
   # Fonts
   fonts.packages =
