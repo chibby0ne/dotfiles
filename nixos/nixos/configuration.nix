@@ -126,6 +126,7 @@ let
   ];
 
   shellToolsPackages = with pkgs; [
+    starship
     bat
     fd
     file
