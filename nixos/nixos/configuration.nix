@@ -243,6 +243,7 @@ let
     httpie
     protonvpn-gui
     networkmanagerapplet
+    iperf
   ];
 
   hardwareAndDebuggingPackages = with pkgs; [
@@ -253,6 +254,8 @@ let
     usbutils
     power-profiles-daemon
     lshw
+    nvme-cli
+    s-tui
   ];
 
   fileSystemsPackages = with pkgs; [
