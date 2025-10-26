@@ -65,11 +65,12 @@ let
   ];
 
   idePackages = with pkgs; [
-    # android-studio
+    android-studio
     vscode-fhs
     jupyter-all
     code-cursor
     lmstudio
+    jetbrains.idea-community-bin
   ];
 
   kubernetesPackages = with pkgs; [
@@ -227,7 +228,7 @@ let
     hunspell
     hunspellDicts.en-us-large
     calibre
-    # imhex
+    imhex
     cherrytree
     taskwarrior3
   ];
@@ -272,7 +273,7 @@ let
     bpfmon
     bpftop
     bpftools
-    # bpftrace
+    bpftrace
     linuxHeaders
   ];
 
@@ -523,8 +524,8 @@ in
   programs.light.enable = true;
 
   # For Virtualbox
-  # virtualisation.virtualbox.host.enable = true;
-  # users.extraGroups.vboxusers.members = [ "chibby0ne" ];
+  virtualisation.virtualbox.host.enable = true;
+  users.extraGroups.vboxusers.members = [ "chibby0ne" ];
 
   # Fonts
   fonts.packages =
