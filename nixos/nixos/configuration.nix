@@ -215,6 +215,7 @@ let
     lynx
     tor-browser
     brave
+    googleearth-pro
   ];
 
   specialFileViewersPackages = with pkgs; [
@@ -480,6 +481,10 @@ in
     ++ fileSystemsPackages
     ++ emulatorsPackages
     ++ ebpfPackages;
+
+  nixpkgs.config.permittedInsecurePackages = [
+    "googleearth-pro-7.3.6.10201"
+  ];
 
   programs.nix-ld.enable = true;
 
