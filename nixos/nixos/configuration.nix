@@ -106,7 +106,7 @@ let
     maven
     nodejs
     poetry
-    python312Packages.pip
+    python314
   ];
 
   databasePackages = with pkgs; [
@@ -118,6 +118,7 @@ let
   documentationPackages = with pkgs; [
     man-pages
     man-pages-posix
+    graphviz
   ];
 
   passwordManagersPackages = with pkgs; [
