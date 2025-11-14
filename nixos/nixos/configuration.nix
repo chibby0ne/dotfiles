@@ -529,6 +529,12 @@ in
   # Required for brightness and volume in laptop in sway
   programs.light.enable = true;
 
+  # Ausweis app
+  programs.ausweisapp = {
+    enable = true;
+    openFirewall = true;
+  };
+
   # For Virtualbox
   virtualisation.virtualbox.host.enable = true;
   users.extraGroups.vboxusers.members = [ "chibby0ne" ];
