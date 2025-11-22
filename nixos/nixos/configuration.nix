@@ -13,6 +13,7 @@ let
   languageServerPackages = with pkgs; [
     # go
     gopls
+    delve
     # python
     pyright
     basedpyright
@@ -310,6 +311,13 @@ in
       "console=tty1"
       "amdgpu.dcdebugmask=0x10"
     ];
+  };
+
+  # For mullvad
+  services.resolved.enable = true;
+  services.mullvad-vpn = {
+    enable = true;
+    package = pkgs.mullvad-vpn;
   };
 
   # Let's see if this gets rid of the systemd unit?
