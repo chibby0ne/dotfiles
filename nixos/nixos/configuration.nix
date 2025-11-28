@@ -329,7 +329,10 @@ in
   services.printing = {
     enable = true;
     # samsung drivers
-    drivers = [ pkgs.splix ];
+    drivers = [
+      pkgs.splix
+      pkgs.cups-filters
+    ];
   };
 
   # enable power saving settings from powertop
