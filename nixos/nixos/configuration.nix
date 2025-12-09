@@ -478,7 +478,7 @@ in
     ++ libraryPackages
     ++ idePackages
     ++ kubernetesPackages
-    ++ [ gdk ]
+    # ++ [ gdk ]
     ++ formattersAndBuildToolsPackages
     ++ databasePackages
     ++ documentationPackages
