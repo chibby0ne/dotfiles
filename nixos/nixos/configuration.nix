@@ -303,7 +303,10 @@ in
   # Use the systemd-boot EFI boot loader.
   boot = {
     loader = {
-      systemd-boot.enable = true;
+      systemd-boot = {
+        enable = true;
+        configurationLimit = 12;
+      };
       efi.canTouchEfiVariables = true;
       timeout = 0;
     };
