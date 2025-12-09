@@ -326,6 +326,21 @@ in
     package = pkgs.mullvad-vpn;
   };
 
+  # automatic garbage collection (nix-collect-garbage --delete-older-than 14d weekly)
+  # https://nixos.org/guides/nix-pills/11-garbage-collector.html
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 14d";
+  };
+
+  # automatic store optimization (run nix store optimizer weekly)
+  # https://nixos.wiki/wiki/Storage_optimization
+  nix.optimise = {
+    automatic = true;
+    dates = [ "weekly" ];
+  };
+
   # Let's see if this gets rid of the systemd unit?
   services.fprintd = {
     enable = false;
