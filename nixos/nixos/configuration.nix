@@ -46,6 +46,8 @@ let
     clang-tools
     # fish
     fish-lsp
+    # zig
+    zls
   ];
 
   languagePackages = with pkgs; [
@@ -59,6 +61,7 @@ let
     kotlin
     zulu
     glib
+    zig
   ];
 
   libraryPackages = with pkgs; [
