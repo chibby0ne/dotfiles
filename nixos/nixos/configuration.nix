@@ -271,7 +271,6 @@ let
   ];
 
   emulatorsPackages = with pkgs; [
-    higan
     ares
   ];
 
