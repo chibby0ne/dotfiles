@@ -74,7 +74,7 @@ let
     jupyter-all
     code-cursor
     lmstudio
-    jetbrains.idea-community-bin
+    jetbrains.idea-oss
   ];
 
   kubernetesPackages = with pkgs; [
