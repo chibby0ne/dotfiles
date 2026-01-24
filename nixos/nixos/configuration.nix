@@ -73,7 +73,6 @@ let
     vscode-fhs
     jupyter-all
     code-cursor
-    lmstudio
     jetbrains.idea-oss
   ];
 
@@ -104,13 +103,12 @@ let
     google-cloud-sdk.withExtraComponents (with google-cloud-sdk.components; [ gke-gcloud-auth-plugin ]);
 
   formattersAndBuildToolsPackages = with pkgs; [
-    nixfmt-rfc-style
+    nixfmt
     ruff
     gnumake
     maven
     nodejs
-    poetry
-    python314
+    python3
   ];
 
   databasePackages = with pkgs; [
@@ -206,7 +204,7 @@ let
     mako
     bemenu
     wofi
-    xfce.thunar
+    thunar
     waybar
     libnotify
     batsignal
@@ -474,9 +472,6 @@ in
       "libvirtd" # libvirt / kvm2 driver (minikube)
     ];
   };
-
-  # adb
-  programs.adb.enable = true;
 
   # Accept android sdk license (neccessary for android-studio)
   nixpkgs.config.android_sdk.accept_license = true;
