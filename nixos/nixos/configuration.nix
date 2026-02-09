@@ -47,7 +47,7 @@ let
     # fish
     fish-lsp
     # zig
-    zls
+    # zls broken at the moment in unstable
   ];
 
   languagePackages = with pkgs; [
@@ -79,13 +79,6 @@ let
   kubernetesPackages = with pkgs; [
     # Containerization/Devops
     minikube
-    # If we delete the one downloaded by minikube and
-    # add this one then minikube will use this one
-    # when selecting --driver=kvm2
-    # This is due nixos not being able to run dynamically linked executables
-    # as the linker path doesn't exist in NixOS
-    # https://github.com/kubernetes/minikube/issues/6023#issuecomment-2103782263
-    docker-machine-kvm2
     k3s
     kubernetes-helm
     eksctl
