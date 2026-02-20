@@ -101,7 +101,7 @@ let
     gnumake
     maven
     nodejs
-    python3
+    python314
   ];
 
   databasePackages = with pkgs; [
