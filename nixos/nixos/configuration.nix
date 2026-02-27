@@ -84,7 +84,6 @@ let
   kubernetesPackages = with pkgs; [
     # Containerization/Devops
     minikube
-    k3s
     kubernetes-helm
     eksctl
     heroku
@@ -228,7 +227,7 @@ let
     # Spell checkers
     hunspell
     hunspellDicts.en-us-large
-    calibre
+    # calibre
     imhex
     cherrytree
     taskwarrior3
@@ -320,12 +319,15 @@ in
     package = pkgs.mullvad-vpn;
   };
 
-  # automatic garbage collection (nix-collect-garbage --delete-older-than 14d weekly)
+  # For k3s
+  services.k3s.enable = true;
+
+  # automatic garbage collection (nix-collect-garbage --delete-older-than 20d weekly)
   # https://nixos.org/guides/nix-pills/11-garbage-collector.html
   nix.gc = {
     automatic = true;
     dates = "weekly";
-    options = "--delete-older-than 14d";
+    options = "--delete-older-than 20d";
   };
 
   # automatic store optimization (run nix store optimizer weekly)
@@ -474,7 +476,7 @@ in
   nixpkgs.config.android_sdk.accept_license = true;
 
   # Enable automatically regenerate immutable man page index cache
-  documentation.man.generateCaches = true;
+  documentation.man.cache.enable = true;
 
   # Enable development (libraries and utilities) man pages
   documentation.dev.enable = true;
