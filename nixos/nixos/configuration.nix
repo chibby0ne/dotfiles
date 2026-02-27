@@ -62,6 +62,7 @@ let
     zulu
     glib
     zig
+    python3
   ];
 
   libraryPackages = with pkgs; [
@@ -71,9 +72,13 @@ let
   idePackages = with pkgs; [
     android-studio
     vscode-fhs
-    jupyter-all
     code-cursor
     jetbrains.idea-oss
+  ];
+
+  pythonPackages = with pkgs.python313Packages; [
+    ipython
+    jupyterlab
   ];
 
   kubernetesPackages = with pkgs; [
@@ -101,7 +106,6 @@ let
     gnumake
     maven
     nodejs
-    python314
   ];
 
   databasePackages = with pkgs; [
@@ -482,6 +486,7 @@ in
     ++ languagePackages
     ++ libraryPackages
     ++ idePackages
+    ++ pythonPackages
     ++ kubernetesPackages
     # ++ [ gdk ]
     ++ formattersAndBuildToolsPackages
