@@ -557,7 +557,7 @@ in
   };
 
   # Required for brightness and volume in laptop in sway
-  programs.light.enable = true;
+  hardware.brillo.enable = true;
 
   # Ausweis app
   programs.ausweisapp = {
