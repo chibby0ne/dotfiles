@@ -48,6 +48,8 @@ let
     fish-lsp
     # zig
     # zls broken at the moment in unstable
+    # scheme
+    akkuPackages.scheme-langserver
   ];
 
   languagePackages = with pkgs; [
@@ -63,6 +65,7 @@ let
     glib
     zig
     python3
+    chez
   ];
 
   libraryPackages = with pkgs; [
@@ -164,6 +167,7 @@ let
     ghostty
     android-tools
     neovim-remote
+    binwalk
   ];
 
   videoPackages = with pkgs; [
@@ -320,7 +324,7 @@ in
   };
 
   # For k3s
-  services.k3s.enable = true;
+  # services.k3s.enable = true;
 
   # automatic garbage collection (nix-collect-garbage --delete-older-than 20d weekly)
   # https://nixos.org/guides/nix-pills/11-garbage-collector.html
