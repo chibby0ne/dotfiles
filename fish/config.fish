@@ -20,7 +20,7 @@ if status is-interactive
         fish_add_path /opt/homebrew/Caskroom/ghostty/1.2.0/Ghostty.app/Contents/MacOS/
         set -x PAGER bat
     else
-        set -x PAGER "bat -p -l man"
+        set -x PAGER "bat -l man"
     end
 
     direnv hook fish | source
