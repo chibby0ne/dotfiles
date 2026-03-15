@@ -177,6 +177,7 @@ let
     vlc
     subdl
     yt-dlp
+    xournalpp
   ];
 
   audioPackages = with pkgs; [
