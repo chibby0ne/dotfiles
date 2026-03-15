@@ -75,8 +75,9 @@ let
   idePackages = with pkgs; [
     android-studio
     vscode-fhs
-    code-cursor
     jetbrains.idea-oss
+    claude-code
+    claude-monitor
   ];
 
   pythonPackages = with pkgs.python313Packages; [
@@ -177,7 +178,6 @@ let
     vlc
     subdl
     yt-dlp
-    xournalpp
   ];
 
   audioPackages = with pkgs; [
@@ -189,6 +189,8 @@ let
   imagePackages = with pkgs; [
     gimp3
     eog
+    pinta
+    xournalpp
   ];
 
   socialMediaPackages = with pkgs; [
