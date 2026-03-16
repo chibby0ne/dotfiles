@@ -264,6 +264,7 @@ let
     lshw
     nvme-cli
     s-tui
+    kdePackages.wacomtablet
   ];
 
   fileSystemsPackages = with pkgs; [
@@ -552,6 +553,21 @@ in
   # Enable cron
   services.cron = {
     enable = true;
+  };
+
+  services.xserver = {
+    enable = true;
+    windowManager.i3 = {
+      enable = true;
+      extraPackages = with pkgs; [
+        dmenu
+        i3status
+      ];
+    };
+    # Need startx in order to start i3 without a graphical display manager (currently using greetd/tuigreet)
+    displayManager.startx.enable = true;
+    # Enable wacom digitizer/tablet
+    wacom.enable = true;
   };
 
   programs.fzf = {
