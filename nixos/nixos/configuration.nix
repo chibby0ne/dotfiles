@@ -169,6 +169,7 @@ let
     android-tools
     neovim-remote
     binwalk
+    tectonic
   ];
 
   videoPackages = with pkgs; [
