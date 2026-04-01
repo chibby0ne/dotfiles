@@ -121,6 +121,7 @@ let
     man-pages
     man-pages-posix
     graphviz
+    calibre
   ];
 
   passwordManagersPackages = with pkgs; [
@@ -250,7 +251,7 @@ let
     tor-browser
     rustdesk
     httpie
-    protonvpn-gui
+    proton-vpn
     networkmanagerapplet
     iperf
   ];
