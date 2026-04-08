@@ -98,6 +98,7 @@ vim.g.have_nerd_font = false
 -- NOTE: You can change these options as you wish!
 --  For more options, you can see `:help option-list`
 
+vim.opt.relativenumber = true
 -- Make line numbers default
 vim.opt.number = true
 -- You can also add relative line numbers, to help with jumping.
@@ -239,6 +240,8 @@ vim.opt.rtp:prepend(lazypath)
 -- NOTE: Here is where you install your plugins.
 require('lazy').setup({
 
+  { 'wakatime/vim-wakatime', lazy = false },
+
   -- status line
   {
     'nvim-lualine/lualine.nvim',
@@ -258,7 +261,7 @@ require('lazy').setup({
   --    require('Comment').setup({})
 
   -- "gc" to comment visual regions/lines
-  { 'numToStr/Comment.nvim',    opts = {} },
+  { 'numToStr/Comment.nvim', opts = {} },
 
   -- Here is a more advanced example where we pass configuration
   -- options to `gitsigns.nvim`. This is equivalent to the following Lua:
@@ -277,6 +280,28 @@ require('lazy').setup({
       },
     },
   },
+
+  -- lazygit (simple terminal UI for git commands)
+  -- {
+  --   "kdheepak/lazygit.nvim",
+  --   lazy = true,
+  --   cmd = {
+  --     "LazyGit",
+  --     "LazyGitConfig",
+  --     "LazyGitCurrentFile",
+  --     "LazyGitFilter",
+  --     "LazyGitFilterCurrentFile",
+  --   },
+  --   -- optional for floating window border decoration
+  --   dependencies = {
+  --     "nvim-lua/plenary.nvim",
+  --   },
+  --   -- setting the keybinding for LazyGit with 'keys' is recommended in
+  --   -- order to load the plugin when the command is run for the first time
+  --   keys = {
+  --     { "<leader>lg", "<cmd>LazyGit<cr>", desc = "LazyGit" }
+  --   }
+  -- },
 
   {
     'stevearc/aerial.nvim',
@@ -313,24 +338,55 @@ require('lazy').setup({
   {                     -- Useful plugin to show you pending keybinds.
     'folke/which-key.nvim',
     event = 'VimEnter', -- Sets the loading event to 'VimEnter'
-    config = function() -- This is the function that runs, AFTER loading
-      require('which-key').setup()
+    opts = {
+      icons = {
+        -- set icon mappings to true if you have a Nerd Font
+        mappings = vim.g.have_nerd_font,
+        -- If you are using a Nerd Font: set icons.keys to an empty table which will use the
+        -- default whick-key.nvim defined Nerd Font icons, otherwise define a string table
+        keys = vim.g.have_nerd_font and {} or {
+          Up = '<Up> ',
+          Down = '<Down> ',
+          Left = '<Left> ',
+          Right = '<Right> ',
+          C = '<C-…> ',
+          M = '<M-…> ',
+          D = '<D-…> ',
+          S = '<S-…> ',
+          CR = '<CR> ',
+          Esc = '<Esc> ',
+          ScrollWheelDown = '<ScrollWheelDown> ',
+          ScrollWheelUp = '<ScrollWheelUp> ',
+          NL = '<NL> ',
+          BS = '<BS> ',
+          Space = '<Space> ',
+          Tab = '<Tab> ',
+          F1 = '<F1>',
+          F2 = '<F2>',
+          F3 = '<F3>',
+          F4 = '<F4>',
+          F5 = '<F5>',
+          F6 = '<F6>',
+          F7 = '<F7>',
+          F8 = '<F8>',
+          F9 = '<F9>',
+          F10 = '<F10>',
+          F11 = '<F11>',
+          F12 = '<F12>',
+        },
+      },
 
       -- Document existing key chains
-      require('which-key').register {
-        ['<leader>c'] = { name = '[C]ode', _ = 'which_key_ignore' },
-        ['<leader>d'] = { name = '[D]ocument', _ = 'which_key_ignore' },
-        ['<leader>r'] = { name = '[R]ename', _ = 'which_key_ignore' },
-        ['<leader>s'] = { name = '[S]earch', _ = 'which_key_ignore' },
-        ['<leader>w'] = { name = '[W]orkspace', _ = 'which_key_ignore' },
-        ['<leader>t'] = { name = '[T]oggle', _ = 'which_key_ignore' },
-        ['<leader>h'] = { name = 'Git [H]unk', _ = 'which_key_ignore' },
-      }
-      -- visual mode
-      require('which-key').register({
-        ['<leader>h'] = { 'Git [H]unk' },
-      }, { mode = 'v' })
-    end,
+      spec = {
+        { '<leader>c', group = '[C]ode',     mode = { 'n', 'x' } },
+        { '<leader>d', group = '[D]ocument' },
+        { '<leader>r', group = '[R]ename' },
+        { '<leader>s', group = '[S]earch' },
+        { '<leader>w', group = '[W]orkspace' },
+        { '<leader>t', group = '[T]oggle' },
+        { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
+      },
+    },
   },
 
   -- NOTE: Plugins can specify dependencies.
@@ -343,7 +399,6 @@ require('lazy').setup({
   { -- Fuzzy Finder (files, lsp, etc)
     'nvim-telescope/telescope.nvim',
     event = 'VimEnter',
-    branch = '0.1.x',
     dependencies = {
       'nvim-lua/plenary.nvim',
       { -- If encountering errors, see telescope-fzf-native README for installation instructions
@@ -745,15 +800,24 @@ require('lazy').setup({
     -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
     'folke/tokyonight.nvim',
     priority = 1000, -- Make sure to load this before all the other start plugins.
-    init = function()
-      -- Load the colorscheme here.
-      -- Like many other themes, this one has different styles, and you could load
-      -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-      vim.cmd.colorscheme 'tokyonight-night'
+    -- init = function()
+    --   -- Load the colorscheme here.
+    --   -- Like many other themes, this one has different styles, and you could load
+    --   -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
+    --   vim.cmd.colorscheme 'tokyonight-night'
+    --
+    --   -- You can configure highlights by doing something like:
+    --   vim.cmd.hi 'Comment gui=none'
+    -- end,
+  },
 
-      -- You can configure highlights by doing something like:
-      vim.cmd.hi 'Comment gui=none'
-    end,
+  {
+    "catppuccin/nvim",
+    name = "catppuccin",
+    priority = 1000,
+    init = function()
+      vim.cmd.colorscheme 'catppuccin'
+    end
   },
 
   -- Highlight todo, notes, etc in comments
@@ -798,6 +862,7 @@ require('lazy').setup({
   { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
+    -- branch = 'master',
     opts = {
       ensure_installed = { 'bash', 'c', 'html', 'lua', 'luadoc', 'markdown', 'vim', 'vimdoc' },
       -- Autoinstall languages that are not installed
@@ -872,21 +937,38 @@ require('lazy').setup({
   },
 })
 
+vim.lsp.enable('fish_lsp')
+vim.lsp.enable('basedpyright')
+vim.lsp.enable('lua_ls')
+vim.lsp.enable('gopls')
+vim.lsp.enable('rust_analyzer')
+vim.lsp.enable('hls')
+vim.lsp.enable('clangd')
+vim.lsp.enable('html')
+vim.lsp.enable('nixd')
+vim.lsp.enable('nil_ls')
+vim.lsp.enable('kotlin_language_server')
+vim.lsp.enable('ts_ls')
+vim.lsp.enable('texlab')
+vim.lsp.enable('zls')
+vim.lsp.enable('yamlls', {
+  settings = {
+    yaml = {
+      schemas = {
+        -- schema of kubernetes yaml 1.32.1
+        ["https://raw.githubusercontent.com/yannh/kubernetes-json-schema/refs/heads/master/v1.32.1-standalone-strict/all.json"] =
+        "/*.k8s.yaml",
+        ["https://raw.githubusercontent.com/spion/concourse-jsonschema-generator/refs/heads/main/schema.json"] =
+        "/ci/*.yaml",
+      },
+    },
+  }
+})
 
-require 'lspconfig'.pyright.setup {}
-require 'lspconfig'.lua_ls.setup {}
-require 'lspconfig'.gopls.setup {}
-require 'lspconfig'.rust_analyzer.setup {}
-require 'lspconfig'.hls.setup {}
-require 'lspconfig'.clangd.setup {}
-require 'lspconfig'.html.setup {}
-require 'lspconfig'.nixd.setup {}
-require 'lspconfig'.kotlin_language_server.setup {}
-require 'lspconfig'.sourcekit.setup {}
-require 'lspconfig'.ts_ls.setup {}
 
 
 require("aerial").setup({
+  backends = { "treesitter" },
   -- optionally use on_attach to set keymaps when aerial has attached to a buffer
   on_attach = function(bufnr)
     -- Jump forwards/backwards with '{' and '}'
