@@ -22,8 +22,9 @@ if status is-interactive
         set -x MANPAGER bat
     else
         # Allows the correct rendering of man pages using bat in Linux
-        # https://github.com/sharkdp/bat/issues/3053#issuecomment-2259573578
-        set -x MANPAGER "sh -c 'sed -u -e \"s/\\x1B\[[0-9;]*m//g; s/.\\x08//g\" | bat -p -lman'"
+        # https://github.com/sharkdp/bat/issues/652#issuecomment-2051790042
+        set -x MANROFFOPT -c
+        set -x MANPAGER "sh -c 'col -bx | bat -l man -p'"
     end
 
     direnv hook fish | source
