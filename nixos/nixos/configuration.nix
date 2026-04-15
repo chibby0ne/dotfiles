@@ -76,7 +76,7 @@ let
     android-studio
     vscode-fhs
     jetbrains.idea-oss
-    claude-code
+    # claude-code
     claude-monitor
   ];
 
