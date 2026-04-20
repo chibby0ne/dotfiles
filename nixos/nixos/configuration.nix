@@ -38,7 +38,6 @@ let
     # Nix
     nil
     nixd
-    tree-sitter
     # latex
     texlab
     yaml-language-server
