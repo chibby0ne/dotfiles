@@ -179,6 +179,7 @@ let
     vlc
     subdl
     yt-dlp
+    stellarium
   ];
 
   audioPackages = with pkgs; [
@@ -266,6 +267,7 @@ let
     nvme-cli
     s-tui
     kdePackages.wacomtablet
+    powertop
   ];
 
   fileSystemsPackages = with pkgs; [
@@ -362,7 +364,9 @@ in
   };
 
   # enable power saving settings from powertop
-  powerManagement.powertop.enable = true;
+  powerManagement.powertop = {
+    enable = true;
+  };
 
   # Networking
   networking = {
@@ -390,9 +394,8 @@ in
     packages = [
       pkgs.terminus_font
     ];
-    font = "ter-124n";
-    # keyMap = "us";
-    useXkbConfig = true; # use xkb.options in tty.
+    font = "${pkgs.terminus_font}/share/consolefonts/ter-124n.psf.gz";
+    keyMap = "us";
   };
 
   # Enable Gnome Keyring
