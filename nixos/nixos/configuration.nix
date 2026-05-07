@@ -284,7 +284,6 @@ let
     bpftop
     bpftools
     bpftrace
-    linuxHeaders
   ];
 
 in
@@ -321,6 +320,7 @@ in
       "console=tty1"
       "amdgpu.dcdebugmask=0x10"
     ];
+    kernelPackages = pkgs.linuxPackages_latest;
   };
 
   # For mullvad
@@ -589,8 +589,8 @@ in
   };
 
   # For Virtualbox
-  virtualisation.virtualbox.host.enable = true;
-  users.extraGroups.vboxusers.members = [ "chibby0ne" ];
+  # virtualisation.virtualbox.host.enable = true;
+  # users.extraGroups.vboxusers.members = [ "chibby0ne" ];
 
   # Fonts
   fonts.packages =
