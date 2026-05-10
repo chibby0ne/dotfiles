@@ -35,6 +35,8 @@ let
     #ts
     typescript
     typescript-language-server
+    bun
+    deno
     # Nix
     nil
     nixd
