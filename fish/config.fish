@@ -4,6 +4,8 @@ if status is-interactive
 
     fish_add_path ~/.cargo/bin
 
+    fish_add_path ~/.wakatime
+
     set -x EDITOR nvim
 
     # LANG
