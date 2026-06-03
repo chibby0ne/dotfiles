@@ -202,7 +202,7 @@ let
     telegram-desktop
     tuir
     discord
-    slack
+    # slack
     signal-desktop
   ];
 
@@ -220,7 +220,7 @@ let
   ];
 
   browsersPackages = with pkgs; [
-    ladybird
+    # ladybird
     firefox-devedition
     google-chrome
     lynx
@@ -279,6 +279,7 @@ let
 
   emulatorsPackages = with pkgs; [
     ares
+    dualsensectl
   ];
 
   ebpfPackages = with pkgs; [
@@ -526,7 +527,7 @@ in
     ++ ebpfPackages;
 
   nixpkgs.config.permittedInsecurePackages = [
-    "googleearth-pro-7.3.6.10201"
+    "googleearth-pro-7.3.7.1155"
   ];
 
   programs.nix-ld.enable = true;
