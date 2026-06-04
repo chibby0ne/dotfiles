@@ -129,7 +129,6 @@ let
   passwordManagersPackages = with pkgs; [
     keepassxc
     _1password-gui
-    bitwarden-desktop
   ];
 
   shellToolsPackages = with pkgs; [
@@ -350,6 +349,7 @@ in
     automatic = true;
     dates = [ "weekly" ];
   };
+  nix.settings.auto-optimise-store = true;
 
   # Let's see if this gets rid of the systemd unit?
   services.fprintd = {
