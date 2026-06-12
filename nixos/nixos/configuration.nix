@@ -65,7 +65,7 @@ let
     zulu
     glib
     zig
-    python3
+    python314
     chez
   ];
 
@@ -81,7 +81,7 @@ let
     claude-monitor
   ];
 
-  pythonPackages = with pkgs.python313Packages; [
+  pythonPackages = with pkgs.python314Packages; [
     ipython
     jupyterlab
   ];
@@ -170,7 +170,6 @@ let
     ghostty
     android-tools
     neovim-remote
-    binwalk
     tectonic
   ];
 
