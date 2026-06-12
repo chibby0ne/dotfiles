@@ -201,7 +201,7 @@ let
     telegram-desktop
     tuir
     discord
-    # slack
+    slack
     signal-desktop
   ];
 
