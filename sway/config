@@ -251,6 +251,9 @@ exec obsidian
 # Run gammastep at startup
 exec gammastep
 
+# Run mako at startup
+exec mako
+
 # Run darkman as daemon
 exec darkman run &
 

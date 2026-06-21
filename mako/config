@@ -4,8 +4,8 @@ ignore-timeout=1
 
 [mode=dark]
 background-color=#121212
-font-color=#E0E0E0
+text-color=#E0E0E0
 
 [mode=light]
 background-color=#285577FF
-font-color=#FFFFFF
+text-color=#FFFFFF
