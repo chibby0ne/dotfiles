@@ -171,6 +171,7 @@ let
     android-tools
     neovim-remote
     tectonic
+    fw-ectool
   ];
 
   videoPackages = with pkgs; [
