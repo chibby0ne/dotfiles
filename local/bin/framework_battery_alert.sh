@@ -1,0 +1,42 @@
+#!/bin/env bash
+
+
+LOW=20
+CRITICAL=8
+STATUS_REFRESH_TIME=20
+
+# Function to safely hand control back to the laptop firmware upon exit
+cleanup() {
+    sudo "$ECTOOL" led power auto
+    exit 0
+}
+trap cleanup SIGINT SIGTERM EXIT
+
+
+while [[ true ]]; do
+
+    STATUS=$(cat "/sys/class/power_supply/BAT1/status")
+    CAPACITY=$(cat "/sys/class/power_supply/BAT1/capacity")
+
+    if [[ "${STATUS}" == "Discharging" ]]; then
+        if [[ "${CAPACITY}" -le "${LOW}" ]]; then
+            sudo ectool led power yellow
+        elif [[ "${CAPACITY}" -le "${CRITICAL}" ]]; then
+            sudo ectool led power red
+            sleep 0.5
+            sudo ectool led power off
+            sleep 0.5
+            continue
+        fi
+
+    # If not discharging leave it as auto
+    else
+        sudo ectool led power auto
+    fi
+
+    # Refresh status every 20 seconds when not critical (not blinking red)
+    sleep $(STATUS_REFRESH_TIME)
+
+done
+
+
