@@ -1,9 +1,10 @@
 #!/bin/env bash
 
-
 LOW=20
 CRITICAL=8
 STATUS_REFRESH_TIME=20
+
+
 
 # Function to safely hand control back to the laptop firmware upon exit
 cleanup() {
@@ -28,8 +29,6 @@ while [[ true ]]; do
             sleep 0.5
             continue
         fi
-
-    # If not discharging leave it as auto
     else
         sudo ectool led power auto
     fi
@@ -38,5 +37,3 @@ while [[ true ]]; do
     sleep $(STATUS_REFRESH_TIME)
 
 done
-
-

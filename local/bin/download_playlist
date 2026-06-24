@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+
+# set -x
+
+if [[ $# -ne 1 ]]; then
+    echo USAGE: ./download_playlist.sh PLAYLIST_LINK
+    exit 1
+fi
+
+
+# Download all videos in playlist in 1080 video
+# 137     mp4   1920x1080   30    │  245.76MiB   296k https │ avc1.640028     296k video only          1080p, mp4_dash
+yt-dlp -f 137 $1
+
+# Download all audios of the videos in playlist in
+# 251     webm  audio only      2 │   81.57MiB    98k https │ audio only           opus        98k 48k [en] medium, webm_dash
+yt-dlp -f 140 $1
+
+# Merge audio/video into single file
+# Create array of mp4 video files
+video_files=(*.mp4)
+for file in "${video_files[@]}"
+do
+    # Skip combined video/audio files
+    if [[ "${file}" =~ "_combined.mp4" ]]; then
+        echo skipping "${file}"
+        continue
+    fi
+
+    filename="${file%%.mp4}"
+
+    # Merge audio and video into one single file of video/audio
+    ffmpeg -i "${filename}.mp4" -i "${filename}.m4a" -c:v copy -c:a copy "${filename}_combined.mp4"
+
+    echo removing "video and audio file after merge"
+    rm "${filename}.mp4" "${filename}.webm"
+done
