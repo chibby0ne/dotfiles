@@ -1,8 +1,8 @@
-#!/bin/env bash
+#!/usr/bin/env bash
 
 LOW=20
 CRITICAL=8
-STATUS_REFRESH_TIME=20
+STATUS_REFRESH_TIME=30
 
 
 
@@ -21,9 +21,13 @@ while [[ true ]]; do
 
     if [[ "${STATUS}" == "Discharging" ]]; then
         if [[ "${CAPACITY}" -le "${LOW}" ]]; then
-            sudo ectool led power yellow
+            sudo ectool led power white
+            sleep 1
+            sudo ectool led power off
+            sleep 1
+            continue
         elif [[ "${CAPACITY}" -le "${CRITICAL}" ]]; then
-            sudo ectool led power red
+            sudo ectool led power white
             sleep 0.5
             sudo ectool led power off
             sleep 0.5
@@ -33,7 +37,7 @@ while [[ true ]]; do
         sudo ectool led power auto
     fi
 
-    # Refresh status every 20 seconds when not critical (not blinking red)
+    # Refresh status every 5 seconds when not critical
     sleep $(STATUS_REFRESH_TIME)
 
 done
