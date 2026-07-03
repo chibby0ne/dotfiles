@@ -201,7 +201,6 @@ let
     telegram-desktop
     tuir
     discord
-    slack
     signal-desktop
   ];
 
@@ -379,6 +378,16 @@ in
     networkmanager = {
       enable = true; # Easiest to use and most distros use this by default.
     };
+    # Allow common captive portal tracking ports
+    # firewall.allowedTCPPorts = [
+    #   80
+    #   443
+    #   8080
+    # ];
+    # Used for bayernwlan
+    # nameservers = [
+    #   "100.83.255.254"
+    # ];
   };
 
   # Set your time zone.
