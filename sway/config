@@ -254,11 +254,14 @@ exec gammastep
 # Run mako at startup
 exec mako
 
-# Run darkman as daemon
+# Run darkman as daemon 
 exec darkman run &
 
+# Run signal desktop at startup
+exec signal-desktop
+
 # Run custom battery alert script that changes color of power led
-exec ~/.local/bin/framework_battery_alert
+#exec ~/.local/bin/framework_battery_alert &
 
 # Don't swayidle if we have these apps in fullscreen
 for_window [app_id="firefox"] inhibit_idle fullscreen
