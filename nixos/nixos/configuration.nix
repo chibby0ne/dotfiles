@@ -199,7 +199,6 @@ let
 
   socialMediaPackages = with pkgs; [
     telegram-desktop
-    tuir
     discord
     signal-desktop
   ];
@@ -379,11 +378,11 @@ in
       enable = true; # Easiest to use and most distros use this by default.
     };
     # Allow common captive portal tracking ports
-    # firewall.allowedTCPPorts = [
-    #   80
-    #   443
-    #   8080
-    # ];
+    firewall.allowedTCPPorts = [
+      80
+      443
+      8080
+    ];
     # Used for bayernwlan
     # nameservers = [
     #   "100.83.255.254"
@@ -538,6 +537,11 @@ in
   nixpkgs.config.permittedInsecurePackages = [
     "googleearth-pro-7.3.7.1155"
   ];
+
+  programs.captive-browser = {
+    enable = true;
+    interface = "wlp1s0";
+  };
 
   programs.nix-ld.enable = true;
 
