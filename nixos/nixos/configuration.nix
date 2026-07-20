@@ -135,6 +135,7 @@ let
     starship
     bat
     fd
+    eza
     file
     htop
     jq
@@ -417,6 +418,13 @@ in
   security.pam.services.gnome.enableGnomeKeyring = true;
   # Enable Seahorse (GUI for Gnome Keyring)
   programs.seahorse.enable = true;
+
+  environment.shellAliases = {
+    ls = "eza --icons --group-directories-first";
+    ll = "eza -lh --icons --group-directories-first";
+    la = "eza -lha --icons --group-directories-first";
+    ltr = "eza -lh -t ch -s changed --icons --group-directories-first";
+  };
 
   # XDG Portal
   xdg.portal = {
