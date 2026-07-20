@@ -79,6 +79,7 @@ let
     jetbrains.idea-oss
     # claude-code
     claude-monitor
+    opencode
   ];
 
   pythonPackages = with pkgs.python314Packages; [
