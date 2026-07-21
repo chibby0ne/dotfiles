@@ -129,7 +129,6 @@ let
 
   passwordManagersPackages = with pkgs; [
     keepassxc
-    _1password-gui
   ];
 
   shellToolsPackages = with pkgs; [
