@@ -202,6 +202,7 @@ output DP-4 position 0 0
 output eDP-1 position 0 2160
 output * scale 1
 output DP-4 mode 3840x2160
+output DP-4 scale 1.5
 
 bindswitch --reload --locked lid:on exec systemctl suspend
 # bindswitch lid:off output eDP-1 enable
