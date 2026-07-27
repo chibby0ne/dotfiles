@@ -267,7 +267,6 @@ let
     nvme-cli
     s-tui
     kdePackages.wacomtablet
-    powertop
   ];
 
   fileSystemsPackages = with pkgs; [
@@ -368,7 +367,15 @@ in
   # enable power saving settings from powertop
   powerManagement.powertop = {
     enable = true;
+    postStart = ''
+      ${lib.getExe' config.systemd.package "udevadm"} trigger -c bind -s usb -a idVendor=062a -a idProduct=4102
+    '';
   };
+
+  services.udev.extraRules = ''
+    # disable usb auto suspend of wireless mouse
+    ACTION=="add", SUBSYSTEM=="usb", ATTR{idVendor}=="062a", ATTR{idProduct}=="4102", TEST=="power/control", ATTR{power/control}="on"
+  '';
 
   # Networking
   networking = {
