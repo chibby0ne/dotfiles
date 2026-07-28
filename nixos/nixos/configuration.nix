@@ -267,6 +267,7 @@ let
     nvme-cli
     s-tui
     kdePackages.wacomtablet
+    powertop
   ];
 
   fileSystemsPackages = with pkgs; [
