@@ -76,8 +76,7 @@ let
   idePackages = with pkgs; [
     android-studio
     vscode-fhs
-    jetbrains.idea-oss
-    # claude-code
+    jetbrains.idea
     claude-monitor
     opencode
   ];
@@ -215,6 +214,7 @@ let
     libnotify
     batsignal
     darkman
+    conky
   ];
 
   browsersPackages = with pkgs; [
@@ -326,7 +326,7 @@ in
   services.resolved.enable = true;
   services.mullvad-vpn = {
     enable = true;
-    package = pkgs.mullvad-vpn;
+    gui.enable = true;
   };
 
   # For k3s
@@ -412,18 +412,13 @@ in
   # Enable Seahorse (GUI for Gnome Keyring)
   programs.seahorse.enable = true;
 
-  environment.shellAliases = {
-    ls = "eza --icons --group-directories-first";
-    ll = "eza -lh --icons --group-directories-first";
-    la = "eza -lha --icons --group-directories-first";
-    ltr = "eza -lh -t ch -s changed --icons --group-directories-first";
-  };
-
   # XDG Portal
   xdg.portal = {
     enable = true;
     wlr.enable = true;
-    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+    extraPortals = [
+      pkgs.xdg-desktop-portal-gtk
+    ];
   };
 
   # Enable sound.
@@ -495,6 +490,7 @@ in
       "video" # Required by sway?
       "adbusers" # adb
       "libvirtd" # libvirt / kvm2 driver (minikube)
+      "wireshark" # wireshark
     ];
   };
 
@@ -538,6 +534,12 @@ in
   nixpkgs.config.permittedInsecurePackages = [
     "googleearth-pro-7.3.7.1155"
   ];
+
+  # For wireshark
+  programs.wireshark = {
+    enable = true;
+    dumpcap.enable = true; # Allows users in the 'wireshark' group to capture network traffic
+  };
 
   programs.captive-browser = {
     enable = true;

@@ -31,4 +31,9 @@ if status is-interactive
 
     direnv hook fish | source
 
+    # Replace ls with eza (CachyOS style)
+    alias ls='eza -al --color=always --group-directories-first --icons=always'
+    alias la='eza -a --color=always --group-directories-first --icons=always'
+    alias ll='eza -l --color=always --group-directories-first --icons=always'
+
 end
