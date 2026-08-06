@@ -36,6 +36,7 @@
 
             # Overlay for xdg-desktop portal so that it installs xdg-desktop-portal 1.20.4
             # There's a regression in 1.22.1 see: https://bbs.archlinux.org/viewtopic.php?id=313883
+            # And this: https://github.com/flatpak/xdg-desktop-portal/pull/2027
             ({ config, pkgs, ... }: {
               nixpkgs.overlays = [
                 (final: prev: {
