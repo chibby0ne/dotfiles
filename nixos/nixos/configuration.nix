@@ -51,12 +51,21 @@ let
     # zls broken at the moment in unstable
     # scheme
     akkuPackages.scheme-langserver
+    # haskell
+    haskell-language-server
   ];
 
   languagePackages = with pkgs; [
+    dart
+    flutter
     lua
     gcc
     clang
+    clang-manpages
+    bear
+    sbcl
+    ghc
+    cabal-install
     typescript
     go
     protobuf
@@ -320,6 +329,7 @@ in
       "amdgpu.dcdebugmask=0x10"
     ];
     kernelPackages = pkgs.linuxPackages_latest;
+    enableContainers = true;      # Enable nixos containers, these are systemd-nspawn containers
   };
 
   # For mullvad
