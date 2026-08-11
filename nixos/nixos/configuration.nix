@@ -485,7 +485,6 @@ in
     home = "/home/chibby0ne";
     extraGroups = [
       "wheel" # Enable ‘sudo’ for the user.
-      "docker" # For using docker without sudo
       "networkmanager" # Enable configuration of network using network manager
       "video" # Required by sway?
       "adbusers" # adb
