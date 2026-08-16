@@ -311,16 +311,11 @@ in
     ./disk-config.nix
   ];
 
-  nixpkgs.overlays = [
-    (self: super: {
-      brave = super.brave.override {
-        commandLineArgs = "--password-store=gnome-libsecret";
-      };
-    })
-  ];
-
-  # Use the systemd-boot EFI boot loader.
+  #-------------------------------------------------------
+  # Boot options
+  #-------------------------------------------------------
   boot = {
+    # Use the systemd-boot EFI boot loader.
     loader = {
       systemd-boot = {
         enable = true;
@@ -337,48 +332,32 @@ in
     enableContainers = true;      # Enable nixos containers, these are systemd-nspawn containers
   };
 
-  # For mullvad
-  services.resolved.enable = true;
-  services.mullvad-vpn = {
-    enable = true;
-    gui.enable = true;
+  #-------------------------------------------------------
+  # Hardware options
+  #-------------------------------------------------------
+  hardware = {
+    bluetooth = {
+      enable = true;
+      # Enable A2DP sink
+      settings = {
+        General = {
+          Enable = "Source,Sink,Media,Socket";
+        };
+      };
+    };
+
+    # Enabling OpenGL: https://nixos.wiki/wiki/OpenGL
+    # This is needed to fix the issue in Python
+    # ImportError: libGL.so.1: cannot open shared object file
+    graphics.enable = true;
+
+    # Required for brightness and volume in laptop in sway
+    brillo.enable = true;
   };
 
-  # For k3s
-  # services.k3s.enable = true;
-
-  # automatic garbage collection (nix-collect-garbage --delete-older-than 20d weekly)
-  # https://nixos.org/guides/nix-pills/11-garbage-collector.html
-  nix.gc = {
-    automatic = true;
-    dates = "weekly";
-    options = "--delete-older-than 20d";
-  };
-
-  # automatic store optimization (run nix store optimizer weekly)
-  # https://nixos.wiki/wiki/Storage_optimization
-  nix.optimise = {
-    automatic = true;
-    dates = [ "weekly" ];
-  };
-  nix.settings.auto-optimise-store = true;
-
-  # Let's see if this gets rid of the systemd unit?
-  services.fprintd = {
-    enable = false;
-  };
-
-  # Enable CUPS for printing
-  services.printing = {
-    enable = true;
-    # samsung drivers
-    drivers = [
-      pkgs.splix
-      pkgs.cups-filters
-    ];
-  };
-
-  # Networking
+  #-------------------------------------------------------
+  # Networking options
+  #-------------------------------------------------------
   networking = {
     hostName = "earth"; # Define your hostname.
     # Pick only one of the below networking options.
@@ -388,14 +367,56 @@ in
     };
   };
 
-  # Set your time zone.
-  time.timeZone = "Europe/Berlin";
+  #-------------------------------------------------------
+  # Security options
+  #-------------------------------------------------------
+  security = {
+    # Enable sound.
+    # https://nixos.wiki/wiki/PipeWire
+    rtkit.enable = true;
+    # Attempt unlock keyring upon login
+    pam.services.gnome.enableGnomeKeyring = true;
+  };
 
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
+  #-------------------------------------------------------
+  # Virtualization options
+  #-------------------------------------------------------
+  virtualisation = {
+    # Enables libvirtd / kvm2 / qemu virtualization
+    libvirtd.enable = true;
+    # Enables docker
+    docker = {
+      enable = true;
+      storageDriver = "btrfs"; # Might be needed for btrfs
+    };
+  };
 
-  # Select internationalisation properties.
+  #-------------------------------------------------------
+  # nix options
+  #-------------------------------------------------------
+  nix = {
+    # automatic garbage collection (nix-collect-garbage --delete-older-than 20d weekly)
+    # https://nixos.org/guides/nix-pills/11-garbage-collector.html
+    gc = {
+      automatic = true;
+      dates = "weekly";
+      options = "--delete-older-than 20d";
+    };
+    # automatic store optimization (run nix store optimizer weekly)
+    # https://nixos.wiki/wiki/Storage_optimization
+    optimise = {
+      automatic = true;
+      dates = [ "weekly" ];
+    };
+    settings.auto-optimise-store = true;
+    # Avoid writing --extra-experimental-features 'nix-command flakes' for certain nix commands
+    # https://discourse.nixos.org/t/error-experimental-nix-feature-nix-command-is-disabled/18089/7
+    extraOptions = ''experimental-features = nix-command flakes'';
+  };
+
+  #-------------------------------------------------------
+  # Internationalization options
+  #-------------------------------------------------------
   i18n = {
     defaultLocale = "en_US.UTF-8";
     extraLocaleSettings = {
@@ -410,14 +431,9 @@ in
     keyMap = "us";
   };
 
-  # Enable Gnome Keyring
-  services.gnome.gnome-keyring.enable = true;
-  # Attempt unlock keyring upon login
-  security.pam.services.gnome.enableGnomeKeyring = true;
-  # Enable Seahorse (GUI for Gnome Keyring)
-  programs.seahorse.enable = true;
-
-  # XDG Portal
+  #-------------------------------------------------------
+  # xdg portal options
+  #-------------------------------------------------------
   xdg.portal = {
     enable = true;
     wlr.enable = true;
@@ -426,89 +442,72 @@ in
     ];
   };
 
-  # Enable sound.
-  # https://nixos.wiki/wiki/PipeWire
-  security.rtkit.enable = true;
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
-    # If you want to use JACK applications, uncomment this
-    #jack.enable = true;
+  #-------------------------------------------------------
+  # Documentation options
+  #-------------------------------------------------------
+  documentation = {
+    # Enable automatically regenerate immutable man page index cache
+    man.cache.enable = true;
+    # Enable development (libraries and utilities) man pages
+    dev.enable = true;
   };
-  hardware.bluetooth = {
+
+  #-------------------------------------------------------
+  # Programs options
+  #-------------------------------------------------------
+  programs = {
+    # Seahorse (GUI for Gnome Keyring)
+    seahorse.enable = true;
+
+    # Java
+    java.enable = true;
+
+    # Wireshark
+    wireshark = {
     enable = true;
-    # Enable A2DP sink
-    settings = {
-      General = {
-        Enable = "Source,Sink,Media,Socket";
-      };
+    dumpcap.enable = true;
     };
-  };
 
-  # Enabling OpenGL: https://nixos.wiki/wiki/OpenGL
-  # This is needed to fix the issue in Python
-  # ImportError: libGL.so.1: cannot open shared object file
-  hardware.graphics.enable = true;
-
-  # Configure bluetooth for pipewire
-  # Wireplumber (services.pipewire.wireplumber) is the default modular session / policy manager for PipeWire
-  services.pipewire.wireplumber.configPackages = [
-    (pkgs.writeTextDir "share/wireplumber/bluetooth.lua.d/51-bluez-config.lua" ''
-      bluez_monitor.properties = {
-      ["bluez5.enable-sbc-xq"] = true,
-      ["bluez5.enable-msbc"] = true,
-      ["bluez5.enable-hw-volume"] = true,
-      ["bluez5.headset-roles"] = "[ hsp_hs hsp_ag hfp_hf hfp_ag ]"
-      }
-    '')
-  ];
-
-  # Avoid writing --extra-experimental-features 'nix-command flakes' for certain nix commands
-  # https://discourse.nixos.org/t/error-experimental-nix-feature-nix-command-is-disabled/18089/7
-  nix.extraOptions = ''
-    experimental-features = nix-command flakes
-  '';
-
-  # BIOS updates through LVFS
-  services.fwupd.enable = true;
-
-  virtualisation = {
-    # Enables libvirtd / kvm2 / qemu virtualization
-    libvirtd.enable = true;
-    # Enables docker
-    docker = {
+    # Browser to log in to captive portals without messing with DNS settings
+    captive-browser = {
       enable = true;
-      storageDriver = "btrfs"; # Might be needed for btrfs
+      interface = "wlp1s0";
     };
+
+    # nix-ld (Enables running unpatched by nixos, dynamic elf binaries (e.g:
+    # third party package managers downloaded: pip, mason, npm, etc..)
+    nix-ld.enable = true;
+
+    # Steam
+    steam.enable = true;
+
+    # Direnv
+    direnv.enable = true;
+
+    # Sway
+    sway = {
+      enable = true;
+      wrapperFeatures.gtk = true;
+      xwayland.enable = true;
+    };
+
+    # fzf
+    fzf = {
+      keybindings = true;
+      fuzzyCompletion = true;
+    };
+
+    # Ausweisapp
+    ausweisapp = {
+      enable = true;
+      openFirewall = true;
+    };
+
+    # Fish
+    fish.enable = true;
   };
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.chibby0ne = {
-    isNormalUser = true;
-    home = "/home/chibby0ne";
-    extraGroups = [
-      "wheel" # Enable ‘sudo’ for the user.
-      "networkmanager" # Enable configuration of network using network manager
-      "video" # Required by sway?
-      "adbusers" # adb
-      "libvirtd" # libvirt / kvm2 driver (minikube)
-      "wireshark" # wireshark
-    ];
-  };
-
-  # Accept android sdk license (neccessary for android-studio)
-  nixpkgs.config.android_sdk.accept_license = true;
-
-  # Enable automatically regenerate immutable man page index cache
-  documentation.man.cache.enable = true;
-
-  # Enable development (libraries and utilities) man pages
-  documentation.dev.enable = true;
-
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
+  # List of packages installed for all users
   environment.systemPackages =
     languageServerPackages
     ++ languagePackages
@@ -535,94 +534,112 @@ in
     ++ emulatorsPackages
     ++ ebpfPackages;
 
-  nixpkgs.config.permittedInsecurePackages = [
-    "googleearth-pro-7.3.7.1155"
-  ];
+  #-------------------------------------------------------
+  # nixpkgs options
+  #-------------------------------------------------------
+  nixpkgs = {
+    overlays = [
+      (self: super: {
+        brave = super.brave.override {
+          commandLineArgs = "--password-store=gnome-libsecret";
+        };
+      })
+    ];
 
-  # Java
-  programs.java = {
-    enable = true;
-  };
-
-  # For wireshark
-  programs.wireshark = {
-    enable = true;
-    dumpcap.enable = true; # Allows users in the 'wireshark' group to capture network traffic
-  };
-
-  programs.captive-browser = {
-    enable = true;
-    interface = "wlp1s0";
-  };
-
-  programs.nix-ld.enable = true;
-
-  # Install and enable steam
-  programs.steam.enable = true;
-
-  # Obsidian, Steam and Discord are unfree
-  nixpkgs.config.allowUnfree = true;
-
-  # Enables direnv
-  programs.direnv.enable = true;
-
-  # Enables sway
-  programs.sway = {
-    enable = true;
-    wrapperFeatures.gtk = true;
-    xwayland.enable = true;
-  };
-
-  # Greeter for sway (starts sway)
-  services.greetd = {
-    enable = true;
-    settings = {
-      default_session = {
-        command = "${pkgs.tuigreet}/bin/tuigreet --time --cmd sway";
-        user = "greeter";
-      };
+    config = {
+      # Accept android sdk license (neccessary for android-studio)
+      android_sdk.accept_license = true;
+      # Obsidian, Steam and Discord are unfree
+      allowUnfree = true;
+      permittedInsecurePackages = [ "googleearth-pro-7.3.7.1155" ];
     };
   };
 
-  # Enable cron
-  services.cron = {
-    enable = true;
-  };
+  #-------------------------------------------------------
+  # Services options
+  #-------------------------------------------------------
+  services = {
+    # Enable Gnome Keyring
+    gnome.gnome-keyring.enable = true;
 
-  services.xserver = {
-    enable = true;
-    windowManager.i3 = {
+    # Let's see if this gets rid of the systemd unit?
+    fprintd.enable = false;
+
+    # Enable CUPS for printing
+    printing = {
       enable = true;
-      extraPackages = with pkgs; [
-        dmenu
-        i3status
+      # samsung drivers
+      drivers = [
+        pkgs.splix
+        pkgs.cups-filters
       ];
     };
-    # Need startx in order to start i3 without a graphical display manager (currently using greetd/tuigreet)
-    displayManager.startx.enable = true;
-    # Enable wacom digitizer/tablet
-    wacom.enable = true;
+
+    # mullvad
+    resolved.enable = true;
+    mullvad-vpn = {
+      enable = true;
+      gui.enable = true;
+    };
+
+    # Configure bluetooth for pipewire
+    # Wireplumber (services.pipewire.wireplumber) is the default modular session / policy manager for PipeWire
+    pipewire.wireplumber.configPackages = [
+      (pkgs.writeTextDir "share/wireplumber/bluetooth.lua.d/51-bluez-config.lua" ''
+        bluez_monitor.properties = {
+        ["bluez5.enable-sbc-xq"] = true,
+        ["bluez5.enable-msbc"] = true,
+        ["bluez5.enable-hw-volume"] = true,
+        ["bluez5.headset-roles"] = "[ hsp_hs hsp_ag hfp_hf hfp_ag ]"
+        }
+      '')
+    ];
+
+    # BIOS updates through LVFS
+    fwupd.enable = true;
+
+    # Greeter for sway (starts sway)
+    greetd = {
+      enable = true;
+      settings = {
+        default_session = {
+          command = "${pkgs.tuigreet}/bin/tuigreet --time --cmd sway";
+          user = "greeter";
+        };
+      };
+    };
+
+    pipewire = {
+      enable = true;
+      alsa.enable = true;
+      alsa.support32Bit = true;
+      pulse.enable = true;
+      # If you want to use JACK applications, uncomment this
+      #jack.enable = true;
+    };
+
+    cron.enable = true;
+
+    # enable xserver, i3 and other packages
+    xserver = {
+      enable = true;
+      windowManager.i3 = {
+        enable = true;
+        extraPackages = with pkgs; [
+          dmenu
+          i3status
+        ];
+      };
+      # Need startx in order to start i3 without a graphical display manager (currently using greetd/tuigreet)
+      displayManager.startx.enable = true;
+      # Enable wacom digitizer/tablet
+      wacom.enable = true;
+    };
   };
 
-  programs.fzf = {
-    keybindings = true;
-    fuzzyCompletion = true;
-  };
-
-  # Required for brightness and volume in laptop in sway
-  hardware.brillo.enable = true;
-
-  # Ausweis app
-  programs.ausweisapp = {
-    enable = true;
-    openFirewall = true;
-  };
-
-  # For Virtualbox
-  # virtualisation.virtualbox.host.enable = true;
-  # users.extraGroups.vboxusers.members = [ "chibby0ne" ];
-
-  # Fonts
+  #-------------------------------------------------------
+  # Fonts options
+  #-------------------------------------------------------
   fonts.packages =
     with pkgs;
     with nerd-fonts;
@@ -637,34 +654,32 @@ in
       office-code-pro
     ];
 
-  # Fish
-  programs.fish.enable = true;
-  # Change default shell to zsh for all users
-  users.defaultUserShell = pkgs.fish;
+  #-------------------------------------------------------
+  # Time options
+  #-------------------------------------------------------
+  time.timeZone = "Europe/Berlin";
 
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
+  #-------------------------------------------------------
+  # users options
+  #-------------------------------------------------------
+  users = {
+    # Define a user account. Don't forget to set a password with ‘passwd’.
+    users.chibby0ne = {
+      isNormalUser = true;
+      home = "/home/chibby0ne";
+      extraGroups = [
+        "wheel" # Enable ‘sudo’ for the user.
+          "networkmanager" # Enable configuration of network using network manager
+          "video" # Required by sway?
+          "adbusers" # adb
+          "libvirtd" # libvirt / kvm2 driver (minikube)
+          "wireshark" # wireshark
+      ];
+    };
 
-  # List services that you want to enable:
-
-  # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
-
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
-
-  # Copy the NixOS configuration file and link it from the resulting system
-  # (/run/current-system/configuration.nix). This is useful in case you
-  # accidentally delete configuration.nix.
-  # system.copySystemConfiguration = true;
+    # Change default shell to zsh for all users
+    defaultUserShell = pkgs.fish;
+  };
 
   # This option defines the first version of NixOS you have installed on this particular machine,
   # and is used to maintain compatibility with application data (e.g. databases) created on older NixOS versions.
