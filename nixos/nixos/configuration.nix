@@ -30,6 +30,8 @@ let
     cargo
     rust-analyzer
     clippy
+    # java
+    jdt-language-server
     # Kotlin
     kotlin-language-server
     #ts
@@ -70,6 +72,8 @@ let
     go
     protobuf
     zulu
+    maven
+    gradle
     kotlin
     zulu
     glib
@@ -140,6 +144,7 @@ let
   ];
 
   shellToolsPackages = with pkgs; [
+    bash
     starship
     bat
     fd
@@ -533,6 +538,11 @@ in
   nixpkgs.config.permittedInsecurePackages = [
     "googleearth-pro-7.3.7.1155"
   ];
+
+  # Java
+  programs.java = {
+    enable = true;
+  };
 
   # For wireshark
   programs.wireshark = {
