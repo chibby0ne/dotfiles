@@ -29,6 +29,7 @@ let
     rustc
     cargo
     rust-analyzer
+    rustfmt
     clippy
     # java
     jdt-language-server
@@ -50,36 +51,58 @@ let
     # fish
     fish-lsp
     # zig
-    # zls broken at the moment in unstable
+    zls
     # scheme
     akkuPackages.scheme-langserver
     # haskell
     haskell-language-server
+    # erlang
+    erlang-language-platform
+    # groovy
+    groovy-language-server
+    # elixir
+    elixir-ls
   ];
 
   languagePackages = with pkgs; [
+    # erlang
+    beamPackages.erlang
+    # elixir
+    elixir-ls
+    # dart
     dart
     flutter
+    # lua
     lua
+    # c
     gcc
     clang
     clang-manpages
     bear
+    glib
+    # lisp
     sbcl
+    # haskell
     ghc
     cabal-install
+    # typescript
     typescript
+    # go
     go
     protobuf
-    zulu
+    # java
     maven
     gradle
+    # kotlin
     kotlin
-    zulu
-    glib
+    # zig
     zig
+    # python
     python314
+    # scheme
     chez
+    # groovy
+    groovy
   ];
 
   libraryPackages = with pkgs; [
@@ -87,11 +110,11 @@ let
   ];
 
   idePackages = with pkgs; [
-    android-studio
-    vscode-fhs
     jetbrains.idea
     claude-monitor
     opencode
+    claude-code
+    pi-coding-agent
   ];
 
   pythonPackages = with pkgs.python314Packages; [
@@ -110,7 +133,7 @@ let
     podman
     kubebuilder
     kafkactl
-    # awscli2
+    awscli2
   ];
 
   gdk =
@@ -549,9 +572,8 @@ in
     config = {
       # Accept android sdk license (neccessary for android-studio)
       android_sdk.accept_license = true;
-      # Obsidian, Steam and Discord are unfree
-      allowUnfree = true;
       permittedInsecurePackages = [ "googleearth-pro-7.3.7.1155" ];
+      allowUnfree = true;
     };
   };
 
