@@ -193,7 +193,7 @@ input "2362:628:PIXA3854:00_093A:0274_Touchpad" {
 
 # Disable caplocks
 input type:keyboard {
-    xkb_options ctrl:nocaps
+    xkb_options caps:escape
 }
 
 # Output configuration
