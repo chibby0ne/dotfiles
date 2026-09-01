@@ -24,13 +24,8 @@ let
     # lua
     lua-language-server
     luajitPackages.luarocks
-    # Rust ls (it requires all 3 of them, since we are not installing using
-    # rustup, due to the difficulty of it in nixos)
-    rustc
-    cargo
-    rust-analyzer
-    rustfmt
-    clippy
+    # rust (will add all the relevant binaries using rustup)
+    rustup
     # java
     jdt-language-server
     # Kotlin
@@ -267,7 +262,7 @@ let
   specialFileViewersPackages = with pkgs; [
     zathura
     kdePackages.okular
-    libreoffice-qt-fresh
+    libreoffice-qt-stable
     typst
     obsidian
     gedit
@@ -519,6 +514,9 @@ in
       keybindings = true;
       fuzzyCompletion = true;
     };
+
+    # starship
+    starship.enable = true;
 
     # Ausweisapp
     ausweisapp = {
