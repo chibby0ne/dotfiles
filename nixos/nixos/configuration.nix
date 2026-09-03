@@ -217,7 +217,7 @@ let
   ];
 
   audioPackages = with pkgs; [
-    pavucontrol
+    pwvucontrol
     spotify
     spotube
   ];
@@ -325,7 +325,7 @@ in
     # From https://github.com/nixos/nixos-hardware
     <nixos-hardware/framework/13-inch/7040-amd>
     ./hardware-configuration.nix
-    "${builtins.fetchTarball "https://github.com/nix-community/disko/archive/master.tar.gz"}/module.nix"
+    "${fetchTarball "https://github.com/nix-community/disko/archive/master.tar.gz"}/module.nix"
     ./disk-config.nix
   ];
 
@@ -602,18 +602,6 @@ in
       gui.enable = true;
     };
 
-    # Configure bluetooth for pipewire
-    # Wireplumber (services.pipewire.wireplumber) is the default modular session / policy manager for PipeWire
-    pipewire.wireplumber.configPackages = [
-      (pkgs.writeTextDir "share/wireplumber/bluetooth.lua.d/51-bluez-config.lua" ''
-        bluez_monitor.properties = {
-        ["bluez5.enable-sbc-xq"] = true,
-        ["bluez5.enable-msbc"] = true,
-        ["bluez5.enable-hw-volume"] = true,
-        ["bluez5.headset-roles"] = "[ hsp_hs hsp_ag hfp_hf hfp_ag ]"
-        }
-      '')
-    ];
 
     # BIOS updates through LVFS
     fwupd.enable = true;
@@ -634,8 +622,7 @@ in
       alsa.enable = true;
       alsa.support32Bit = true;
       pulse.enable = true;
-      # If you want to use JACK applications, uncomment this
-      #jack.enable = true;
+      wireplumber.enable = true;
     };
 
     cron.enable = true;
