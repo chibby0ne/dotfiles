@@ -257,9 +257,6 @@ exec mako
 # Run darkman as daemon 
 exec darkman run &
 
-# Run signal desktop at startup
-exec signal-desktop
-
 # Run custom battery alert script that changes color of power led
 #exec ~/.local/bin/framework_battery_alert &
 
