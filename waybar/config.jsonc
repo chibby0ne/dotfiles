@@ -1,20 +1,21 @@
 {
     "layer": "top", // Waybar at top layer
     "position": "bottom", // Waybar at the bottom of your screen
-    "height": 18, // Waybar height
+    "height": 26, // Waybar height - was 18, modules require ~26px minimum
     // "width": 1366, // Waybar width
     // Choose the order of the modules
     "modules-left": ["sway/workspaces", "sway/mode"],
     "modules-center": ["sway/window"],
     "modules-right": [
+        "power-profiles-daemon",
         "wireplumber",
         "network",
         "cpu",
+        "disk#ssd",
         "memory",
         "battery",
         "tray",
         "clock",
-        "power-profiles-daemon"
     ],
     "sway/workspaces": {
         "disable-scroll": true,
@@ -42,10 +43,18 @@
         "format": "{:%Y-%m-%d %H:%M}"
     },
     "cpu": {
-        "format": "{usage}% "
+        "format": "{usage}%  "
+    },
+    "disk#ssd": {
+        "interval": 60,
+        "format": "{path} {free}  ",
+        "path": "/",
+        "tooltip": true,
+        "warning": 80,
+        "critical": 90
     },
     "memory": {
-        "format": "{}% "
+        "format": "{}%  "
     },
     "battery": {
         "bat": "BAT1",
@@ -63,14 +72,11 @@
 		"on-charging": "notify-send -u normal 'Power Switch' Charging'"
 	},
         "format": "{capacity}% {icon}",
-        // "format-good": "", // An empty format will hide the module
-        // "format-full": "",
-        "format-icons": ["", "", "", "", ""]
+        "format-icons": [" ", " ", " ", " ", " "]
     },
     "network": {
-        // "interface": "wlp2s0", // (Optional) To force the use of this interface
-        "format-wifi": "{essid} [{ipaddr}] ({signalStrength}%) ",
-        "format-ethernet": "{ifname}: {ipaddr}/{cidr} ",
+        "format-wifi": "{essid} [{ipaddr}] ({signalStrength}%)  ",
+        "format-ethernet": "{ifname}: {ipaddr}/{cidr}  ",
         "format-disconnected": "Disconnected ⚠"
     },
     "wireplumber": {
@@ -84,20 +90,20 @@
             "phone": "",
             "portable": "",
             "car": "",
-            "default": ["", "", ""]
+            "default": ["", " ", " "]
         },
         "on-click-right": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
 	"scroll-step": 1
     },
     "power-profiles-daemon": {
         "format": "{icon}",
-        "tooltip-format": "Power profile: {profile}nCPU driver: {cpu_driver}nPlatform driver: {platform_driver}",
+        "tooltip-format": "Power profile: {profile}\nDriver: {driver}",
         "tooltip": true,
         "format-icons": {
             "default": "",
             "performance": "",
-            "balanced": "",
-            "power-saver": ""
+            "balanced": " ",
+            "power-saver": " "
         }
     }
 }

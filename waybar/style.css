@@ -1,20 +1,35 @@
+/* 
+ * Keep in mind that waybar support GTK CSS not full CSS 
+ * See: https://github.com/Alexays/Waybar/issues/2112#issuecomment-1507518295
+ * https://docs.gtk.org/gtk4/css-properties.html
+ *
+ * Easy way to debug the issues is running waybar with debug or interactively
+ * or https://github.com/Alexays/Waybar/wiki/Styling#viewing-the-widget-tree
+ */
+@import url('colors.css');
+
 * {
     border: none;
-    border-radius: 0;
-    font-family: "Open Sans";
+    border-radius: 1px;
+    font-family: JetBrainsMono Nerd Font, Font Awesome;
     font-size: 17px;
     min-height: 0;
-    color: white;
 }
 
 window#waybar {
     background: transparent;
+    font-weight: bold;
     color: white;
 }
 
 #window {
     font-weight: bold;
     font-family: "Open Sans";
+}
+
+tooltip {
+    background-color: @base;
+    border: 1px solid @surface1;
 }
 
 #workspaces button {
@@ -25,8 +40,8 @@ window#waybar {
 }
 
 #workspaces button.focused {
-    color: #c9545d;
-    border-top: 2px solid #c9545d;
+    background-image: linear-gradient(0deg, @mauve, @surface1);
+    box-shadow: inset 0 -3px @text;
 }
 
 #mode {
@@ -34,30 +49,68 @@ window#waybar {
     border-bottom: 3px solid white;
 }
 
-#power-profiles-daemon, #clock, #battery, #cpu, #memory, #network, #wireplumber, #tray, #mode {
-    padding: 0 3px;
-    margin: 0 2px;
+@keyframes blink {
+    to {
+        background-color: @mantle;
+        color: @text;
+    }
 }
 
-#clock {
+#wireplumber,
+#power-profiles-daemon,
+#clock,
+#battery,
+#cpu,
+#memory,
+#network,
+#tray,
+#mode {
+    padding: 0 2px 0 2px;
+    margin: 0 2px 0 2px;
+    color: @text;
+    min-width: 0;
     font-weight: bold;
 }
 
-#battery {
+#power-profiles-daemon {
+    background-color: @pink;
+    color: @mantle;
 }
 
-#battery icon {
-    color: red;
+#wireplumber {
+    background-color: @red;
+    color: @mantle;
 }
 
-#battery.charging {
+#wireplumber.muted {
+    background-color: red;
+    color: @mantle;
 }
 
-@keyframes blink {
-    to {
-        background-color: #ffffff;
-        color: black;
-    }
+#network {
+    background-color: @peach;
+    color: @mantle;
+}
+
+#network.disconnected {
+    background: @red;
+    color: @mantle;
+}
+
+#cpu {
+    background-color: @yellow;
+    color: @mantle;
+    min-width: 45px;
+}
+
+#disk {
+    background-color: @green;
+    color: @mantle;
+}
+
+#memory {
+    background-color: @sapphire;
+    color: @mantle;
 }
 
 #battery.warning:not(.charging) {
@@ -69,28 +122,19 @@ window#waybar {
     animation-direction: alternate;
 }
 
-#cpu {
+#battery {
+    background-color: @mauve;
+    color: @mantle;
 }
 
-#memory {
+#battery icon {
+    color: red;
 }
 
-#network {
-}
+#battery.charging {}
 
-#network.disconnected {
-    background: #f53c3c;
-}
-
-#pulseaudio {
-}
-
-#pulseaudio.muted {
-}
-
-#custom-spotify {
-    color: rgb(102, 220, 105);
-}
-
-#tray {
+#clock {
+    font-weight: bold;
+    background-color: @teal;
+    color: @mantle;
 }
