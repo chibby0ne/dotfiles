@@ -32,6 +32,7 @@ tooltip {
     background: transparent;
     color: white;
     border-top: 2px solid transparent;
+    font-weight: bold;
 }
 
 #workspaces button.focused {
