@@ -57,6 +57,8 @@ let
     groovy-language-server
     # elixir
     elixir-ls
+    # css
+    vscode-langservers-extracted
   ];
 
   languagePackages = with pkgs; [
@@ -665,6 +667,7 @@ in
       fira-code
       zed-mono
       office-code-pro
+      jetbrains-mono
     ];
 
   #-------------------------------------------------------
