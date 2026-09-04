@@ -1,12 +1,13 @@
 {
     "layer": "top", // Waybar at top layer
     "position": "bottom", // Waybar at the bottom of your screen
-    "height": 26, // Waybar height - was 18, modules require ~26px minimum
+    "height": 26, // Modules require ~26px minimum
     // "width": 1366, // Waybar width
     // Choose the order of the modules
     "modules-left": ["sway/workspaces", "sway/mode"],
     "modules-center": ["sway/window"],
     "modules-right": [
+        "tray",
         "power-profiles-daemon",
         "wireplumber",
         "network",
@@ -14,7 +15,6 @@
         "disk#ssd",
         "memory",
         "battery",
-        "tray",
         "clock",
     ],
     "sway/workspaces": {
@@ -22,15 +22,18 @@
         "all-outputs": false,
         "format": "{icon}",
         "format-icons": {
-            "1:web": "",
-            "2:code": "",
-            "3:term": "",
-            "4:work": "",
-            "5:music": "",
-            "6:docs": "",
-            "urgent": "",
-            "focused": "",
-            "default": ""
+            "1:web": "", // This one doesn't need the extra space to the right to 'grow' and looks good in its box/container
+            "2:code": " ",
+            "3:term": " ",
+            "4:work": " ",
+            "5:music": " ",
+            "6:star": " ",
+            "7:fire": " ",
+            "8:snow": " " ,
+            "9:bike": " ",
+            "10:space":" ",
+            "urgent": " ",
+            "default": " "
         }
     },
     "sway/mode": {
@@ -60,7 +63,7 @@
         "bat": "BAT1",
         "interval": 60,
         "states": {
-            // "good": 95,
+            "good": 90,
             "warning": 30,
             "critical": 15
         },
@@ -72,7 +75,10 @@
 		"on-charging": "notify-send -u normal 'Power Switch' Charging'"
 	},
         "format": "{capacity}% {icon}",
-        "format-icons": [" ", " ", " ", " ", " "]
+        "format-icons": {
+            "default": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
+            "charging": ["󰢟 ", "󰢜 ", "󰂆 ", "󰂇 ", "󰂈 ", "󰢝 ", "󰂉 ", "󰢞 ", "󰂊 ", "󰂋 ", "󰂅 "]
+        }
     },
     "network": {
         "format-wifi": "{essid} [{ipaddr}] ({signalStrength}%)  ",

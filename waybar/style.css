@@ -10,10 +10,9 @@
 
 * {
     border: none;
-    border-radius: 1px;
+    border-radius: 8px;
     font-family: JetBrainsMono Nerd Font, Font Awesome;
     font-size: 17px;
-    min-height: 0;
 }
 
 window#waybar {
@@ -22,26 +21,37 @@ window#waybar {
     color: white;
 }
 
-#window {
-    font-weight: bold;
-    font-family: "Open Sans";
-}
-
 tooltip {
     background-color: @base;
     border: 1px solid @surface1;
 }
 
 #workspaces button {
-    padding: 0 5px;
+    padding: 0 0.2em;
+    margin-right: 0.2em;
     background: transparent;
     color: white;
     border-top: 2px solid transparent;
 }
 
 #workspaces button.focused {
-    background-image: linear-gradient(0deg, @mauve, @surface1);
-    box-shadow: inset 0 -3px @text;
+    background-image: linear-gradient(to top, @blue, @crust);
+}
+
+#mode,
+#tray,
+#power-profiles-daemon,
+#wireplumber,
+#network,
+#cpu,
+#disk#ssd,
+#memory,
+#battery,
+#clock {
+    padding: 0 0.2em;
+    margin-left: 0.3em;
+    color: @text;
+    font-weight: bold;
 }
 
 #mode {
@@ -49,36 +59,18 @@ tooltip {
     border-bottom: 3px solid white;
 }
 
-@keyframes blink {
-    to {
-        background-color: @mantle;
-        color: @text;
-    }
-}
-
-#wireplumber,
-#power-profiles-daemon,
-#clock,
-#battery,
-#cpu,
-#memory,
-#network,
-#tray,
-#mode {
-    padding: 0 2px 0 2px;
-    margin: 0 2px 0 2px;
-    color: @text;
-    min-width: 0;
-    font-weight: bold;
+#tray {
+    background-color: @maroon;
+    color: @mantle;
 }
 
 #power-profiles-daemon {
-    background-color: @pink;
+    background-color: @red;
     color: @mantle;
 }
 
 #wireplumber {
-    background-color: @red;
+    background-color: @peach;
     color: @mantle;
 }
 
@@ -88,7 +80,7 @@ tooltip {
 }
 
 #network {
-    background-color: @peach;
+    background-color: @yellow;
     color: @mantle;
 }
 
@@ -98,19 +90,26 @@ tooltip {
 }
 
 #cpu {
-    background-color: @yellow;
+    background-color: @green;
     color: @mantle;
-    min-width: 45px;
+    /* min-width: 45px; */
 }
 
 #disk {
-    background-color: @green;
+    background-color: @sapphire;
     color: @mantle;
 }
 
 #memory {
-    background-color: @sapphire;
+    background-color: @mauve;
     color: @mantle;
+}
+
+@keyframes blink {
+    to {
+        background-color: @mantle;
+        color: @text;
+    }
 }
 
 #battery.warning:not(.charging) {
@@ -123,18 +122,11 @@ tooltip {
 }
 
 #battery {
-    background-color: @mauve;
+    background-color: @teal;
     color: @mantle;
 }
 
-#battery icon {
-    color: red;
-}
-
-#battery.charging {}
-
 #clock {
-    font-weight: bold;
-    background-color: @teal;
+    background-color: @pink;
     color: @mantle;
 }
