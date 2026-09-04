@@ -242,7 +242,6 @@ let
     bemenu
     wofi
     thunar
-    waybar
     libnotify
     batsignal
     darkman
@@ -509,6 +508,9 @@ in
       xwayland.enable = true;
     };
 
+    # waybar
+    waybar.enable = true;
+
     # fzf
     fzf = {
       keybindings = true;
@@ -579,6 +581,10 @@ in
   # Services options
   #-------------------------------------------------------
   services = {
+
+    # Power-profiles-daemon
+    power-profiles-daemon.enable = true;
+
     # Enable Gnome Keyring
     gnome.gnome-keyring.enable = true;
 
