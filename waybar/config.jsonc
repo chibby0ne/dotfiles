@@ -4,9 +4,18 @@
     "height": 18, // Waybar height
     // "width": 1366, // Waybar width
     // Choose the order of the modules
-    "modules-left": ["sway/workspaces", "sway/mode", "custom/spotify"],
+    "modules-left": ["sway/workspaces", "sway/mode"],
     "modules-center": ["sway/window"],
-    "modules-right": ["pulseaudio", "network", "cpu", "memory", "battery", "tray", "clock"],
+    "modules-right": [
+        "wireplumber",
+        "network",
+        "cpu",
+        "memory",
+        "battery",
+        "tray",
+        "clock",
+        "power-profiles-daemon"
+    ],
     "sway/workspaces": {
         "disable-scroll": true,
         "all-outputs": false,
@@ -27,7 +36,6 @@
         "format": "<span style=\"italic\">{}</span>"
     },
     "tray": {
-        // "icon-size": 21,
         "spacing": 10
     },
     "clock": {
@@ -41,11 +49,19 @@
     },
     "battery": {
         "bat": "BAT1",
+        "interval": 60,
         "states": {
             // "good": 95,
             "warning": 30,
             "critical": 15
         },
+	"events": {
+		"on-discharging-warning": "notify-send -u normal 'Low Battery'",
+		"on-discharging-critical": "notify-send -u critical 'Very Low Battery'",
+		"on-charging-100": "notify-send -u normal 'Battery Full!'",
+		"on-discharging": "notify-send -u normal 'Power Switch' Discharging",
+		"on-charging": "notify-send -u normal 'Power Switch' Charging'"
+	},
         "format": "{capacity}% {icon}",
         // "format-good": "", // An empty format will hide the module
         // "format-full": "",
@@ -57,27 +73,31 @@
         "format-ethernet": "{ifname}: {ipaddr}/{cidr} ",
         "format-disconnected": "Disconnected ⚠"
     },
-    "pulseaudio": {
-        //"scroll-step": 1,
-        "format": "{volume}% {icon}",
-        "format-bluetooth": "{volume}% {icon}",
-        "format-muted": "",
+    "wireplumber": {
+	"format": "{volume}% {icon}",
+	"format-bluetooth": "{volume}% {icon}",
+	"format-muted": "",
         "format-icons": {
-            "headphones": "",
-            "handsfree": "",
-            "headset": "",
+            "headphone": "",
+            "hands-free": "󰂑",
+            "headset": "󰂑",
             "phone": "",
             "portable": "",
             "car": "",
-            "default": ["", ""]
+            "default": ["", "", ""]
         },
-        "on-click": "pavucontrol"
+        "on-click-right": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
+	"scroll-step": 1
     },
-    "custom/spotify": {
-        "format": " {}",
-        "max-length": 40,
-        "interval": 30, // Remove this if your script is endless and write in loop
-        "exec": "$HOME/.config/waybar/mediaplayer.sh 2> /dev/null", // Script in resources folder
-        "exec-if": "pgrep spotify"
+    "power-profiles-daemon": {
+        "format": "{icon}",
+        "tooltip-format": "Power profile: {profile}nCPU driver: {cpu_driver}nPlatform driver: {platform_driver}",
+        "tooltip": true,
+        "format-icons": {
+            "default": "",
+            "performance": "",
+            "balanced": "",
+            "power-saver": ""
+        }
     }
 }
