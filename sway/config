@@ -116,7 +116,7 @@ bindsym $mod+Shift+3 move container to workspace 3:term
 bindsym $mod+Shift+4 move container to workspace 4:work
 bindsym $mod+Shift+5 move container to workspace 5:music
 bindsym $mod+Shift+6 move container to workspace 6:star
-bindsym $mod+Shift+7 move container to workspace 7:bunny
+bindsym $mod+Shift+7 move container to workspace 7:fire
 bindsym $mod+Shift+8 move container to workspace 8:snow
 bindsym $mod+Shift+9 move container to workspace 9:bike
 bindsym $mod+Shift+0 move container to workspace 10:space
