@@ -15,10 +15,6 @@ set $mod Mod4
 # is used in the bar {} block below.
 font pango:monospace 8
 
-# This font is widely installed, provides lots of unicode glyphs, right-to-left
-# text rendering and scalability on retina/hidpi displays (thanks to pango).
-font pango:DejaVu Sans Mono 9
-
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
@@ -103,27 +99,27 @@ bindsym $mod+a focus parent
 # switch to workspace
 bindsym $mod+1 workspace 1:web
 bindsym $mod+2 workspace 2:code
-bindsym $mod+3 workspace 3
-bindsym $mod+4 workspace 4
-bindsym $mod+5 workspace 5
-bindsym $mod+6 workspace 6
-bindsym $mod+7 workspace 7
-bindsym $mod+8 workspace 8
-bindsym $mod+9 workspace 9
-bindsym $mod+0 workspace 10
+bindsym $mod+3 workspace 3:term
+bindsym $mod+4 workspace 4:work
+bindsym $mod+5 workspace 5:music
+bindsym $mod+6 workspace 6:star
+bindsym $mod+7 workspace 7:fire
+bindsym $mod+9 workspace 8:snow
+bindsym $mod+8 workspace 9:bike
+bindsym $mod+0 workspace 10:space
 
 
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace 1:web
 bindsym $mod+Shift+2 move container to workspace 2:code
-bindsym $mod+Shift+3 move container to workspace 3
-bindsym $mod+Shift+4 move container to workspace 4
-bindsym $mod+Shift+5 move container to workspace 5
-bindsym $mod+Shift+6 move container to workspace 6
-bindsym $mod+Shift+7 move container to workspace 7
-bindsym $mod+Shift+8 move container to workspace 8
-bindsym $mod+Shift+9 move container to workspace 9
-bindsym $mod+Shift+0 move container to workspace 10
+bindsym $mod+Shift+3 move container to workspace 3:term
+bindsym $mod+Shift+4 move container to workspace 4:work
+bindsym $mod+Shift+5 move container to workspace 5:music
+bindsym $mod+Shift+6 move container to workspace 6:star
+bindsym $mod+Shift+7 move container to workspace 7:bunny
+bindsym $mod+Shift+8 move container to workspace 8:snow
+bindsym $mod+Shift+9 move container to workspace 9:bike
+bindsym $mod+Shift+0 move container to workspace 10:space
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
