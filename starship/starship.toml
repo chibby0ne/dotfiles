@@ -20,6 +20,7 @@ $java\
 $kotlin\
 $haskell\
 $python\
+$direnv\
 [](fg:green bg:sapphire)\
 $conda\
 [](fg:sapphire bg:lavender)\
@@ -283,3 +284,8 @@ surface0 = "#363a4f"
 base = "#24273a"
 mantle = "#1e2030"
 crust = "#181926"
+
+[direnv]
+disabled = false
+style = "bg:sky"
+format = '[[ $symbol$loaded/$allowed ](fg:crust bg:sky)]($style)'
