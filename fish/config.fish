@@ -14,7 +14,7 @@ if status is-interactive
     # Allows the correct rendering of man pages using bat in Linux
     # https://github.com/sharkdp/bat/issues/652#issuecomment-2051790042
     set -x MANROFFOPT -c
-    set -x MANPAGER "sh -c 'col -bx | bat -l man -p'"
+    set -x MANPAGER "sh -c 'col -bx | bat -l man --terminal-width 150'"
 
     # direnv
     direnv hook fish | source
