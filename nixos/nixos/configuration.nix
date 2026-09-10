@@ -100,6 +100,8 @@ let
     chez
     # groovy
     groovy
+    # rust
+    cargo-dist
   ];
 
   libraryPackages = with pkgs; [
