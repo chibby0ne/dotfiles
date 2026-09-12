@@ -190,6 +190,7 @@ let
     gh
     # Source version control
     git
+    git-cliff
     gh
     lazygit
     # For taking screenshots and copy pasting
