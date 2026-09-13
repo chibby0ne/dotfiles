@@ -225,6 +225,7 @@ let
     pwvucontrol
     spotify
     spotube
+    audacity
   ];
 
   imagePackages = with pkgs; [
