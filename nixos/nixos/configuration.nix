@@ -180,6 +180,7 @@ let
     ranger
     slurp
     unzip
+    unrar
     tmux
     tokei
     tree
@@ -219,6 +220,7 @@ let
     subdl
     yt-dlp
     stellarium
+    makemkv
   ];
 
   audioPackages = with pkgs; [
