@@ -390,6 +390,15 @@ in
     networkmanager = {
       enable = true; # Easiest to use and most distros use this by default.
     };
+
+    # Use nftables (used for tailscale)
+    nftables.enable = true;
+    firewall = {
+      enable = true;
+      trustedInterfaces = [ config.services.tailscale.interfaceName ];
+      allowedUDPPorts = [ config.services.tailscale.port ];
+    };
+
   };
 
   #-------------------------------------------------------
@@ -589,6 +598,9 @@ in
   #-------------------------------------------------------
   services = {
 
+    # Tailscale
+    tailscale.enable = true;
+
     # Power-profiles-daemon
     power-profiles-daemon.enable = true;
 
@@ -665,6 +677,19 @@ in
       # Enable wacom digitizer/tablet
       wacom.enable = true;
     };
+  };
+
+  #-------------------------------------------------------
+  # Systemd options
+  #-------------------------------------------------------
+  systemd = {
+    # Force tailscale to use nftable (Critical for clean nftables-only systems)
+    # Avoids the "iptables-compat" translation layer issues
+    services.tailscaled.serviceConfig.Environment = [
+      "TS_DEBUG_FIREWALL_MODE=nftables"
+    ];
+    # Prevent systemd from waiting for network online (recommended for faster boot with VPN)
+    network.wait-online.enable = true;
   };
 
   #-------------------------------------------------------
