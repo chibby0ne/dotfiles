@@ -210,6 +210,7 @@ let
     neovim-remote
     tectonic
     fw-ectool
+    checksec
   ];
 
   videoPackages = with pkgs; [
