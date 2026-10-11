@@ -102,6 +102,8 @@ let
     groovy
     # rust
     cargo-dist
+    # mamba
+    mamba
   ];
 
   libraryPackages = with pkgs; [
