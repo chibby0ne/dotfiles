@@ -31,8 +31,6 @@ let
     # Kotlin
     kotlin-language-server
     #ts
-    typescript
-    typescript-language-server
     bun
     deno
     # Nix
@@ -168,6 +166,7 @@ let
   ];
 
   shellToolsPackages = with pkgs; [
+    tcpdump
     bash
     starship
     bat
@@ -601,6 +600,9 @@ in
   #-------------------------------------------------------
   services = {
 
+    # Flatpak
+    flatpak.enable = true;
+
     # Tailscale
     tailscale.enable = true;
 
@@ -711,6 +713,8 @@ in
       zed-mono
       office-code-pro
       jetbrains-mono
+
+      ioskeley-mono.term-nf
     ];
 
   #-------------------------------------------------------
