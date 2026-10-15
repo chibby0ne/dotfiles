@@ -166,6 +166,7 @@ let
   ];
 
   shellToolsPackages = with pkgs; [
+    smartmontools
     tcpdump
     bash
     starship
