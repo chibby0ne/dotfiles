@@ -15,6 +15,12 @@
     font-size: 17px;
 }
 
+/* This sets the font to the "sway/window" module */
+/* window#waybar box#window label { */
+/*     font-family: "IoskeleyMonoTerm Nerd Font Mono"; */
+/*     font-size: 1.2rem; */
+/* } */
+
 window#waybar {
     background: transparent;
     font-weight: bold;
