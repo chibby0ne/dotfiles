@@ -20,9 +20,10 @@ if status is-interactive
     direnv hook fish | source
 
     # Replace ls with eza (CachyOS style)
-    alias ls='eza -al --color=always --group-directories-first --icons=always'
-    alias la='eza -a --color=always --group-directories-first --icons=always'
-    alias ll='eza -l --color=always --group-directories-first --icons=always'
+    alias lt='eza -lht --level=2 --git --icons --sort modified'
+    alias l='eza -lh --git --icons --sort modified'
+    alias ls='eza -lh --git --icons'
+    alias la='eza -lha --git --icons'
 
     # fish theme (this ghostty current setup)
     # i.e frappe for dark and latte for light (frappe uses latte for light mode))
