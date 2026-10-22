@@ -307,7 +307,6 @@ let
     lshw
     nvme-cli
     s-tui
-    kdePackages.wacomtablet
   ];
 
   fileSystemsPackages = with pkgs; [
