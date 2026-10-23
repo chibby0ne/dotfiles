@@ -724,6 +724,12 @@ in
     ];
     # Prevent systemd from waiting for network online (recommended for faster boot with VPN)
     network.wait-online.enable = true;
+
+    # For some reason the clock doesn't appear due to "Locale not supported by C library. Using the fallback 'C' locale." error
+    # When LC_ALL is not set in the environment even if LANG is set correctly
+    user.services.waybar = {
+      environment.LC_ALL = "en_US.UTF-8";
+    };
   };
 
   #-------------------------------------------------------
