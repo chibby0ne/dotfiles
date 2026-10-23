@@ -116,6 +116,16 @@ let
     pi-coding-agent
   ];
 
+  reverseEngineerPackages = with pkgs; [
+    lldb
+    gdb
+    gef
+    ghidra
+    radare2
+    iaito
+    imhex
+  ];
+
   pythonPackages = with pkgs.python3Packages; [
     ipython
     jupyterlab
@@ -281,7 +291,6 @@ let
     hunspell
     hunspellDicts.en-us-large
     # calibre
-    imhex
     cherrytree
     taskwarrior3
   ];
@@ -519,8 +528,8 @@ in
 
     # Wireshark
     wireshark = {
-    enable = true;
-    dumpcap.enable = true;
+      enable = true;
+      dumpcap.enable = true;
     };
 
     # Browser to log in to captive portals without messing with DNS settings
@@ -574,6 +583,7 @@ in
     ++ languagePackages
     ++ libraryPackages
     ++ idePackages
+    ++ reverseEngineerPackages
     ++ pythonPackages
     ++ kubernetesPackages
     # ++ [ gdk ]
