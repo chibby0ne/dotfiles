@@ -122,7 +122,6 @@ let
     gef
     ghidra
     radare2
-    iaito
     imhex
   ];
 
