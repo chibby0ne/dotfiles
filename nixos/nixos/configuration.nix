@@ -665,8 +665,16 @@ in
     # BIOS updates through LVFS
     fwupd.enable = true;
 
-    # Enable GDM (Gnome Display Manager) -> handles systemd integration of sway better than having system user units
-    displayManager.gdm.enable = true;
+    # Greeter for sway (starts sway)
+    greetd = {
+      enable = true;
+      settings = {
+        default_session = {
+          command = "${pkgs.tuigreet}/bin/tuigreet --time --cmd sway";
+          user = "greeter";
+        };
+      };
+    };
 
     pipewire = {
       enable = true;
