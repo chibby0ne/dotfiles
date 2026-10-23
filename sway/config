@@ -215,24 +215,14 @@ exec swayidle -w \
     before-sleep 'swaylock -f -i ~/.config/sway/sierra_nevada_5472_3648.jpg'
 
 
-
 # Make sure XDG_CURRENT_DESKTOP is set. Make sure WAYLAND_DISPLAY and XDG_CURRENT_DESKTOP are imported into D-Bus
 # https://github.com/emersion/xdg-desktop-portal-wlr
 exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
-
-
-# GTK+ applications take 20 seconds to start
-# https://github.com/swaywm/sway/wiki#gtk-applications-take-20-seconds-to-start
-# Latest xdg-desktop-portal-gnome at the time had a bug and this didn't work in alleviating/avoiding the 20 second delay.
-# https://bugs.launchpad.net/ubuntu/+source/xdg-desktop-portal-gnome/+bug/2008428
-# Thus commenting it for the time being.
-# exec dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK
 
 # Remap caps to esc
 input type:keyboard {
     xkb_options caps:escape
 }
-
 
 # Mouse not working on Wine Application in Sway: https://wiki.archlinux.org/title/sway#Mouse_not_working_in_WINE_applications
 exec_always xrandr --output XWAYLAND0 --primary
