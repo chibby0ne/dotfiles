@@ -20,7 +20,7 @@ if status is-interactive
     direnv hook fish | source
 
     # Replace ls with eza (CachyOS style)
-    alias lt='eza -lht --level=2 --git --icons --sort modified'
+    alias lt='eza -lhT --level=2 --git --icons --sort modified'
     alias l='eza -lh --git --icons --sort modified'
     alias ls='eza -lh --git --icons'
     alias la='eza -lha --git --icons'
