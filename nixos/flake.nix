@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
+    nixpkgs-2605.url = "github:nixos/nixpkgs?ref=04607e1165ac22c5fde6dcc54c9e0b3c0487c555";
     nixpkgs-rustdesk.url = "github:nixos/nixpkgs?ref=2fcb964de67fcf60b43471c55d5d99e61a9ccb5a";
   };
 
@@ -10,6 +11,7 @@
     {
       self,
       nixpkgs,
+      nixpkgs-2605,
       nixpkgs-rustdesk,
       ...
     }:
@@ -18,6 +20,9 @@
       pkgs = import nixpkgs {
         inherit system;
         config.allowUnfree = true; # Obsidian, Steam and Discord are unfree
+      };
+      pkgs2605 = import nixpkgs-2605 {
+        inherit system;
       };
       pkgsRustDesk = import nixpkgs-rustdesk {
         inherit system;
@@ -41,6 +46,7 @@
             ({ config, pkgs, ... }: {
               nixpkgs.overlays = [
                 (final: prev: {
+                  xdg-desktop-portal = pkgs2605.xdg-desktop-portal;
                   rustdesk = pkgsRustDesk.rustdesk;
                 })
               ];
