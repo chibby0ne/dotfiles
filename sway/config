@@ -150,14 +150,6 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-# Start waybar to display a workspace bar
-bar {
-        strip_workspace_name yes
-        strip_workspace_numbers yes
-        swaybar_command waybar
-        tray_output primary
-}
-
 # Brightness
 bindsym XF86MonBrightnessDown exec brillo -U 2
 bindsym XF86MonBrightnessUp exec brillo -A 2
@@ -215,10 +207,6 @@ exec swayidle -w \
     before-sleep 'swaylock -f -i ~/.config/sway/sierra_nevada_5472_3648.jpg'
 
 
-# Make sure XDG_CURRENT_DESKTOP is set. Make sure WAYLAND_DISPLAY and XDG_CURRENT_DESKTOP are imported into D-Bus
-# https://github.com/emersion/xdg-desktop-portal-wlr
-exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
-
 # Remap caps to esc
 input type:keyboard {
     xkb_options caps:escape
@@ -246,3 +234,8 @@ exec darkman run &
 for_window [app_id="firefox"] inhibit_idle fullscreen
 for_window [app_id="mpv"] inhibit_idle fullscreen
 for_window [app_id="vlc"] inhibit_idle fullscreen
+
+# This includes a config file that does the systemd integration according to https://github.com/swaywm/sway/wiki/systemd-integration
+# Thus it activates the graphical-session which in turn should be enough to activate xdg-portal
+# See here: https://discourse.nixos.org/t/graphical-session-target-does-not-get-activated-by-sway/79369
+include /etc/sway/config.d/*
