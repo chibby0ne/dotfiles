@@ -16,6 +16,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-2605": {
+      "locked": {
+        "lastModified": 1785858998,
+        "narHash": "sha256-fKCq5jphd6l/Ms6gc3dptkw/TcKLYub9lQE5g6rbbkc=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "04607e1165ac22c5fde6dcc54c9e0b3c0487c555",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "04607e1165ac22c5fde6dcc54c9e0b3c0487c555",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs-rustdesk": {
       "locked": {
         "lastModified": 1786384358,
@@ -35,6 +51,7 @@
     "root": {
       "inputs": {
         "nixpkgs": "nixpkgs",
+        "nixpkgs-2605": "nixpkgs-2605",
         "nixpkgs-rustdesk": "nixpkgs-rustdesk"
       }
     }
