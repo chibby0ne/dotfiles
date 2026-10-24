@@ -123,6 +123,7 @@ let
     ghidra
     radare2
     imhex
+    rizin
   ];
 
   pythonPackages = with pkgs.python3Packages; [
