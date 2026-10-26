@@ -73,6 +73,7 @@ let
     gcc
     clang
     clang-manpages
+    # Generates c/c++ compilation database
     bear
     glib
     # lisp
@@ -124,6 +125,7 @@ let
     radare2
     imhex
     rizin
+    checksec
   ];
 
   pythonPackages = with pkgs.python3Packages; [
@@ -175,10 +177,14 @@ let
     keepassxc
   ];
 
+  containerizationPackages = with pkgs; [
+    slirp4netns
+    bubblewrap
+  ];
+
   shellToolsPackages = with pkgs; [
-    smartmontools
-    tcpdump
     bash
+    zsh
     starship
     bat
     fd
@@ -198,10 +204,7 @@ let
     tokei
     tree
     wget
-    zsh
-    nix-index
     yq
-    gh
     # Source version control
     git
     git-cliff
@@ -216,14 +219,10 @@ let
     nushell
     atuin
     fastfetch
-    kitty
-    wezterm
     ghostty
     android-tools
     neovim-remote
     tectonic
-    fw-ectool
-    checksec
   ];
 
   videoPackages = with pkgs; [
@@ -306,6 +305,7 @@ let
     httpie
     networkmanagerapplet
     iperf
+    tcpdump
   ];
 
   hardwareAndDebuggingPackages = with pkgs; [
@@ -317,6 +317,8 @@ let
     lshw
     nvme-cli
     s-tui
+    smartmontools
+    fw-ectool
   ];
 
   fileSystemsPackages = with pkgs; [
@@ -749,11 +751,11 @@ in
       home = "/home/chibby0ne";
       extraGroups = [
         "wheel" # Enable ‘sudo’ for the user.
-          "networkmanager" # Enable configuration of network using network manager
-          "video" # Required by sway?
-          "adbusers" # adb
-          "libvirtd" # libvirt / kvm2 driver (minikube)
-          "wireshark" # wireshark
+        "networkmanager" # Enable configuration of network using network manager
+        "video" # Required by sway?
+        "adbusers" # adb
+        "libvirtd" # libvirt / kvm2 driver (minikube)
+        "wireshark" # wireshark
       ];
     };
 
