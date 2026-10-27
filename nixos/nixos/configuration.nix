@@ -57,6 +57,8 @@ let
     elixir-ls
     # css
     vscode-langservers-extracted
+    # bash
+    bash-language-server
   ];
 
   languagePackages = with pkgs; [
@@ -574,6 +576,7 @@ in
     ++ databasePackages
     ++ documentationPackages
     ++ passwordManagersPackages
+    ++ containerizationPackages
     ++ shellToolsPackages
     ++ videoPackages
     ++ audioPackages
