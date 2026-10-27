@@ -1,6 +1,7 @@
 if status is-interactive
     fish_add_path ~/.cargo/bin
     fish_add_path ~/.wakatime
+    fish_add_path ~/.local/bin
 
     set -x EDITOR nvim
 
