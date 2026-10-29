@@ -185,6 +185,7 @@ let
   ];
 
   shellToolsPackages = with pkgs; [
+    chafa
     bash
     zsh
     starship
