@@ -237,6 +237,7 @@ let
     yt-dlp
     stellarium
     makemkv
+    mediainfo
   ];
 
   audioPackages = with pkgs; [
@@ -295,6 +296,8 @@ let
     # calibre
     cherrytree
     taskwarrior3
+    docling
+    poppler
   ];
 
   networkingPackages = with pkgs; [
