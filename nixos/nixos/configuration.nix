@@ -427,8 +427,13 @@ in
   security = {
     # https://nixos.wiki/wiki/PipeWire
     rtkit.enable = true;
-    # Attempt unlock keyring upon login
-    pam.services.gnome.enableGnomeKeyring = true;
+    pam.services = {
+      # Attempt unlock keyring upon login
+      gnome.enableGnomeKeyring = true;
+
+      # Allow fingerprint authentication for greetd
+      greetd.fprintAuth = true;
+    };
   };
 
   #-------------------------------------------------------
@@ -633,7 +638,7 @@ in
     gnome.gnome-keyring.enable = true;
 
     # Let's see if this gets rid of the systemd unit?
-    fprintd.enable = false;
+    fprintd.enable = true;
 
     # Enable CUPS for printing
     printing = {
@@ -659,6 +664,7 @@ in
     # Greeter for sway (starts sway)
     greetd = {
       enable = true;
+      useTextGreeter = true;
       settings = {
         default_session = {
           command = "${pkgs.tuigreet}/bin/tuigreet --time --cmd sway";
