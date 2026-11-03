@@ -195,9 +195,6 @@ bindsym $mod+backspace output eDP-1 toggle
 # Taking screenshots
 bindsym $mod+p exec grim -g "$(slurp -d)" - | wl-copy
 
-# Toggle gtk color-scheme (light/dark)
-bindsym $mod+Shift+t exec ~/.config/sway/toggle_gtk_color_scheme.sh
-
 # Go to sleep and lock screen
 exec swayidle -w \
     timeout 2400 'swaylock -f -i ~/.config/sway/sierra_nevada_5472_3648.jpg' \
@@ -225,7 +222,7 @@ exec gammastep
 exec mako
 
 # Run darkman as daemon 
-exec darkman run &
+exec darkman run
 
 # Run custom battery alert script that changes color of power led
 #exec ~/.local/bin/framework_battery_alert &
