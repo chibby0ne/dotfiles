@@ -114,7 +114,6 @@ let
   idePackages = with pkgs; [
     jetbrains.idea
     claude-monitor
-    opencode
     claude-code
     pi-coding-agent
   ];
