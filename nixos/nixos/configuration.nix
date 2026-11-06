@@ -445,6 +445,10 @@ in
     docker = {
       enable = true;
       storageDriver = "btrfs"; # Might be needed for btrfs
+      rootless = {
+        enable = true;
+        setSocketVariable = true;
+      };
     };
   };
 
