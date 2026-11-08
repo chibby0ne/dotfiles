@@ -278,7 +278,6 @@ let
     google-chrome
     lynx
     tor-browser
-    brave
     googleearth-pro
   ];
 
