@@ -224,7 +224,7 @@ let
     ghostty
     android-tools
     neovim-remote
-    tectonic
+    #tectonic
   ];
 
   videoPackages = with pkgs; [
@@ -293,8 +293,7 @@ let
     hunspellDicts.en-us-large
     # calibre
     cherrytree
-    taskwarrior3
-    docling
+    #taskwarrior3
     poppler
   ];
 
