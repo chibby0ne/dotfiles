@@ -184,6 +184,7 @@ let
   ];
 
   shellToolsPackages = with pkgs; [
+    age
     chafa
     bash
     zsh
