@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+set -eo pipefail
+pushd ~/Projects/dotfiles/nixos
+nix flake update
+echo "NixOS rebuilding..."
+sudo nixos-rebuild switch --impure --flake . 2>&1 | tee nixos-switch.log
+read -r generation build_date build_time nixos_version kernel < <(
+	nixos-rebuild list-generations | awk 'NR == 2 { print $1, $2, $3, $4, $5 }'
+)
+git commit -s -a -m "nixos: update nixpkgs Gen: ${generation} version: ${nixos_version}" -m "Kernel: ${kernel}"$'\n'"Build Date: ${build_date} ${build_time}"$'\n'
+popd
