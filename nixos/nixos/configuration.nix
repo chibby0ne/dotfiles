@@ -238,7 +238,6 @@ let
     stellarium
     makemkv
     mediainfo
-    kdePackages.kdeconnect-kde
   ];
 
   audioPackages = with pkgs; [
@@ -341,6 +340,10 @@ let
     bpftop
     bpftools
     bpftrace
+  ];
+
+  androidSyncronizationPackages = with pkgs; [
+    libmtp
   ];
 
 in
@@ -601,7 +604,8 @@ in
     ++ hardwareAndDebuggingPackages
     ++ fileSystemsPackages
     ++ emulatorsPackages
-    ++ ebpfPackages;
+    ++ ebpfPackages
+    ++ androidSyncronizationPackages;
 
   #-------------------------------------------------------
   # nixpkgs options
