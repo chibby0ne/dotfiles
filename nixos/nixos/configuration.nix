@@ -135,6 +135,8 @@ let
   ];
 
   kubernetesPackages = with pkgs; [
+    # Application sandbox
+    sydbox
     # Containerization/Devops
     minikube
     kubernetes-helm
