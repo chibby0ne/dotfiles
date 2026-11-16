@@ -238,6 +238,7 @@ let
     stellarium
     makemkv
     mediainfo
+    kdePackages.kdeconnect-kde
   ];
 
   audioPackages = with pkgs; [
