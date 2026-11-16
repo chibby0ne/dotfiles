@@ -226,6 +226,7 @@ let
     android-tools
     neovim-remote
     #tectonic
+    libmtp
   ];
 
   videoPackages = with pkgs; [
