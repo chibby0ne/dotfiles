@@ -343,10 +343,6 @@ let
     bpftrace
   ];
 
-  androidSyncronizationPackages = with pkgs; [
-    libmtp
-  ];
-
 in
 
 {
@@ -605,8 +601,7 @@ in
     ++ hardwareAndDebuggingPackages
     ++ fileSystemsPackages
     ++ emulatorsPackages
-    ++ ebpfPackages
-    ++ androidSyncronizationPackages;
+    ++ ebpfPackages;
 
   #-------------------------------------------------------
   # nixpkgs options
@@ -632,6 +627,10 @@ in
   # Services options
   #-------------------------------------------------------
   services = {
+
+    # Android device detection
+    gvfs.enable = true;
+    udisks2.enable = true;
 
     # Flatpak
     flatpak.enable = true;
