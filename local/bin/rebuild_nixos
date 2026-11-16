@@ -1,5 +1,61 @@
 #!/usr/bin/env bash
 
+repo_root="$(git rev-parse --show-toplevel)" || exit 1
+
+package_changes=$(
+    REPO_ROOT="$repo_root" python3 - <<'PY'
+import os
+import re
+import subprocess
+from collections import Counter
+from pathlib import Path
+
+root = Path(os.environ["REPO_ROOT"])
+config = root / "nixos/nixos/configuration.nix"
+
+old_config = subprocess.check_output(
+    ["git", "-C", str(root), "show", "HEAD:nixos/nixos/configuration.nix"],
+    text=True,
+)
+
+new_config = config.read_text()
+
+def extract_packages(source):
+    packages = []
+
+    for match in re.finditer(r"\bwith\s+pkgs\s*;\s*\[", source):
+        start = match.end()
+        depth = 1
+        i = start
+
+        while i < len(source) and depth:
+            if source[i] == "[":
+                depth += 1
+            elif source[i] == "]":
+                depth -= 1
+            i += 1
+
+        body = source[start:i - 1]
+
+        for line in body.splitlines():
+            line = line.split("#", 1)[0].strip()
+
+            if re.fullmatch(r"[a-zA-Z_][a-zA-Z0-9_'-]*", line):
+                packages.append(line)
+
+    return Counter(packages)
+
+old = extract_packages(old_config)
+new = extract_packages(new_config)
+
+for package in sorted(new - old):
+    print(f"* Added {package}")
+
+for package in sorted(old - new):
+    print(f"* Removed {package}")
+PY
+)
+
 set -eo pipefail
 pushd ~/Projects/dotfiles/nixos
 nvim nixos/configuration.nix
@@ -9,5 +65,15 @@ sudo nixos-rebuild switch --impure --flake . 2>&1 | tee nixos-switch.log
 read -r generation build_date build_time nixos_version kernel < <(
 	nixos-rebuild list-generations | awk 'NR == 2 { print $1, $2, $3, $4, $5 }'
 )
-git commit -s -a -m "nixos: gen: ${generation} version: ${nixos_version}" -m "Kernel: ${kernel}"$'\n'"Build Date: ${build_date} ${build_time}"$'\n'
+
+commit_body="Kernel: ${kernel}
+Build Date: ${build_date} ${build_time}"
+
+if [[ -n "$package_changes" ]]; then
+    commit_body+=$'\n\n'"${package_changes}"
+fi
+
+git add nixos/configuration.nix
+git commit -s -m "nixos: gen: ${generation} version: ${nixos_version}" -m "${commit_body}"$'\n'
+
 popd
