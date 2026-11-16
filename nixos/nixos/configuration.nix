@@ -252,6 +252,7 @@ let
     eog
     pinta
     xournalpp
+    gphoto2fs
   ];
 
   socialMediaPackages = with pkgs; [
