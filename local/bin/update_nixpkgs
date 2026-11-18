@@ -8,5 +8,15 @@ sudo nixos-rebuild switch --impure --flake . 2>&1 | tee nixos-switch.log
 read -r generation build_date build_time nixos_version kernel < <(
 	nixos-rebuild list-generations | awk 'NR == 2 { print $1, $2, $3, $4, $5 }'
 )
-git commit -s -a -m "nixos: update nixpkgs Gen: ${generation} version: ${nixos_version}" -m "Kernel: ${kernel}"$'\n'"Build Date: ${build_date} ${build_time}"$'\n'
+diff=$(dix last --output=json |  jq -r '.[0].report.diffs[] | select(.status == "Upgraded") | "- \(.name): \([.versions[] | "\(.old.name) -> \(.new.name)"] | join(", "))"')
+
+commit_body="Kernel: ${kernel}
+Build Date: ${build_date} ${build_time}
+
+Packages upgraded:
+
+${diff}"
+
+git add flake.lock
+git commit -s -m "nixos: update nixpkgs Gen: ${generation} version: ${nixos_version}" -m "${commit_body}"$'\n'
 popd
