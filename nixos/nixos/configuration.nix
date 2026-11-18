@@ -229,6 +229,7 @@ let
     neovim-remote
     #tectonic
     libmtp
+    dix
   ];
 
   videoPackages = with pkgs; [
