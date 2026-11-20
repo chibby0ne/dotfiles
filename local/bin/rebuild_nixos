@@ -63,12 +63,11 @@ nvim nixos/configuration.nix
 git diff nixos/configuration.nix
 echo "NixOS rebuilding..."
 sudo nixos-rebuild switch --impure --flake . 2>&1 | tee nixos-switch.log
-read -r generation build_date build_time nixos_version kernel < <(
+read -r generation _ _ nixos_version kernel < <(
 	nixos-rebuild list-generations | awk 'NR == 2 { print $1, $2, $3, $4, $5 }'
 )
 
-commit_body="Kernel: ${kernel}
-Build Date: ${build_date} ${build_time}"
+commit_body="Kernel: ${kernel}"
 
 if [[ -n "$package_changes" ]]; then
     commit_body+=$'\n\n'"${package_changes}"
