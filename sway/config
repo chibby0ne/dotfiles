@@ -20,7 +20,7 @@ set $mod Mod4
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
 # output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
 # output * bg mount_fuji_1920_1080.jpg fill
-output * bg mount_fuji_autumn.jpg fill
+output * bg digital_blackhole_3840_2160.jpg fill
 
 
 # Before i3 v4.8, we used to recommend this one as the default:
